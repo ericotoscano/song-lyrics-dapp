@@ -1,0 +1,19 @@
+{
+  "name": "crypto-song-lyrics",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "server side of dApp",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Érico Toscano de Oliveira",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.1",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
