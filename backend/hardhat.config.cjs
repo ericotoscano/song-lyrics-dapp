@@ -1,5 +1,6 @@
 require('@nomicfoundation/hardhat-toolbox');
 require('@nomicfoundation/hardhat-ignition-ethers');
+require("@nomicfoundation/hardhat-verify");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
