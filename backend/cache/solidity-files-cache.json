@@ -1,0 +1,41 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "D:\\projetos\\alchemy-ethereum-bootcamp\\song-lyrics-dapp\\backend\\contracts\\SongRegister.sol": {
+      "lastModificationDate": 1714667940480,
+      "contentHash": "a7e3d2b7a58d987ba0cc5ae77e46a17c",
+      "sourceName": "contracts/SongRegister.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "SongRegister"
+      ]
+    }
+  }
+}
