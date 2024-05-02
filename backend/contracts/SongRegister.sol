@@ -61,7 +61,7 @@ contract SongRegister {
 
         _songs[msg.sender].push(_songHash);
 
-        emit Registered(msg.sender, _songHash, block.timestamp);
+        emit Registered(msg.sender, _songHash, block.number);
     }
 
     function withdraw() external onlyOwner {
