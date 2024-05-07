@@ -16,7 +16,7 @@ contract SongRegister {
     event Registered(
         address indexed _writer,
         bytes32 _hash,
-        uint256 _timestamp
+        uint256 _blockNumber
     );
 
     error NotOwner();
