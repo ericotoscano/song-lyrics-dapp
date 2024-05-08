@@ -2,7 +2,7 @@ import Account from './Account';
 import Write from './Write';
 import Encrypt from './Encrypt';
 import Deposit from './Deposit';
-import { Box, Center, Flex, Heading, Text, Tabs, TabList, TabPanels, Tab } from '@chakra-ui/react';
+import { Box, Center, Divider, Flex, Heading, Text, Tabs, TabList, TabPanels, Tab } from '@chakra-ui/react';
 import { useState } from 'react';
 
 function App() {
@@ -13,15 +13,15 @@ function App() {
   const [songSignature, setSongSignature] = useState('');
 
   return (
-    <Box w="100vw">
+    <Box as="samp" w="100vw">
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-          <Heading mb={10} fontSize={35}>
+          <Heading mb={30} fontSize={35}>
             Crypto Songs Lyrics
           </Heading>
 
-          <Text mb={10} fontSize={20}>
-            A cryptography way to prove authenticity of your songs lyrics ideas.
+          <Text mb={40} fontSize={25} as="cite">
+            A cryptographic way to prove the authenticity of your songs lyrics ideas
           </Text>
 
           <Account account={account} setAccount={setAccount} setSigner={setSigner} />

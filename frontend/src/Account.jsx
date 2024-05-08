@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, AlertTitle, AlertDescription, Box, Button, Center, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, OrderedList, ListItem, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
 function Account({ account, setAccount, setSigner }) {
@@ -20,17 +20,37 @@ function Account({ account, setAccount, setSigner }) {
     <Box w="100vw">
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-          <Button mb={10} mt={20} onClick={getAccount}>
-            Connect your account
-          </Button>
           {account ? (
-            <Text mb={0} fontSize={20}>
-              Current Account Connected: {account}
-            </Text>
+            <Box>
+              <Center>
+                <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                  <Text as="mark" textColor="black" bgColor="rgba(43, 211, 160, 0.87)" mb={20} fontSize={20}>
+                    Current Account Connected: {account}
+                  </Text>
+                  <Text mb={0} fontSize={20}>
+                    If you want to change the current account, follow the steps bellow:
+                  </Text>
+                  <OrderedList fontSize={18}>
+                    <ListItem>Open your wallet app.</ListItem>
+                    <ListItem>Change account and connect it to this site.</ListItem>
+                    <ListItem>After that, refresh this page and click on the button "Connect your account".</ListItem>
+                  </OrderedList>
+                </Flex>
+              </Center>
+            </Box>
           ) : (
-            <Text mb={0} fontSize={20}>
-              None Account Connected
-            </Text>
+            <Box>
+              <Center>
+                <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                  <Text as="mark" textColor="white" bgColor="red" mb={20} fontSize={20}>
+                    None Account Connected
+                  </Text>
+                  <Button mb={20} mt={20} fontSize={20} onClick={getAccount}>
+                    Connect your account
+                  </Button>
+                </Flex>
+              </Center>
+            </Box>
           )}
         </Flex>
       </Center>

@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, CardHeader, Center, Flex, Heading, Input, Stack, StackDivider, TabPanel, Text } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, CardHeader, Heading, Stack, StackDivider, TabPanel, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState } from 'react';
 
@@ -62,7 +62,9 @@ function Deposit({ account, signer, songSignature }) {
       await SongRegister.connect(signer).deposit({ value: 1000000000, gasLimit: 50000 });
 
       SongRegister.on('Deposited', (sender, value, balance) => {
-        const deposited = `Successfully deposited! Sender: ${sender}, Value: ${parseInt(ethers.utils.formatUnits(value, 'gwei'))} Gwei, New Balance: ${parseInt(ethers.utils.formatUnits(balance, 'gwei'))} Gwei`;
+        const deposited = `Successfully deposited! Sender: ${sender}, Value: ${parseInt(ethers.utils.formatUnits(value, 'gwei'))} Gwei, New Balance: ${parseInt(
+          ethers.utils.formatUnits(balance, 'gwei')
+        )} Gwei`;
 
         setDepositReceipt(deposited);
       });
