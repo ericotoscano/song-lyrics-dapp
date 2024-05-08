@@ -31,7 +31,7 @@ function Account({ account, setAccount, setSigner }) {
                     If you want to change the current account, follow the steps bellow:
                   </Text>
                   <OrderedList fontSize={18}>
-                    <ListItem>Open your wallet app.</ListItem>
+                    <ListItem>Open your browser wallet extension.</ListItem>
                     <ListItem>Change account and connect it to this site.</ListItem>
                     <ListItem>After that, refresh this page and click on the button "Connect your account".</ListItem>
                   </OrderedList>
@@ -45,7 +45,7 @@ function Account({ account, setAccount, setSigner }) {
                   <Text as="mark" textColor="white" bgColor="red" mb={20} fontSize={20}>
                     None Account Connected
                   </Text>
-                  <Button mb={20} mt={20} fontSize={20} onClick={getAccount}>
+                  <Button mb={20} mt={20} onClick={getAccount}>
                     Connect your account
                   </Button>
                 </Flex>

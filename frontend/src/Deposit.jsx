@@ -49,11 +49,10 @@ const REGISTERV1_ABI = [
   { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
 ];
 
-function Deposit({ account, signer, songSignature }) {
+function Deposit({ account, signer, songSignature, depositReceipt, setDepositReceipt }) {
   const [currentCostInEther, setCurrentCostInEther] = useState(0);
   const [currentCostInGwei, setCurrentCostInGwei] = useState(0);
   const [currentBalanceInGwei, setCurrentBalanceInGwei] = useState(0);
-  const [depositReceipt, setDepositReceipt] = useState('');
 
   const depositCost = async () => {
     try {

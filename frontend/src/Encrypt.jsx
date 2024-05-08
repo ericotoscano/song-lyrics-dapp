@@ -10,7 +10,6 @@ function Encrypt({ account, title, lyrics, songSignature, setSongSignature }) {
   }
 
   return (
-    
     <TabPanel>
       <Card>
         <CardHeader>

@@ -38,11 +38,11 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1.75px solid transparent;
+  border-radius: 10px;
+  border: 3px solid transparent;
   border-color: #ffffff;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: 0.5em 1em;
+  font-size: 1.25em;
   font-weight: 500;
   font-family: inherit;
   background-color: rgba(43, 211, 160, 0.87);
