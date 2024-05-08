@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
+import { Alert, AlertIcon, AlertTitle, AlertDescription, Box, Button, Center, Flex, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
 function Account({ account, setAccount, setSigner }) {
@@ -9,9 +9,8 @@ function Account({ account, setAccount, setSigner }) {
 
       if (account !== accounts[0]) {
         setAccount(accounts[0]);
+        setSigner(provider.getSigner(accounts[0]));
       }
-
-      setSigner(provider.getSigner(accounts[0]));
     } catch (error) {
       console.log(error.message);
     }
@@ -24,7 +23,6 @@ function Account({ account, setAccount, setSigner }) {
           <Button mb={10} mt={20} onClick={getAccount}>
             Connect your account
           </Button>
-
           {account ? (
             <Text mb={0} fontSize={20}>
               Current Account Connected: {account}
