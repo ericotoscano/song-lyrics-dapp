@@ -4,46 +4,76 @@ import Deposit from './Deposit';
 
 import { Box, Center, Flex, Link, Tab, Tabs, TabList, TabPanels, Text } from '@chakra-ui/react';
 
-function Tabulation({ account, signer, title, lyrics, songSignature, depositReceipt, setTitle, setLyrics, setSongSignature, setDepositReceipt }) {
+function Tabulation({
+  account,
+  isSubmitted,
+  signer,
+  title,
+  lyrics,
+  lyricsByLine,
+  songSignature,
+  depositReceipt,
+  setTitle,
+  setIsSubmitted,
+  setLyrics,
+  setLyricsByLine,
+  setSongSignature,
+  setDepositReceipt,
+}) {
   return (
     <Box w="100vw">
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           {account ? (
             <Tabs mt={20}>
-              <TabList mb={20}>
-                <Tab marginInline={10}>Write</Tab>
+              <Box>
+                <Center>
+                  <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                    <TabList mb={20}>
+                      <Tab marginInline={10}>Write</Tab>
 
-                {title && lyrics ? (
-                  <Tab marginInline={10}>Encrypt</Tab>
-                ) : (
-                  <Tab isDisabled marginInline={10}>
-                    Encrypt
-                  </Tab>
-                )}
+                      {isSubmitted && title && lyrics ? (
+                        <Tab marginInline={10}>Encrypt</Tab>
+                      ) : (
+                        <Tab isDisabled marginInline={10}>
+                          Encrypt
+                        </Tab>
+                      )}
 
-                {title && lyrics && songSignature ? (
-                  <Tab marginInline={10}>Deposit</Tab>
-                ) : (
-                  <Tab isDisabled marginInline={10}>
-                    Deposit
-                  </Tab>
-                )}
+                      {title && lyrics && songSignature ? (
+                        <Tab marginInline={10}>Deposit</Tab>
+                      ) : (
+                        <Tab isDisabled marginInline={10}>
+                          Deposit
+                        </Tab>
+                      )}
 
-                {title && lyrics && songSignature && depositReceipt ? (
-                  <Tab marginInline={10}>Register</Tab>
-                ) : (
-                  <Tab isDisabled marginInline={10}>
-                    Register
-                  </Tab>
-                )}
-              </TabList>
+                      {title && lyrics && songSignature && depositReceipt ? (
+                        <Tab marginInline={10}>Register</Tab>
+                      ) : (
+                        <Tab isDisabled marginInline={10}>
+                          Register
+                        </Tab>
+                      )}
+                    </TabList>
+                  </Flex>
+                </Center>
+              </Box>
               <Box>
                 <Center>
                   <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
                     <TabPanels>
-                      <Write setTitle={setTitle} setLyrics={setLyrics} />
-                      <Encrypt account={account} title={title} lyrics={lyrics} songSignature={songSignature} setSongSignature={setSongSignature} />
+                      <Write
+                        isSubmitted={isSubmitted}
+                        lyrics={lyrics}
+                        title={title}
+                        lyricsByLine={lyricsByLine}
+                        setIsSubmitted={setIsSubmitted}
+                        setTitle={setTitle}
+                        setLyrics={setLyrics}
+                        setLyricsByLine={setLyricsByLine}
+                      />
+                      <Encrypt account={account} title={title} lyricsByLine={lyricsByLine} songSignature={songSignature} setSongSignature={setSongSignature} />
                       <Deposit account={account} signer={signer} songSignature={songSignature} depositReceipt={depositReceipt} setDepositReceipt={setDepositReceipt} />
                     </TabPanels>
                   </Flex>

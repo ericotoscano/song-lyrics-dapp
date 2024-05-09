@@ -19,7 +19,6 @@ function Account({ account, setAccount, setSigner }) {
   return (
     <Box w="100vw">
       <Center>
-        <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           {account ? (
             <Box>
               <Center>
@@ -52,7 +51,7 @@ function Account({ account, setAccount, setSigner }) {
               </Center>
             </Box>
           )}
-        </Flex>
+
       </Center>
     </Box>
   );
