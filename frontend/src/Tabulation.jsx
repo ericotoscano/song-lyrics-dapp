@@ -7,6 +7,7 @@ import { Box, Center, Flex, Link, Tab, Tabs, TabList, TabPanels, Text } from '@c
 function Tabulation({
   account,
   isSubmitted,
+  isEncrypted,
   signer,
   title,
   lyrics,
@@ -15,6 +16,7 @@ function Tabulation({
   depositReceipt,
   setTitle,
   setIsSubmitted,
+  setIsEncrypted,
   setLyrics,
   setLyricsByLine,
   setSongSignature,
@@ -40,7 +42,7 @@ function Tabulation({
                         </Tab>
                       )}
 
-                      {title && lyrics && songSignature ? (
+                      {isEncrypted && title && lyrics && songSignature ? (
                         <Tab marginInline={10}>Deposit</Tab>
                       ) : (
                         <Tab isDisabled marginInline={10}>
@@ -65,16 +67,27 @@ function Tabulation({
                     <TabPanels>
                       <Write
                         isSubmitted={isSubmitted}
+                        isEncrypted={isEncrypted}
                         lyrics={lyrics}
                         title={title}
                         lyricsByLine={lyricsByLine}
                         setIsSubmitted={setIsSubmitted}
+                        setIsEncrypted={setIsEncrypted}
                         setTitle={setTitle}
                         setLyrics={setLyrics}
                         setLyricsByLine={setLyricsByLine}
+                        setSongSignature={setSongSignature}
                       />
-                      <Encrypt account={account} title={title} lyricsByLine={lyricsByLine} songSignature={songSignature} setSongSignature={setSongSignature} />
-                      <Deposit account={account} signer={signer} songSignature={songSignature} depositReceipt={depositReceipt} setDepositReceipt={setDepositReceipt} />
+                      <Encrypt
+                        isEncrypted={isEncrypted}
+                        account={account}
+                        title={title}
+                        lyricsByLine={lyricsByLine}
+                        songSignature={songSignature}
+                        setIsEncrypted={setIsEncrypted}
+                        setSongSignature={setSongSignature}
+                      />
+                      <Deposit account={account} signer={signer} depositReceipt={depositReceipt} setDepositReceipt={setDepositReceipt} />
                     </TabPanels>
                   </Flex>
                 </Center>

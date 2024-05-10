@@ -1,10 +1,10 @@
-import { Box, Button, Card, CardBody, CardHeader, Center, Flex, Heading, Stack, StackDivider, TabPanel, Text } from '@chakra-ui/react';
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Card, CardBody, CardHeader, Center, Flex, Heading, Stack, StackDivider, TabPanel, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
-import { useState } from 'react';
 
-function Encrypt({ account, title, lyricsByLine, songSignature, setSongSignature }) {
-  function encryptData() {
+function Encrypt({ account, title, lyrics, lyricsByLine, songSignature, setIsEncrypted, setSongSignature }) {
+  function getSignature() {
     setSongSignature(ethers.utils.hashMessage(title + '' + lyrics));
+    setIsEncrypted(true);
   }
 
   return (
@@ -22,54 +22,57 @@ function Encrypt({ account, title, lyricsByLine, songSignature, setSongSignature
               <CardBody>
                 <Stack divider={<StackDivider />} spacing="0">
                   <Box>
-                    <Flex alignItems={'left'} justifyContent="center" flexDirection={'column'}>
-                      <Heading size="xs">Songwriter Account</Heading>
-                      <Text pt="0" fontSize="x-large">
-                        {account}
-                      </Text>
-                    </Flex>
+                    <Heading size="xs">Songwriter Account</Heading>
+                    <Text pt="0" fontSize="x-large">
+                      {account}
+                    </Text>
                   </Box>
 
                   <Box>
-                    <Flex alignItems={'left'} justifyContent="center" flexDirection={'column'}>
-                      <Heading size="xs">Song Title</Heading>
-                      <Text pt="0" fontSize="x-large">
-                        {title}
-                      </Text>
-                    </Flex>
+                    <Heading size="xs">Song Title</Heading>
+                    <Text pt="0" fontSize="x-large">
+                      {title}
+                    </Text>
                   </Box>
 
                   <Box>
-                    <Flex alignItems={'left'} justifyContent="center" flexDirection={'column'}>
-                      <Heading size="xs">Song Lyrics</Heading>
-                      <Text pt="0" fontSize="x-large">
-                        {lyricsByLine.map((line, index) => (
-                          <li key={index}>{line}</li>
-                        ))}
-                      </Text>
-                    </Flex>
+                    <Heading size="xs">Song Lyrics</Heading>
+                    <Text pt="0" fontSize="x-large">
+                      {lyricsByLine.map((line, index) => (
+                        <li key={index}>{line}</li>
+                      ))}
+                    </Text>
                   </Box>
 
-                  <Box>
-                    <Center>
-                      <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-                        <Button fontSize={20} onClick={encryptData} mt={6}>
-                          Encrypt Song Data
-                        </Button>
-                      </Flex>
-                    </Center>
-                  </Box>
+                  <Accordion defaultIndex={[0]} allowMultiple>
+                    <AccordionItem>
+                      <Center>
+                        <AccordionButton onClick={getSignature}>
+                          <Box as="span" flex="1" textAlign="center">
+                            Get Song Signature
+                          </Box>
+                          <AccordionIcon />
+                        </AccordionButton>
+                      </Center>
 
-                  <Box>
-                    <Center>
-                      <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-                        <Heading size="xs">Song Signature</Heading>
-                        <Text pt="0" fontSize="x-large">
-                          {songSignature}
-                        </Text>
-                      </Flex>
-                    </Center>
-                  </Box>
+                      <AccordionPanel pb={4}>
+                        <Box>
+                          <Text pt="0" fontSize="x-large">
+                            Now your song has a unique signature, which is:
+                          </Text>
+                          <Center>
+                            <Text as="mark" textColor="black" bgColor="rgba(43, 211, 160, 0.87)" pt="0" fontSize="x-large">
+                              {songSignature}
+                            </Text>
+                          </Center>
+
+                          <Text pt="0" fontSize="x-large">
+                            If you try to change anything in your song, this signature will change too.
+                          </Text>
+                        </Box>
+                      </AccordionPanel>
+                    </AccordionItem>
+                  </Accordion>
                 </Stack>
               </CardBody>
             </Card>

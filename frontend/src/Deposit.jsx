@@ -1,4 +1,21 @@
-import { Box, Button, Card, CardBody, CardHeader, Heading, Stack, StackDivider, TabPanel, Text } from '@chakra-ui/react';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Center,
+  Flex,
+  Heading,
+  Stack,
+  StackDivider,
+  TabPanel,
+  Text,
+} from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState } from 'react';
 
@@ -49,12 +66,12 @@ const REGISTERV1_ABI = [
   { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
 ];
 
-function Deposit({ account, signer, songSignature, depositReceipt, setDepositReceipt }) {
+function Deposit({ account, signer, depositReceipt, setDepositReceipt }) {
   const [currentCostInEther, setCurrentCostInEther] = useState(0);
   const [currentCostInGwei, setCurrentCostInGwei] = useState(0);
   const [currentBalanceInGwei, setCurrentBalanceInGwei] = useState(0);
 
-  const depositCost = async () => {
+  const deposit = async () => {
     try {
       const SongRegister = new ethers.Contract(REGISTERV1_ADDRESS, REGISTERV1_ABI, signer);
 
@@ -102,59 +119,80 @@ function Deposit({ account, signer, songSignature, depositReceipt, setDepositRec
     }
   };
   return (
-    <TabPanel>
-      <Card>
-        <CardHeader>
-          <Heading size="md" fontSize={30}>
-            Deposit
-          </Heading>
-        </CardHeader>
+    <Box>
+      <Center>
+        <TabPanel>
+          <Center>
+            <Heading size="md" fontSize={30}>
+              Deposit
+            </Heading>
+          </Center>
 
-        <CardBody>
-          <Stack divider={<StackDivider />} spacing="2">
-            <Box>
+          <Box>
+            <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
               <Text mb={0} fontSize={20}>
-                Now your song is encrypted and its signature is {songSignature}.
+                To register your song, you must have a sufficient balance in your wallet.
               </Text>
               <Text mb={0} fontSize={20}>
-                Before register it on blockchain, you need to deposit a value equals to current cost.
+                You can check these clicking on the buttons bellow.
               </Text>
-            </Box>
+              <Text mb={0} fontSize={20}>
+                If your balance is not enough, you can make a deposit amounting to the registration cost.
+              </Text>
+            </Flex>
+          </Box>
 
-            <Box>
-              <Heading size="xs">Cost</Heading>
-              <Button mb={10} mt={20} onClick={getCost}>
-                Get Current Cost
-              </Button>
-              <Text pt="2" fontSize="large">
-                {currentCostInEther} Ether = {currentCostInGwei} Gwei
-              </Text>
-            </Box>
+          <Accordion defaultIndex={[0]} allowMultiple>
+            <Flex alignItems={'center'} justifyContent="center" flexDirection={'row'}>
+              <AccordionItem>
+                <AccordionButton onClick={getCost}>
+                  <Box as="span" flex="1" textAlign="center">
+                    Register Cost
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
 
-            <Box>
-              <Heading size="xs">Balance</Heading>
-              <Button mb={10} mt={20} onClick={getBalance}>
-                Get Your Current Balance
-              </Button>
-              <Text pt="2" fontSize="large">
-                {currentBalanceInGwei} Gwei
-              </Text>
-            </Box>
+                <AccordionPanel pb={4}>
+                  <Text pt="4" fontSize="x-large" align="center">
+                    {currentCostInEther} Ether = {currentCostInGwei} Gwei
+                  </Text>
+                </AccordionPanel>
+              </AccordionItem>
 
-            <Box>
-              <Heading size="xs">Deposit</Heading>
-              <Button mb={10} mt={20} onClick={depositCost}>
-                Deposit Cost
-              </Button>
-              <Text pt="2" fontSize="large">
-                {depositReceipt}
-              </Text>
-            </Box>
-          </Stack>
-        </CardBody>
-      </Card>
-      <Box></Box>
-    </TabPanel>
+              <AccordionItem>
+                <AccordionButton onClick={getBalance}>
+                  <Box as="span" flex="1" textAlign="center">
+                    Your Balance
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+
+                <AccordionPanel pb={4}>
+                  <Text pt="4" fontSize="x-large" align="center">
+                    {currentBalanceInGwei} Gwei
+                  </Text>
+                </AccordionPanel>
+              </AccordionItem>
+
+              <AccordionItem>
+                <AccordionButton onClick={deposit}>
+                  <Box as="span" flex="1" textAlign="center">
+                    Deposit
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+
+                <AccordionPanel pb={4}>
+                  <Text pt="4" fontSize="x-large" align="center">
+                    {depositReceipt ? null : "Complete the transaction in your browser's wallet extension."}
+                  </Text>
+                </AccordionPanel>
+              </AccordionItem>
+            </Flex>
+          </Accordion>
+        </TabPanel>
+      </Center>
+    </Box>
   );
 }
 

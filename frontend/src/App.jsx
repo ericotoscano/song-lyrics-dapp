@@ -12,6 +12,7 @@ function App() {
   const [lyrics, setLyrics] = useState('');
   const [lyricsByLine, setLyricsByLine] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isEncrypted, setIsEncrypted] = useState(false);
   const [songSignature, setSongSignature] = useState('');
   const [depositReceipt, setDepositReceipt] = useState('');
 
@@ -28,11 +29,13 @@ function App() {
             signer={signer}
             title={title}
             isSubmitted={isSubmitted}
+            isEncrypted={isEncrypted}
             lyrics={lyrics}
             lyricsByLine={lyricsByLine}
             songSignature={songSignature}
             setTitle={setTitle}
             setIsSubmitted={setIsSubmitted}
+            setIsEncrypted={setIsEncrypted}
             setLyrics={setLyrics}
             setLyricsByLine={setLyricsByLine}
             setSongSignature={setSongSignature}
