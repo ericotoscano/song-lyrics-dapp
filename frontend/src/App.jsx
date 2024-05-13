@@ -13,8 +13,8 @@ function App() {
   const [lyricsByLine, setLyricsByLine] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isEncrypted, setIsEncrypted] = useState(false);
+  const [isDeposited, setIsDeposited] = useState(false);
   const [songSignature, setSongSignature] = useState('');
-  const [depositReceipt, setDepositReceipt] = useState('');
 
   return (
     <Box as="samp" w="100vw">
@@ -30,17 +30,17 @@ function App() {
             title={title}
             isSubmitted={isSubmitted}
             isEncrypted={isEncrypted}
+            isDeposited={isDeposited}
             lyrics={lyrics}
             lyricsByLine={lyricsByLine}
             songSignature={songSignature}
             setTitle={setTitle}
             setIsSubmitted={setIsSubmitted}
             setIsEncrypted={setIsEncrypted}
+            setIsDeposited={setIsDeposited}
             setLyrics={setLyrics}
             setLyricsByLine={setLyricsByLine}
             setSongSignature={setSongSignature}
-            depositReceipt={depositReceipt}
-            setDepositReceipt={setDepositReceipt}
           />
         </Flex>
       </Center>

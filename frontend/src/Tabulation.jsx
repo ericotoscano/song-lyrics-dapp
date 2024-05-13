@@ -8,19 +8,19 @@ function Tabulation({
   account,
   isSubmitted,
   isEncrypted,
+  isDeposited,
   signer,
   title,
   lyrics,
   lyricsByLine,
   songSignature,
-  depositReceipt,
   setTitle,
   setIsSubmitted,
   setIsEncrypted,
+  setIsDeposited,
   setLyrics,
   setLyricsByLine,
   setSongSignature,
-  setDepositReceipt,
 }) {
   return (
     <Box w="100vw">
@@ -50,7 +50,7 @@ function Tabulation({
                         </Tab>
                       )}
 
-                      {title && lyrics && songSignature && depositReceipt ? (
+                      {title && lyrics && songSignature && isDeposited ? (
                         <Tab marginInline={10}>Register</Tab>
                       ) : (
                         <Tab isDisabled marginInline={10}>
@@ -87,7 +87,7 @@ function Tabulation({
                         setIsEncrypted={setIsEncrypted}
                         setSongSignature={setSongSignature}
                       />
-                      <Deposit account={account} signer={signer} depositReceipt={depositReceipt} setDepositReceipt={setDepositReceipt} />
+                      <Deposit account={account} signer={signer} isDeposited={isDeposited} setIsDeposited={setIsDeposited} />
                     </TabPanels>
                   </Flex>
                 </Center>

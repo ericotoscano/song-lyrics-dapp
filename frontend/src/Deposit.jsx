@@ -1,21 +1,4 @@
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Box,
-  Card,
-  CardBody,
-  CardHeader,
-  Center,
-  Flex,
-  Heading,
-  Stack,
-  StackDivider,
-  TabPanel,
-  Text,
-} from '@chakra-ui/react';
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Center, Flex, Heading, TabPanel, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState } from 'react';
 
@@ -66,10 +49,13 @@ const REGISTERV1_ABI = [
   { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
 ];
 
-function Deposit({ account, signer, depositReceipt, setDepositReceipt }) {
+function Deposit({ account, signer, isDeposited, setIsDeposited }) {
   const [currentCostInEther, setCurrentCostInEther] = useState(0);
   const [currentCostInGwei, setCurrentCostInGwei] = useState(0);
   const [currentBalanceInGwei, setCurrentBalanceInGwei] = useState(0);
+  const [currentBalanceInEther, setCurrentBalanceInEther] = useState(0);
+  const [depositReceipt, setDepositReceipt] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   const deposit = async () => {
     try {
@@ -78,28 +64,16 @@ function Deposit({ account, signer, depositReceipt, setDepositReceipt }) {
       await SongRegister.connect(signer).deposit({ value: 1000000000, gasLimit: 50000 });
 
       SongRegister.on('Deposited', (sender, value, balance) => {
-        const deposited = `Successfully deposited! Sender: ${sender}, Value: ${parseInt(ethers.utils.formatUnits(value, 'gwei'))} Gwei, New Balance: ${parseInt(
-          ethers.utils.formatUnits(balance, 'gwei')
-        )} Gwei`;
+        const depositedByLine = [];
 
-        setDepositReceipt(deposited);
+        depositedByLine.push('Successfully deposited!');
+        depositedByLine.push(`Sender: ${sender}`);
+        depositedByLine.push(`Value: ${parseInt(ethers.utils.formatUnits(value, 'gwei'))} Gwei`);
+        depositedByLine.push(`New Balance: ${parseInt(ethers.utils.formatUnits(balance, 'gwei'))} Gwei`);
+
+        setDepositReceipt(depositedByLine);
       });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
-  const getCost = async () => {
-    try {
-      const SongRegister = new ethers.Contract(REGISTERV1_ADDRESS, REGISTERV1_ABI, signer);
-
-      const currentCost = await SongRegister.cost();
-
-      const costInEther = ethers.utils.formatUnits(currentCost, 'ether');
-      const costInGwei = ethers.utils.formatUnits(currentCost, 'gwei');
-
-      setCurrentCostInEther(costInEther);
-      setCurrentCostInGwei(parseInt(costInGwei));
     } catch (error) {
       console.log(error.message);
     }
@@ -109,11 +83,26 @@ function Deposit({ account, signer, depositReceipt, setDepositReceipt }) {
     try {
       const SongRegister = new ethers.Contract(REGISTERV1_ADDRESS, REGISTERV1_ABI, signer);
 
+      const currentCost = await SongRegister.cost();
       const currentBalance = await SongRegister.balances(account);
 
+      const costInGwei = ethers.utils.formatUnits(currentCost, 'gwei');
+      const costInEther = ethers.utils.formatUnits(currentCost, 'ether');
+
       const balanceInGwei = ethers.utils.formatUnits(currentBalance, 'gwei');
+      const balanceInEther = ethers.utils.formatUnits(currentBalance, 'ether');
+
+      setCurrentCostInGwei(parseInt(costInGwei));
+      setCurrentCostInEther(costInEther);
 
       setCurrentBalanceInGwei(parseInt(balanceInGwei));
+      setCurrentBalanceInEther(balanceInEther);
+
+      if (balanceInGwei >= 4* costInGwei) {
+        setIsDeposited(true);
+      }
+
+      setIsChecked(true);
     } catch (error) {
       console.log(error.message);
     }
@@ -127,69 +116,74 @@ function Deposit({ account, signer, depositReceipt, setDepositReceipt }) {
               Deposit
             </Heading>
           </Center>
-
-          <Box>
-            <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+          <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+            <Box mb={40}>
               <Text mb={0} fontSize={20}>
                 To register your song, you must have a sufficient balance in your wallet.
               </Text>
               <Text mb={0} fontSize={20}>
-                You can check these clicking on the buttons bellow.
+                You can check this clicking on the button bellow.
               </Text>
-              <Text mb={0} fontSize={20}>
-                If your balance is not enough, you can make a deposit amounting to the registration cost.
-              </Text>
-            </Flex>
-          </Box>
-
-          <Accordion defaultIndex={[0]} allowMultiple>
-            <Flex alignItems={'center'} justifyContent="center" flexDirection={'row'}>
-              <AccordionItem>
-                <AccordionButton onClick={getCost}>
-                  <Box as="span" flex="1" textAlign="center">
-                    Register Cost
+            </Box>
+            <Box>
+              <Accordion allowToggle>
+                <AccordionItem>
+                  <AccordionButton onClick={getBalance}>
+                    <Box as="span" flex="1" textAlign="center">
+                      Cost and Balance
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel pb={4}>
+                    <Text pt={4} fontSize="x-large" align="center">
+                      Current Cost: {currentCostInGwei} Gwei ({currentCostInEther} Ether)
+                    </Text>
+                    <Text pt={4} fontSize="x-large" align="center">
+                      Your balance: {currentBalanceInGwei} Gwei ({currentBalanceInEther} Ether)
+                    </Text>
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
+            </Box>
+            {isChecked ? (
+              isDeposited ? (
+                <Text mb={0} fontSize={20}>
+                  You have enough balance in your wallet, go on and register your song!
+                </Text>
+              ) : (
+                <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                  <Box mb={40}>
+                    <Text mb={0} fontSize={20}>
+                      Your don't have enough balance in your wallet but you can make a deposit.
+                    </Text>
+                    <Text mb={0} fontSize={20}>
+                      Click on the button bellow to make a deposit in the amount of the cost!
+                    </Text>
                   </Box>
-                  <AccordionIcon />
-                </AccordionButton>
 
-                <AccordionPanel pb={4}>
-                  <Text pt="4" fontSize="x-large" align="center">
-                    {currentCostInEther} Ether = {currentCostInGwei} Gwei
-                  </Text>
-                </AccordionPanel>
-              </AccordionItem>
-
-              <AccordionItem>
-                <AccordionButton onClick={getBalance}>
-                  <Box as="span" flex="1" textAlign="center">
-                    Your Balance
+                  <Box mb={40}>
+                    <Accordion>
+                      <AccordionItem>
+                        <AccordionButton onClick={deposit}>
+                          <Box as="span" flex="1" textAlign="center">
+                            Deposit
+                          </Box>
+                          <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel pb={4}>
+                          <Text pt={4} fontSize="x-large" align="left">
+                            {depositReceipt.map((line, index) => (
+                              <li key={index}>{line}</li>
+                            ))}
+                          </Text>
+                        </AccordionPanel>
+                      </AccordionItem>
+                    </Accordion>
                   </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-
-                <AccordionPanel pb={4}>
-                  <Text pt="4" fontSize="x-large" align="center">
-                    {currentBalanceInGwei} Gwei
-                  </Text>
-                </AccordionPanel>
-              </AccordionItem>
-
-              <AccordionItem>
-                <AccordionButton onClick={deposit}>
-                  <Box as="span" flex="1" textAlign="center">
-                    Deposit
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-
-                <AccordionPanel pb={4}>
-                  <Text pt="4" fontSize="x-large" align="center">
-                    {depositReceipt ? null : "Complete the transaction in your browser's wallet extension."}
-                  </Text>
-                </AccordionPanel>
-              </AccordionItem>
-            </Flex>
-          </Accordion>
+                </Flex>
+              )
+            ) : null}
+          </Flex>
         </TabPanel>
       </Center>
     </Box>
