@@ -1,7 +1,7 @@
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Card, CardBody, CardHeader, Center, Heading, Stack, StackDivider, TabPanel, Text } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, CardHeader, Center, Flex, Heading, Highlight, Stack, StackDivider, TabPanel, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
-function Encrypt({ account, title, lyrics, lyricsByLine, songSignature, setIsEncrypted, setSongSignature }) {
+function Encrypt({ account, title, lyrics, lyricsByLine, songSignature, isEncrypted, setIsEncrypted, setSongSignature }) {
   function getSignature() {
     setSongSignature(ethers.utils.hashMessage(title + '' + lyrics));
     setIsEncrypted(true);
@@ -43,35 +43,37 @@ function Encrypt({ account, title, lyrics, lyricsByLine, songSignature, setIsEnc
                   </Text>
                 </Box>
 
-                <Accordion allowToggle>
-                  <AccordionItem>
-                    <Center>
-                      <AccordionButton onClick={getSignature}>
-                        <Box as="span" flex="1" textAlign="center">
-                          Get Song Signature
+                <Box>
+                  <Center>
+                    <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                      {isEncrypted ? (
+                        <Box>
+                          <Center>
+                            <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                              <Text as="b" mt={40} fontSize={20}>
+                                This is your song signature:
+                              </Text>
+
+                              <Text as="mark" px="0.5em" py="0.5em" borderRadius="10" textColor="black" bgColor="rgba(43, 211, 160, 0.87)" mt={20} fontSize={20}>
+                                {songSignature}
+                              </Text>
+
+                              <Text as="b" m={40} fontSize={20}>
+                                <Highlight query="Deposit" styles={{ px: '0.5em', py: '0.5em', borderRadius: '10', bg: 'rgba(43, 211, 160, 0.87)', color: 'white' }}>
+                                  Click on Deposit Tab to continue...
+                                </Highlight>
+                              </Text>
+                            </Flex>
+                          </Center>
                         </Box>
-                        <AccordionIcon />
-                      </AccordionButton>
-                    </Center>
-
-                    <AccordionPanel pb={4}>
-                      <Box>
-                        <Text pt="0" fontSize="x-large">
-                          Now your song has a unique signature, which is:
-                        </Text>
-                        <Center>
-                          <Text as="mark" textColor="black" bgColor="rgba(43, 211, 160, 0.87)" pt="0" fontSize="x-large">
-                            {songSignature}
-                          </Text>
-                        </Center>
-
-                        <Text pt="0" fontSize="x-large">
-                          If you try to change anything in your song, this signature will change too.
-                        </Text>
-                      </Box>
-                    </AccordionPanel>
-                  </AccordionItem>
-                </Accordion>
+                      ) : (
+                        <Button fontSize={20} mt={40} mb={20} onClick={getSignature}>
+                          Submit to Encrypt
+                        </Button>
+                      )}
+                    </Flex>
+                  </Center>
+                </Box>
               </Stack>
             </CardBody>
           </Card>

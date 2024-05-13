@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, FormControl, FormLabel, FormErrorMessage, Heading, Input, TabPanel, Textarea } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, FormControl, FormLabel, FormErrorMessage, Heading, Highlight, Input, TabPanel, Textarea, Text } from '@chakra-ui/react';
 
 function Write({ isSubmitted, setIsSubmitted, setIsEncrypted, setSongSignature, lyrics, title, setTitle, setLyrics, setLyricsByLine }) {
   function sendToEncrypt() {
@@ -28,6 +28,7 @@ function Write({ isSubmitted, setIsSubmitted, setIsEncrypted, setSongSignature, 
             <FormLabel>
               <Heading fontSize={30}>Song Title</Heading>
             </FormLabel>
+
             <Box>
               <Center>
                 <Flex alignItems={'left'} justifyContent="center" flexDirection={'column'}>
@@ -56,6 +57,7 @@ function Write({ isSubmitted, setIsSubmitted, setIsEncrypted, setSongSignature, 
             <FormLabel>
               <Heading fontSize={30}>Song Lyrics</Heading>
             </FormLabel>
+
             <Box>
               <Center>
                 <Flex alignItems={'left'} justifyContent="center" flexDirection={'column'}>
@@ -83,9 +85,19 @@ function Write({ isSubmitted, setIsSubmitted, setIsEncrypted, setSongSignature, 
 
           <Box>
             <Center>
-              <Button fontSize={20} mt={40} mb={40} onClick={sendToEncrypt}>
-                Submit to Encrypt
-              </Button>
+              <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                {title && lyrics && isSubmitted ? (
+                  <Text as='b' m={40} fontSize={20}>
+                    <Highlight query="Encrypt" styles={{ px: '0.5em', py: '0.5em', borderRadius: '10', bg: 'rgba(43, 211, 160, 0.87)', color: 'white' }}>
+                      Click on Encrypt Tab to continue...
+                    </Highlight>
+                  </Text>
+                ) : (
+                  <Button fontSize={20} mt={40} mb={20} onClick={sendToEncrypt}>
+                    Submit to Encrypt
+                  </Button>
+                )}
+              </Flex>
             </Center>
           </Box>
         </TabPanel>

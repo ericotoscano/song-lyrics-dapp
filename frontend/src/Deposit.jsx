@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Center, Flex, Heading, TabPanel, Text } from '@chakra-ui/react';
+import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Center, Flex, Heading, Highlight, TabPanel, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState } from 'react';
 
@@ -73,7 +73,6 @@ function Deposit({ account, signer, isDeposited, setIsDeposited }) {
 
         setDepositReceipt(depositedByLine);
       });
-
     } catch (error) {
       console.log(error.message);
     }
@@ -98,7 +97,7 @@ function Deposit({ account, signer, isDeposited, setIsDeposited }) {
       setCurrentBalanceInGwei(parseInt(balanceInGwei));
       setCurrentBalanceInEther(balanceInEther);
 
-      if (balanceInGwei >= 4* costInGwei) {
+      if (balanceInGwei >= 5 * costInGwei) {
         setIsDeposited(true);
       }
 
@@ -147,9 +146,20 @@ function Deposit({ account, signer, isDeposited, setIsDeposited }) {
             </Box>
             {isChecked ? (
               isDeposited ? (
-                <Text mb={0} fontSize={20}>
-                  You have enough balance in your wallet, go on and register your song!
-                </Text>
+                <Box>
+                  <Center>
+                    <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                      <Text as="b" mt={40} fontSize={20}>
+                        Your have sufficient balance!
+                      </Text>
+                      <Text as="b" m={40} fontSize={20}>
+                        <Highlight query="Register" styles={{ px: '0.5em', py: '0.5em', borderRadius: '10', bg: 'rgba(43, 211, 160, 0.87)', color: 'white' }}>
+                          Click on Register Tab to continue...
+                        </Highlight>
+                      </Text>
+                    </Flex>
+                  </Center>
+                </Box>
               ) : (
                 <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
                   <Box mb={40}>
