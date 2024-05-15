@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Center, Flex, Heading, Highlight, TabPanel, Text } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Heading, Highlight, TabPanel, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState } from 'react';
 
@@ -49,18 +49,21 @@ const REGISTERV1_ABI = [
   { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
 ];
 
-function Deposit({ account, signer, isDeposited, setIsDeposited }) {
+function Deposit({ account, signer, isChecked, isDeposited, depositReceipt, setIsChecked, setIsDeposited, setDepositReceipt }) {
   const [currentCostInEther, setCurrentCostInEther] = useState(0);
   const [currentCostInGwei, setCurrentCostInGwei] = useState(0);
   const [currentBalanceInGwei, setCurrentBalanceInGwei] = useState(0);
   const [currentBalanceInEther, setCurrentBalanceInEther] = useState(0);
-  const [depositReceipt, setDepositReceipt] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isDepositLoading, setIsDepositLoading] = useState(false);
+  const [isBalanceLoading, setIsBalanceLoading] = useState(false);
 
   const deposit = async () => {
     try {
-      const SongRegister = new ethers.Contract(REGISTERV1_ADDRESS, REGISTERV1_ABI, signer);
+      setIsDepositLoading(true);
 
+      const cost = currentCostInGwei;
+
+      const SongRegister = new ethers.Contract(REGISTERV1_ADDRESS, REGISTERV1_ABI, signer);
       await SongRegister.connect(signer).deposit({ value: 1000000000, gasLimit: 50000 });
 
       SongRegister.on('Deposited', (sender, value, balance) => {
@@ -69,9 +72,17 @@ function Deposit({ account, signer, isDeposited, setIsDeposited }) {
         depositedByLine.push('Successfully deposited!');
         depositedByLine.push(`Sender: ${sender}`);
         depositedByLine.push(`Value: ${parseInt(ethers.utils.formatUnits(value, 'gwei'))} Gwei`);
-        depositedByLine.push(`New Balance: ${parseInt(ethers.utils.formatUnits(balance, 'gwei'))} Gwei`);
+        depositedByLine.push(`Your New Balance: ${parseInt(ethers.utils.formatUnits(balance, 'gwei'))} Gwei`);
+        depositedByLine.push(`Current Cost: ${cost} Gwei`);
+
+        setCurrentBalanceInGwei(parseInt(ethers.utils.formatUnits(balance, 'gwei')));
+
+        if (parseInt(ethers.utils.formatUnits(balance, 'gwei')) >= 6 * currentCostInGwei) {
+          setIsDeposited(true);
+        }
 
         setDepositReceipt(depositedByLine);
+        setIsDepositLoading(false);
       });
     } catch (error) {
       console.log(error.message);
@@ -80,6 +91,8 @@ function Deposit({ account, signer, isDeposited, setIsDeposited }) {
 
   const getBalance = async () => {
     try {
+      setIsBalanceLoading(true);
+
       const SongRegister = new ethers.Contract(REGISTERV1_ADDRESS, REGISTERV1_ABI, signer);
 
       const currentCost = await SongRegister.cost();
@@ -97,11 +110,12 @@ function Deposit({ account, signer, isDeposited, setIsDeposited }) {
       setCurrentBalanceInGwei(parseInt(balanceInGwei));
       setCurrentBalanceInEther(balanceInEther);
 
-      if (balanceInGwei >= 5 * costInGwei) {
+      if (balanceInGwei >= 6 * costInGwei) {
         setIsDeposited(true);
       }
 
       setIsChecked(true);
+      setIsBalanceLoading(false);
     } catch (error) {
       console.log(error.message);
     }
@@ -115,84 +129,95 @@ function Deposit({ account, signer, isDeposited, setIsDeposited }) {
               Deposit
             </Heading>
           </Center>
-          <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-            <Box mb={40}>
-              <Text mb={0} fontSize={20}>
-                To register your song, you must have a sufficient balance in your wallet.
-              </Text>
-              <Text mb={0} fontSize={20}>
-                You can check this clicking on the button bellow.
-              </Text>
-            </Box>
-            <Box>
-              <Accordion allowToggle>
-                <AccordionItem>
-                  <AccordionButton onClick={getBalance}>
-                    <Box as="span" flex="1" textAlign="center">
-                      Cost and Balance
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                  <AccordionPanel pb={4}>
-                    <Text pt={4} fontSize="x-large" align="center">
-                      Current Cost: {currentCostInGwei} Gwei ({currentCostInEther} Ether)
-                    </Text>
-                    <Text pt={4} fontSize="x-large" align="center">
-                      Your balance: {currentBalanceInGwei} Gwei ({currentBalanceInEther} Ether)
-                    </Text>
-                  </AccordionPanel>
-                </AccordionItem>
-              </Accordion>
-            </Box>
-            {isChecked ? (
-              isDeposited ? (
-                <Box>
-                  <Center>
-                    <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-                      <Text as="b" mt={40} fontSize={20}>
-                        Your have sufficient balance!
-                      </Text>
-                      <Text as="b" m={40} fontSize={20}>
-                        <Highlight query="Register" styles={{ px: '0.5em', py: '0.5em', borderRadius: '10', bg: 'rgba(43, 211, 160, 0.87)', color: 'white' }}>
-                          Click on Register Tab to continue...
-                        </Highlight>
-                      </Text>
-                    </Flex>
-                  </Center>
-                </Box>
-              ) : (
-                <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-                  <Box mb={40}>
-                    <Text mb={0} fontSize={20}>
-                      Your don't have enough balance in your wallet but you can make a deposit.
-                    </Text>
-                    <Text mb={0} fontSize={20}>
-                      Click on the button bellow to make a deposit in the amount of the cost!
-                    </Text>
-                  </Box>
 
-                  <Box mb={40}>
-                    <Accordion>
-                      <AccordionItem>
-                        <AccordionButton onClick={deposit}>
-                          <Box as="span" flex="1" textAlign="center">
-                            Deposit
-                          </Box>
-                          <AccordionIcon />
-                        </AccordionButton>
-                        <AccordionPanel pb={4}>
-                          <Text pt={4} fontSize="x-large" align="left">
-                            {depositReceipt.map((line, index) => (
-                              <li key={index}>{line}</li>
-                            ))}
-                          </Text>
-                        </AccordionPanel>
-                      </AccordionItem>
-                    </Accordion>
-                  </Box>
+          <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+            <Box>
+              <Text fontSize={20}>To register your song, you must have a sufficient balance deposited in contract.</Text>
+              {isChecked ? null : <Text fontSize={20}>You can check this clicking on the button bellow.</Text>}
+            </Box>
+
+            <Box>
+              <Center>
+                <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                  {isChecked ? (
+                    depositReceipt.length == 0 ? (
+                      <Box>
+                        <Center>
+                          <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                            <Text mt={10} fontSize="x-large" align="center">
+                              Your Balance: {currentBalanceInGwei} Gwei ({currentBalanceInEther} Ether)
+                            </Text>
+
+                            <Text mt={0} fontSize="x-large" align="center">
+                              Current Cost: {currentCostInGwei} Gwei ({currentCostInEther} Ether)
+                            </Text>
+                          </Flex>
+                        </Center>
+                      </Box>
+                    ) : (
+                      <Text fontSize="x-large" align="left" mt={10} mb={10}>
+                        {depositReceipt.map((line, index) => (
+                          <li key={index}>{line}</li>
+                        ))}
+                      </Text>
+                    )
+                  ) : (
+                    <Box>
+                      <Center>
+                        <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                          <Button isLoading={isBalanceLoading} loadingText="Checking Balance..." fontSize={20} mt={20} mb={20} onClick={getBalance}>
+                            Check Your Balance
+                          </Button>
+                        </Flex>
+                      </Center>
+                    </Box>
+                  )}
                 </Flex>
-              )
-            ) : null}
+              </Center>
+            </Box>
+
+            <Box>
+              <Center>
+                <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                  {isChecked ? (
+                    isDeposited ? (
+                      <Box>
+                        <Center>
+                          <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                            <Text as="b" mt={20} fontSize={20}>
+                              Your have a sufficient balance!
+                            </Text>
+
+                            <Text as="b" m={20} fontSize={20}>
+                              <Highlight query="Register" styles={{ px: '0.5em', py: '0.5em', borderRadius: '10', bg: 'rgba(43, 211, 160, 0.87)', color: 'white' }}>
+                                Click on Register Tab to continue...
+                              </Highlight>
+                            </Text>
+                          </Flex>
+                        </Center>
+                      </Box>
+                    ) : (
+                      <Box>
+                        <Center>
+                          <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                            <Box mb={20}>
+                              <Text fontSize={20}>Your don't have enough balance but you can make a deposit.</Text>
+                              <Text fontSize={20}>Click on the button bellow to make a deposit in the amount of the cost!</Text>
+                            </Box>
+
+                            <Box mb={20}>
+                              <Button isLoading={isDepositLoading} loadingText="Depositing..." fontSize={20} mb={20} onClick={deposit}>
+                                Deposit
+                              </Button>
+                            </Box>
+                          </Flex>
+                        </Center>
+                      </Box>
+                    )
+                  ) : null}
+                </Flex>
+              </Center>
+            </Box>
           </Flex>
         </TabPanel>
       </Center>

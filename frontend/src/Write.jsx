@@ -1,6 +1,6 @@
 import { Box, Button, Center, Flex, FormControl, FormLabel, FormErrorMessage, Heading, Highlight, Input, TabPanel, Textarea, Text } from '@chakra-ui/react';
 
-function Write({ isSubmitted, setIsSubmitted, setIsEncrypted, setSongSignature, lyrics, title, setTitle, setLyrics, setLyricsByLine }) {
+function Write({ title, lyrics, isSubmitted, setTitle, setLyrics, setLyricsByLine, setIsSubmitted, setIsEncrypted, setSongSignature, setIsChecked, setIsDeposited, setDepositReceipt }) {
   function sendToEncrypt() {
     setLyricsByLine(lyrics.split(/\r?\n/));
     setIsSubmitted(true);
@@ -11,6 +11,9 @@ function Write({ isSubmitted, setIsSubmitted, setIsEncrypted, setSongSignature, 
     setIsSubmitted(false);
     setIsEncrypted(false);
     setSongSignature('');
+    setIsChecked(false);
+    setIsDeposited(false);
+    setDepositReceipt([]);
   }
 
   function handleLyricsChange(event) {
@@ -18,6 +21,9 @@ function Write({ isSubmitted, setIsSubmitted, setIsEncrypted, setSongSignature, 
     setIsSubmitted(false);
     setIsEncrypted(false);
     setSongSignature('');
+    setIsChecked(false);
+    setIsDeposited(false);
+    setDepositReceipt([]);
   }
 
   return (
@@ -87,7 +93,7 @@ function Write({ isSubmitted, setIsSubmitted, setIsEncrypted, setSongSignature, 
             <Center>
               <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
                 {title && lyrics && isSubmitted ? (
-                  <Text as='b' m={40} fontSize={20}>
+                  <Text as="b" m={40} fontSize={20}>
                     <Highlight query="Encrypt" styles={{ px: '0.5em', py: '0.5em', borderRadius: '10', bg: 'rgba(43, 211, 160, 0.87)', color: 'white' }}>
                       Click on Encrypt Tab to continue...
                     </Highlight>
