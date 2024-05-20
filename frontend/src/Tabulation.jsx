@@ -1,6 +1,7 @@
 import Write from './Write';
 import Encrypt from './Encrypt';
 import Deposit from './Deposit';
+import Register from './Register';
 
 import { Box, Center, Flex, Link, Tab, Tabs, TabList, TabPanels, Text } from '@chakra-ui/react';
 
@@ -16,6 +17,8 @@ function Tabulation({
   isChecked,
   isDeposited,
   depositReceipt,
+  isRegistered,
+  registerReceipt,
   setTitle,
   setLyrics,
   setLyricsByLine,
@@ -25,6 +28,8 @@ function Tabulation({
   setIsChecked,
   setIsDeposited,
   setDepositReceipt,
+  setIsRegistered,
+  setRegisterReceipt,
 }) {
   return (
     <Box w="100vw">
@@ -101,6 +106,15 @@ function Tabulation({
                         setIsChecked={setIsChecked}
                         setIsDeposited={setIsDeposited}
                         setDepositReceipt={setDepositReceipt}
+                      />
+                      <Register
+                        account={account}
+                        signer={signer}
+                        songSignature={songSignature}
+                        isRegistered={isRegistered}
+                        registerReceipt={registerReceipt}
+                        setIsRegistered={setIsRegistered}
+                        setRegisterReceipt={setRegisterReceipt}
                       />
                     </TabPanels>
                   </Flex>

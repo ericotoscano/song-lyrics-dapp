@@ -2,7 +2,7 @@ import { Box, Button, Center, Flex, Heading, Highlight, TabPanel, Text } from '@
 import { ethers } from 'ethers';
 import { useState } from 'react';
 
-const REGISTERV1_ADDRESS = '0x28439FBaC49ee85D692f32c28004407C8B698CCa';
+const REGISTERV1_ADDRESS = '0x380abCe4Dfe7b35a365857c380f18A2119675dd9';
 
 const REGISTERV1_ABI = [
   { inputs: [{ internalType: 'uint256', name: '_cost', type: 'uint256' }], stateMutability: 'nonpayable', type: 'constructor' },
@@ -25,8 +25,7 @@ const REGISTERV1_ABI = [
     anonymous: false,
     inputs: [
       { indexed: true, internalType: 'address', name: '_writer', type: 'address' },
-      { indexed: false, internalType: 'bytes32', name: '_hash', type: 'bytes32' },
-      { indexed: false, internalType: 'uint256', name: '_timestamp', type: 'uint256' },
+      { indexed: false, internalType: 'string', name: '_hash', type: 'string' },
     ],
     name: 'Registered',
     type: 'event',
@@ -37,29 +36,28 @@ const REGISTERV1_ABI = [
   {
     inputs: [{ internalType: 'address', name: '_songwriter', type: 'address' }],
     name: 'getSongs',
-    outputs: [{ internalType: 'bytes32[]', name: '', type: 'bytes32[]' }],
+    outputs: [{ internalType: 'string[]', name: '', type: 'string[]' }],
     stateMutability: 'view',
     type: 'function',
   },
   { inputs: [], name: 'isPaused', outputs: [{ internalType: 'bool', name: '', type: 'bool' }], stateMutability: 'view', type: 'function' },
   { inputs: [], name: 'owner', outputs: [{ internalType: 'address payable', name: '', type: 'address' }], stateMutability: 'view', type: 'function' },
   { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
-  { inputs: [{ internalType: 'bytes32', name: '_songHash', type: 'bytes32' }], name: 'register', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  { inputs: [{ internalType: 'string', name: '_songHash', type: 'string' }], name: 'register', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
 ];
-
 function Deposit({ account, signer, isChecked, isDeposited, depositReceipt, setIsChecked, setIsDeposited, setDepositReceipt }) {
   const [currentCostInEther, setCurrentCostInEther] = useState(0);
   const [currentCostInGwei, setCurrentCostInGwei] = useState(0);
   const [currentBalanceInGwei, setCurrentBalanceInGwei] = useState(0);
   const [currentBalanceInEther, setCurrentBalanceInEther] = useState(0);
-  const [isDepositLoading, setIsDepositLoading] = useState(false);
-  const [isBalanceLoading, setIsBalanceLoading] = useState(false);
+  const [isDepositLoaded, setIsDepositLoaded] = useState(false);
+  const [isBalanceLoaded, setIsBalanceLoaded] = useState(false);
 
   const deposit = async () => {
     try {
-      setIsDepositLoading(true);
+      setIsDepositLoaded(true);
 
       const cost = currentCostInGwei;
 
@@ -77,12 +75,12 @@ function Deposit({ account, signer, isChecked, isDeposited, depositReceipt, setI
 
         setCurrentBalanceInGwei(parseInt(ethers.utils.formatUnits(balance, 'gwei')));
 
-        if (parseInt(ethers.utils.formatUnits(balance, 'gwei')) >= 6 * currentCostInGwei) {
+        if (parseInt(ethers.utils.formatUnits(balance, 'gwei')) >= currentCostInGwei) {
           setIsDeposited(true);
         }
 
         setDepositReceipt(depositedByLine);
-        setIsDepositLoading(false);
+        setIsDepositLoaded(false);
       });
     } catch (error) {
       console.log(error.message);
@@ -91,7 +89,7 @@ function Deposit({ account, signer, isChecked, isDeposited, depositReceipt, setI
 
   const getBalance = async () => {
     try {
-      setIsBalanceLoading(true);
+      setIsBalanceLoaded(true);
 
       const SongRegister = new ethers.Contract(REGISTERV1_ADDRESS, REGISTERV1_ABI, signer);
 
@@ -110,12 +108,12 @@ function Deposit({ account, signer, isChecked, isDeposited, depositReceipt, setI
       setCurrentBalanceInGwei(parseInt(balanceInGwei));
       setCurrentBalanceInEther(balanceInEther);
 
-      if (balanceInGwei >= 6 * costInGwei) {
+      if (balanceInGwei >= costInGwei) {
         setIsDeposited(true);
       }
 
       setIsChecked(true);
-      setIsBalanceLoading(false);
+      setIsBalanceLoaded(false);
     } catch (error) {
       console.log(error.message);
     }
@@ -165,7 +163,7 @@ function Deposit({ account, signer, isChecked, isDeposited, depositReceipt, setI
                     <Box>
                       <Center>
                         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-                          <Button isLoading={isBalanceLoading} loadingText="Checking Balance..." fontSize={20} mt={20} mb={20} onClick={getBalance}>
+                          <Button isLoading={isBalanceLoaded} loadingText="Checking Balance..." fontSize={20} mt={20} mb={20} onClick={getBalance}>
                             Check Your Balance
                           </Button>
                         </Flex>
@@ -206,7 +204,7 @@ function Deposit({ account, signer, isChecked, isDeposited, depositReceipt, setI
                             </Box>
 
                             <Box mb={20}>
-                              <Button isLoading={isDepositLoading} loadingText="Depositing..." fontSize={20} mb={20} onClick={deposit}>
+                              <Button isLoading={isDepositLoaded} loadingText="Depositing..." fontSize={20} mb={20} onClick={deposit}>
                                 Deposit
                               </Button>
                             </Box>

@@ -17,6 +17,8 @@ function App() {
   const [isChecked, setIsChecked] = useState(false);
   const [isDeposited, setIsDeposited] = useState(false);
   const [depositReceipt, setDepositReceipt] = useState([]);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [registerReceipt, setRegisterReceipt] = useState([]);
 
   return (
     <Box as="samp" w="100vw">
@@ -38,6 +40,8 @@ function App() {
             isChecked={isChecked}
             isDeposited={isDeposited}
             depositReceipt={depositReceipt}
+            isRegistered={isRegistered}
+            registerReceipt={registerReceipt}
             setTitle={setTitle}
             setLyrics={setLyrics}
             setLyricsByLine={setLyricsByLine}
@@ -47,6 +51,8 @@ function App() {
             setIsChecked={setIsChecked}
             setIsDeposited={setIsDeposited}
             setDepositReceipt={setDepositReceipt}
+            setIsRegistered={setIsRegistered}
+            setRegisterReceipt={setRegisterReceipt}
           />
         </Flex>
       </Center>

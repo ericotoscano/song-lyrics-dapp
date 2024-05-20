@@ -2,22 +2,18 @@
 pragma solidity ^0.8.20;
 
 contract SongRegister {
-    mapping(address => bytes32[]) internal _songs;
+    mapping(address => string[]) internal _songs;
     mapping(address => uint256) public balances;
     address payable public owner;
     bool public isPaused;
-    uint256 immutable public cost;
+    uint256 public immutable cost;
 
     event Deposited(
         address indexed _account,
         uint256 _deposit,
         uint256 _balance
     );
-    event Registered(
-        address indexed _writer,
-        bytes32 _hash,
-        uint256 _blockNumber
-    );
+    event Registered(address indexed _writer, string _hash);
 
     error NotOwner();
     error Paused();
@@ -52,7 +48,7 @@ contract SongRegister {
         cost = _cost;
     }
 
-    function register(bytes32 _songHash) external pauseCheck {
+    function register(string calldata _songHash) external pauseCheck {
         if (balances[msg.sender] < cost) {
             revert NoBalance();
         }
@@ -61,7 +57,7 @@ contract SongRegister {
 
         _songs[msg.sender].push(_songHash);
 
-        emit Registered(msg.sender, _songHash, block.number);
+        emit Registered(msg.sender, _songHash);
     }
 
     function withdraw() external onlyOwner {
@@ -78,7 +74,7 @@ contract SongRegister {
 
     function getSongs(
         address _songwriter
-    ) external view returns (bytes32[] memory) {
+    ) external view returns (string[] memory) {
         return _songs[_songwriter];
     }
 

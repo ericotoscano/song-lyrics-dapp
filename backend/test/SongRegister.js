@@ -142,7 +142,7 @@ describe('SongRegister', function () {
 
         await expect(await songRegister.connect(songwriter).register(SONG1_HASH))
           .to.emit(songRegister, 'Registered')
-          .withArgs(songwriter.address, SONG1_HASH, time.latestBlock());
+          .withArgs(songwriter.address, SONG1_HASH);
       });
     });
   });
