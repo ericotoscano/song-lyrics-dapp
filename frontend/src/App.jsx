@@ -1,12 +1,13 @@
 import Title from './Title';
-import Tabulation from './Tabulation';
 import Account from './Account';
+import Options from './Options';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 
 function App() {
   const [account, setAccount] = useState('');
+  const [accountFormatted, setAccountFormatted] = useState('');
   const [signer, setSigner] = useState('');
   const [title, setTitle] = useState('');
   const [lyrics, setLyrics] = useState('');
@@ -21,39 +22,42 @@ function App() {
   const [registerReceipt, setRegisterReceipt] = useState([]);
 
   return (
-    <Box as="samp" w="100vw">
+    <Box w="100vw" as="samp">
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <Title />
 
-          <Account account={account} setAccount={setAccount} setSigner={setSigner} />
+          <Account account={account} accountFormatted={accountFormatted} setAccount={setAccount} setAccountFormatted={setAccountFormatted} setSigner={setSigner} />
 
-          <Tabulation
-            account={account}
-            signer={signer}
-            title={title}
-            lyrics={lyrics}
-            lyricsByLine={lyricsByLine}
-            isSubmitted={isSubmitted}
-            isEncrypted={isEncrypted}
-            songSignature={songSignature}
-            isChecked={isChecked}
-            isDeposited={isDeposited}
-            depositReceipt={depositReceipt}
-            isRegistered={isRegistered}
-            registerReceipt={registerReceipt}
-            setTitle={setTitle}
-            setLyrics={setLyrics}
-            setLyricsByLine={setLyricsByLine}
-            setIsSubmitted={setIsSubmitted}
-            setIsEncrypted={setIsEncrypted}
-            setSongSignature={setSongSignature}
-            setIsChecked={setIsChecked}
-            setIsDeposited={setIsDeposited}
-            setDepositReceipt={setDepositReceipt}
-            setIsRegistered={setIsRegistered}
-            setRegisterReceipt={setRegisterReceipt}
-          />
+          {account ? (
+            <Options
+              account={account}
+              accountFormatted={accountFormatted}
+              signer={signer}
+              title={title}
+              lyrics={lyrics}
+              lyricsByLine={lyricsByLine}
+              isSubmitted={isSubmitted}
+              isEncrypted={isEncrypted}
+              songSignature={songSignature}
+              isChecked={isChecked}
+              isDeposited={isDeposited}
+              depositReceipt={depositReceipt}
+              isRegistered={isRegistered}
+              registerReceipt={registerReceipt}
+              setTitle={setTitle}
+              setLyrics={setLyrics}
+              setLyricsByLine={setLyricsByLine}
+              setIsSubmitted={setIsSubmitted}
+              setIsEncrypted={setIsEncrypted}
+              setSongSignature={setSongSignature}
+              setIsChecked={setIsChecked}
+              setIsDeposited={setIsDeposited}
+              setDepositReceipt={setDepositReceipt}
+              setIsRegistered={setIsRegistered}
+              setRegisterReceipt={setRegisterReceipt}
+            />
+          ) : null}
         </Flex>
       </Center>
     </Box>

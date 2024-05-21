@@ -5,11 +5,11 @@ function Title() {
     <Box w="100vw">
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-          <Heading mb={30} fontSize={35}>
+          <Heading fontSize={50} mb={40}>
             Crypto Songs Lyrics
           </Heading>
 
-          <Text mb={40} fontSize={25} as="cite">
+          <Text as="cite" fontSize={25} mb={20}>
             A cryptographic way to prove the authenticity of your songs lyrics ideas
           </Text>
         </Flex>

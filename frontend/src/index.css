@@ -40,10 +40,10 @@ h1 {
 }
 
 button {
-  border-radius: 10px;
-  border: 3px solid transparent;
+  border-radius: 1em;
+  border: 4px solid transparent;
   border-color: #ffffff;
-  padding: 0.5em 1em;
+  padding: 0.75em 0.75em;
   font-size: 1.25em;
   font-weight: 500;
   font-family: inherit;
@@ -55,9 +55,9 @@ button:hover {
   border-color: #eefd15;
   color: #eefd15;
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button:focus {
+  border-color: #eefd15;
+  color: #eefd15;
 }
 
 @media (prefers-color-scheme: light) {
