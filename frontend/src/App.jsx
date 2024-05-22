@@ -1,6 +1,6 @@
 import Headings from './components/headings/Headings';
 import Account from './components/account/Account';
-import Options from './components/Options';
+import Options from './components/options/Options';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 import { useState } from 'react';

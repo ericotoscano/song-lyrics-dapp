@@ -6,7 +6,7 @@ import Songs from './Songs';
 
 import { Box, Center, Flex, Link, Tab, Tabs, TabList, TabPanels, Text } from '@chakra-ui/react';
 
-function Tabulation({
+function NewSong({
   account,
   accountFormatted,
   signer,
@@ -157,4 +157,4 @@ function Tabulation({
   );
 }
 
-export default Tabulation;
+export default NewSong;

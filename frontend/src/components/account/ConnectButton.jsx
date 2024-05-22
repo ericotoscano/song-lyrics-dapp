@@ -2,7 +2,7 @@ import { Box, Button, Center } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { formatAccount } from '../../utils/formatAccount';
 
-function Connect({ account, setAccount, setAccountFormatted, setSigner }) {
+function ConnectButton({ account, setAccount, setAccountFormatted, setSigner }) {
   const getAccount = async () => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -31,4 +31,4 @@ function Connect({ account, setAccount, setAccountFormatted, setSigner }) {
   );
 }
 
-export default Connect;
+export default ConnectButton;

@@ -104,7 +104,7 @@ function Songs({ account, signer, songSignature, isRegistered, registerReceipt, 
                     <Box>
                       <Center>
                         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-                          <Button isLoading={isRegisterLoading} loadingText="Registering Song..." fontSize={20} mt={20} mb={20} onClick={register}>
+                          <Button isLoading={isRegisterLoading} loadingText="Registering Song..." fontSize={20} mt={20} mb={20}>
                             Register Your Song
                           </Button>
                         </Flex>

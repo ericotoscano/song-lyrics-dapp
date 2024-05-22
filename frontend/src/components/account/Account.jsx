@@ -1,6 +1,6 @@
-import Connect from './Connect';
+import ConnectButton from './ConnectButton';
 import Current from './Current';
-import Instruction from './Instruction';
+import Change from './Change';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 
@@ -15,12 +15,12 @@ function Account({ account, accountFormatted, setAccount, setAccountFormatted, s
                 <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
                   <Current accountFormatted={accountFormatted} />
 
-                  <Instruction />
+                  <Change />
                 </Flex>
               </Center>
             </Box>
           ) : (
-            <Connect account={account} setAccount={setAccount} setAccountFormatted={setAccountFormatted} setSigner={setSigner} />
+            <ConnectButton account={account} setAccount={setAccount} setAccountFormatted={setAccountFormatted} setSigner={setSigner} />
           )}
         </Flex>
       </Center>
