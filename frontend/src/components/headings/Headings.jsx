@@ -1,15 +1,15 @@
 import { Box, Center, Flex, Heading, Text } from '@chakra-ui/react';
 
-function Title() {
+function Headings() {
   return (
-    <Box w="100vw">
+    <Box w="100vw" mb={40}>
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <Heading fontSize={50} mb={40}>
             Crypto Songs Lyrics
           </Heading>
 
-          <Text as="cite" fontSize={25} mb={20}>
+          <Text as="cite" fontSize={25}>
             A cryptographic way to prove the authenticity of your songs lyrics ideas
           </Text>
         </Flex>
@@ -18,4 +18,4 @@ function Title() {
   );
 }
 
-export default Title;
+export default Headings;

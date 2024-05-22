@@ -15,7 +15,7 @@ function Options() {
     }
   };
   return (
-    <Box>
+    <Box mt={20}>
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <Heading fontSize={30} mb={20}>
@@ -24,10 +24,10 @@ function Options() {
 
           <Box>
             <Center>
-              <Button fontSize={20} mt={20} mb={20} marginInline={15}>
+              <Button fontSize={20} mt={20} mb={20} marginInline={15} bgColor="#4b6289" color="#f2f2f2">
                 Check Your Songs
               </Button>
-              <Button fontSize={20} mt={20} mb={20} marginInline={15}>
+              <Button fontSize={20} mt={20} mb={20} marginInline={15} bgColor="#60316e" color="#f2f2f2">
                 Register a Song
               </Button>
             </Center>

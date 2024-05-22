@@ -1,6 +1,6 @@
-import Title from './Title';
-import Account from './Account';
-import Options from './Options';
+import Headings from './components/headings/Headings';
+import Account from './components/account/Account';
+import Options from './components/Options';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ function App() {
     <Box w="100vw" as="samp">
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-          <Title />
+          <Headings />
 
           <Account account={account} accountFormatted={accountFormatted} setAccount={setAccount} setAccountFormatted={setAccountFormatted} setSigner={setSigner} />
 
