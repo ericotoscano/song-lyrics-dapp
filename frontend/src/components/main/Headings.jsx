@@ -1,6 +1,6 @@
 import { Box, Center, Flex, Heading, Text } from '@chakra-ui/react';
 
-function Headings() {
+function MainHeadings() {
   return (
     <Box w="100vw" mb={40}>
       <Center>
@@ -18,4 +18,4 @@ function Headings() {
   );
 }
 
-export default Headings;
+export default MainHeadings;

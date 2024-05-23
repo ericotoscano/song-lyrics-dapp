@@ -1,6 +1,6 @@
 import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Center, OrderedList, List, ListItem, Text } from '@chakra-ui/react';
 
-function Change() {
+function ChangeAccount() {
   return (
     <Box mt={20}>
       <Center>
@@ -40,4 +40,4 @@ function Change() {
   );
 }
 
-export default Change;
+export default ChangeAccount;

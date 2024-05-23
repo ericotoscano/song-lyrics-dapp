@@ -1,6 +1,6 @@
 import ConnectButton from './ConnectButton';
-import Current from './Current';
-import Change from './Change';
+import CurrentAccount from './CurrentAccount';
+import ChangeAccount from './ChangeAccount';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 
@@ -13,8 +13,8 @@ function Account({ account, accountFormatted, setAccount, setAccountFormatted, s
             <Box>
               <Center>
                 <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-                  <Current accountFormatted={accountFormatted} />
-                  <Change />
+                  <CurrentAccount accountFormatted={accountFormatted} />
+                  <ChangeAccount />
                 </Flex>
               </Center>
             </Box>

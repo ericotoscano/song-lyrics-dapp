@@ -1,7 +1,7 @@
-import Headings from './Headings';
+import OptionsHeading from './OptionsHeading';
 import CheckButton from './CheckButton';
 import RegisterButton from './RegisterButton';
-import Register from '../register/Register';
+import RegisterOption from './register/RegisterOption';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -36,24 +36,11 @@ function Options({
   const [isCheckButtonClicked, setIsCheckButtonClicked] = useState(false);
   const [isRegisterButtonClicked, setIsRegisterButtonClicked] = useState(false);
 
-  const deposit = async () => {
-    try {
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const getBalance = async () => {
-    try {
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   return (
     <Box mt={20}>
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-          <Headings />
+          <OptionsHeading />
 
           <Flex alignItems={'center'} justifyContent="center" flexDirection={'row'}>
             <RegisterButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
@@ -61,7 +48,7 @@ function Options({
           </Flex>
 
           {isRegisterButtonClicked ? (
-            <Register
+            <RegisterOption
               account={account}
               accountFormatted={accountFormatted}
               signer={signer}
@@ -89,7 +76,7 @@ function Options({
               setRegisterReceipt={setRegisterReceipt}
             />
           ) : isCheckButtonClicked ? (
-            <Headings />
+            <OptionsHeading />
           ) : null}
         </Flex>
       </Center>

@@ -1,6 +1,6 @@
 import { Box, Center, Heading } from '@chakra-ui/react';
 
-function Headings() {
+function OptionsHeading() {
   return (
     <Box>
       <Center>
@@ -12,4 +12,4 @@ function Headings() {
   );
 }
 
-export default Headings;
+export default OptionsHeading;

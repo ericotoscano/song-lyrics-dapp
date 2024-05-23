@@ -1,6 +1,6 @@
 import { Box, Button, Center } from '@chakra-ui/react';
 import { ethers } from 'ethers';
-import { formatAccount } from '../../utils/formatAccount';
+import { formatAccount } from '../../utils/formatter';
 
 function ConnectButton({ account, setAccount, setAccountFormatted, setSigner }) {
   const getAccount = async () => {
@@ -9,10 +9,10 @@ function ConnectButton({ account, setAccount, setAccountFormatted, setSigner }) 
       const accounts = await provider.send('eth_requestAccounts', []);
 
       if (account !== accounts[0]) {
-        const account = formatAccount(accounts[0]);
+        const partialAccount = formatAccount(accounts[0]);
 
         setAccount(accounts[0]);
-        setAccountFormatted(account);
+        setAccountFormatted(partialAccount);
         setSigner(provider.getSigner(accounts[0]));
       }
     } catch (error) {
@@ -23,7 +23,7 @@ function ConnectButton({ account, setAccount, setAccountFormatted, setSigner }) 
   return (
     <Box mb={20}>
       <Center>
-        <Button onClick={getAccount} bgColor="#29a19c" color="#f2f2f2">
+        <Button onClick={getAccount} bgColor="#22267b" color="#f2f2f2">
           Connect Your Account
         </Button>
       </Center>
