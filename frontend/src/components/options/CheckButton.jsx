@@ -1,6 +1,6 @@
 import { Box, Button, Center } from '@chakra-ui/react';
 
-function Check({ setIsCheckButtonClicked, setIsRegisterButtonClicked }) {
+function CheckButton({ setIsCheckButtonClicked, setIsRegisterButtonClicked }) {
   const handleClick = (event) => {
     event.preventDefault();
     setIsCheckButtonClicked(true)
@@ -17,4 +17,4 @@ function Check({ setIsCheckButtonClicked, setIsRegisterButtonClicked }) {
   );
 }
 
-export default Check;
+export default CheckButton;

@@ -1,6 +1,7 @@
 import Headings from './components/headings/Headings';
 import Account from './components/account/Account';
 import Options from './components/options/Options';
+import Footer from './components/footer/Footer';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -57,7 +58,7 @@ function App() {
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
             />
-          ) : null}
+          ) : (<Footer />)}
         </Flex>
       </Center>
     </Box>

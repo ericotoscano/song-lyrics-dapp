@@ -1,7 +1,7 @@
 import Headings from './Headings';
-import Check from './Check';
-import Register from './Register';
-import NewSong from '../NewSong';
+import CheckButton from './CheckButton';
+import RegisterButton from './RegisterButton';
+import Register from '../register/Register';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -56,12 +56,12 @@ function Options({
           <Headings />
 
           <Flex alignItems={'center'} justifyContent="center" flexDirection={'row'}>
-            <Register setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
-            <Check setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
+            <RegisterButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
+            <CheckButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
           </Flex>
 
           {isRegisterButtonClicked ? (
-            <NewSong
+            <Register
               account={account}
               accountFormatted={accountFormatted}
               signer={signer}
@@ -98,33 +98,3 @@ function Options({
 }
 
 export default Options;
-
-{
-  /* <Tabulation
-  account={account}
-  accountFormatted={accountFormatted}
-  signer={signer}
-  title={title}
-  lyrics={lyrics}
-  lyricsByLine={lyricsByLine}
-  isSubmitted={isSubmitted}
-  isEncrypted={isEncrypted}
-  songSignature={songSignature}
-  isChecked={isChecked}
-  isDeposited={isDeposited}
-  depositReceipt={depositReceipt}
-  isRegistered={isRegistered}
-  registerReceipt={registerReceipt}
-  setTitle={setTitle}
-  setLyrics={setLyrics}
-  setLyricsByLine={setLyricsByLine}
-  setIsSubmitted={setIsSubmitted}
-  setIsEncrypted={setIsEncrypted}
-  setSongSignature={setSongSignature}
-  setIsChecked={setIsChecked}
-  setIsDeposited={setIsDeposited}
-  setDepositReceipt={setDepositReceipt}
-  setIsRegistered={setIsRegistered}
-  setRegisterReceipt={setRegisterReceipt}
-/>; */
-}
