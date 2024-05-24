@@ -1,12 +1,11 @@
 import CostAndBalanceHeading from './CostAndBalanceHeading';
-
 import CostAndBalanceButton from './CostAndBalanceButton';
 import Result from './Result';
 
 import { Box, Center, Flex, TabPanel } from '@chakra-ui/react';
 import { useState } from 'react';
 
-function DepositPanel({ account, signer, isChecked, isDeposited, depositReceipt, setIsChecked, setIsDeposited, setDepositReceipt }) {
+function DepositPanel({ account, signer, contractAddress, contractABI, isChecked, isDeposited, depositReceipt, setIsChecked, setIsDeposited, setDepositReceipt }) {
   const [currentCostInEther, setCurrentCostInEther] = useState(0);
   const [currentCostInGwei, setCurrentCostInGwei] = useState(0);
   const [currentBalanceInGwei, setCurrentBalanceInGwei] = useState(0);
@@ -23,6 +22,8 @@ function DepositPanel({ account, signer, isChecked, isDeposited, depositReceipt,
 
             <CostAndBalanceButton
               account={account}
+              contractAddress={contractAddress}
+              contractABI={contractABI}
               currentCostInEther={currentCostInEther}
               currentCostInGwei={currentCostInGwei}
               currentBalanceInGwei={currentBalanceInGwei}
@@ -41,6 +42,8 @@ function DepositPanel({ account, signer, isChecked, isDeposited, depositReceipt,
             />
             <Result
               signer={signer}
+              contractAddress={contractAddress}
+              contractABI={contractABI}
               isChecked={isChecked}
               isDeposited={isDeposited}
               currentCostInGwei={currentCostInGwei}

@@ -33,6 +33,56 @@ function AllTabs({
   setIsRegistered,
   setRegisterReceipt,
 }) {
+  const REGISTER_ADDRESS = '0x380abCe4Dfe7b35a365857c380f18A2119675dd9';
+  const REGISTER_ABI = [
+    { inputs: [{ internalType: 'uint256', name: '_cost', type: 'uint256' }], stateMutability: 'nonpayable', type: 'constructor' },
+    { inputs: [], name: 'NoBalance', type: 'error' },
+    { inputs: [], name: 'NoFunds', type: 'error' },
+    { inputs: [], name: 'NotOwner', type: 'error' },
+    { inputs: [], name: 'Paused', type: 'error' },
+    { inputs: [], name: 'Unpaused', type: 'error' },
+    {
+      anonymous: false,
+      inputs: [
+        { indexed: true, internalType: 'address', name: '_account', type: 'address' },
+        { indexed: false, internalType: 'uint256', name: '_deposit', type: 'uint256' },
+        { indexed: false, internalType: 'uint256', name: '_balance', type: 'uint256' },
+      ],
+      name: 'Deposited',
+      type: 'event',
+    },
+    {
+      anonymous: false,
+      inputs: [
+        { indexed: true, internalType: 'address', name: '_writer', type: 'address' },
+        { indexed: false, internalType: 'string', name: '_hash', type: 'string' },
+      ],
+      name: 'Registered',
+      type: 'event',
+    },
+    {
+      inputs: [{ internalType: 'address', name: '', type: 'address' }],
+      name: 'balances',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    { inputs: [], name: 'cost', outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }], stateMutability: 'view', type: 'function' },
+    { inputs: [], name: 'deposit', outputs: [], stateMutability: 'payable', type: 'function' },
+    {
+      inputs: [{ internalType: 'address', name: '_songwriter', type: 'address' }],
+      name: 'getSongs',
+      outputs: [{ internalType: 'string[]', name: '', type: 'string[]' }],
+      stateMutability: 'view',
+      type: 'function',
+    },
+    { inputs: [], name: 'isPaused', outputs: [{ internalType: 'bool', name: '', type: 'bool' }], stateMutability: 'view', type: 'function' },
+    { inputs: [], name: 'owner', outputs: [{ internalType: 'address payable', name: '', type: 'address' }], stateMutability: 'view', type: 'function' },
+    { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+    { inputs: [{ internalType: 'string', name: '_songHash', type: 'string' }], name: 'register', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+    { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+    { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+  ];
   return (
     <Box>
       <Center>
@@ -70,6 +120,8 @@ function AllTabs({
                 <DepositPanel
                   account={account}
                   accountFormatted={accountFormatted}
+                  contractAddress={REGISTER_ADDRESS}
+                  contractABI={REGISTER_ABI}
                   signer={signer}
                   isChecked={isChecked}
                   isDeposited={isDeposited}
@@ -82,6 +134,8 @@ function AllTabs({
                   account={account}
                   accountFormatted={accountFormatted}
                   signer={signer}
+                  contractAddress={REGISTER_ADDRESS}
+                  contractABI={REGISTER_ABI}
                   songSignature={songSignature}
                   isRegistered={isRegistered}
                   registerReceipt={registerReceipt}
