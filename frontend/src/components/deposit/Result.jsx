@@ -1,6 +1,6 @@
 import { Box, Button, Center, Flex, Highlight, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
-import { formatAccount } from '../../../utils/formatter';
+import { formatAccount } from '../../utils/formatter';
 
 function Result({ signer, contractAddress, contractABI, isChecked, isDeposited, currentCostInGwei, setCurrentBalanceInGwei, isDepositLoaded, setIsDepositLoaded, setIsDeposited, setDepositReceipt }) {
   const deposit = async () => {

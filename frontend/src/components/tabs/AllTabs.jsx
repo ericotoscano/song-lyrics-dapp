@@ -1,8 +1,8 @@
 import TabsButtons from './TabsButtons';
-import WritePanel from './write/WritePanel';
-import EncryptPanel from './encrypt/EncryptPanel';
-import DepositPanel from './deposit/DepositPanel';
-import RegisterPanel from './register/RegisterPanel';
+import WritePanel from '../write/WritePanel';
+import EncryptPanel from '../encrypt/EncryptPanel';
+import DepositPanel from '../deposit/DepositPanel';
+import RegisterPanel from '../register/RegisterPanel';
 
 import { Box, Center, Tabs, TabPanels } from '@chakra-ui/react';
 

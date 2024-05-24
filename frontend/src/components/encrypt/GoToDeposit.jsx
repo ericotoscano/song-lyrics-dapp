@@ -1,6 +1,6 @@
 import { Box, Button, Center, Flex, Highlight, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
-import { formatSignature } from '../../../utils/formatter';
+import { formatSignature } from '../../utils/formatter';
 import { useState } from 'react';
 
 function GoToDeposit({ title, lyrics, isEncrypted, songSignature, setIsEncrypted, setSongSignature }) {

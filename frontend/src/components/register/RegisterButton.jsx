@@ -1,7 +1,7 @@
 import { Box, Button, Center, Flex, Link, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState } from 'react';
-import { formatAccount, formatSignature } from '../../../utils/formatter';
+import { formatAccount, formatSignature } from '../../utils/formatter';
 
 function RegisterButton({ signer, contractAddress, contractABI, songSignature, isRegistered, registerReceipt, setIsRegistered, setRegisterReceipt }) {
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
