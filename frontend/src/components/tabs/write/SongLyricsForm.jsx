@@ -1,4 +1,4 @@
-import { Box, Center, Flex, FormControl, FormLabel, FormErrorMessage, FormHelperText, Heading, Text, Textarea } from '@chakra-ui/react';
+import { Center, FormControl, FormLabel, FormErrorMessage, FormHelperText, Heading, Textarea } from '@chakra-ui/react';
 
 function SongLyricsForm({ lyrics, isSubmitted, setLyrics, setIsSubmitted, setIsEncrypted, setSongSignature, setIsChecked, setIsDeposited, setDepositReceipt }) {
   function handleLyricsChange(event) {

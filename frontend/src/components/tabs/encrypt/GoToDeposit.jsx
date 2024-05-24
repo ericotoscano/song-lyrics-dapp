@@ -24,15 +24,19 @@ function GoToDeposit({ title, lyrics, isEncrypted, songSignature, setIsEncrypted
       <Center>
         {isEncrypted ? (
           <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-            <Text as="b" fontSize={20} color={'tomato'}>
-              Your song signature short version is:
+            <Text as="b" fontSize={20}>
+              Your song signature in short version is:
             </Text>
 
-            <Text w={460} as="mark" px="0.5em" py="0.5em" borderRadius="0.25em" textColor="#f2f2f2" bgColor="#60316e" mt={20} fontSize={20}>
+            <Text w={460} as="mark" px="0.5em" py="0.5em" borderRadius="0.25em" textColor="#f2f2f2" bgColor="#60316e" mt={20} mb={40} fontSize={20}>
               {formattedSongSignature}
             </Text>
 
-            <Text as="b" mt={40} fontSize={20} color={'tomato'}>
+            <Text as="b" fontSize={20}>
+              Now it's time to make a deposit!
+            </Text>
+
+            <Text as="b" mt={40} fontSize={20}>
               <Highlight query="Deposit" styles={{ px: '0.5em', py: '0.5em', border: '4px solid transparent', borderRadius: '3em', borderColor: '#f2f2f2', bg: '#60316e', color: 'white' }}>
                 Click on Deposit to continue...
               </Highlight>
@@ -40,7 +44,7 @@ function GoToDeposit({ title, lyrics, isEncrypted, songSignature, setIsEncrypted
           </Flex>
         ) : (
           <Button fontSize={20} onClick={getSignature}>
-            Get Song Signature
+            Create Song Signature
           </Button>
         )}
       </Center>

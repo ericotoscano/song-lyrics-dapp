@@ -1,4 +1,4 @@
-import Headings from './components/main/Headings';
+import Headings from './components/headings/Headings';
 import Account from './components/account/Account';
 import Options from './components/options/Options';
 import Footer from './components/footer/Footer';

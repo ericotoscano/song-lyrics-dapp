@@ -6,7 +6,7 @@ function ChangeAccount() {
       <Center>
         <Accordion allowToggle textColor="#f1c550">
           <AccordionItem mb={0}>
-            <AccordionButton bgColor="#29a19c" minWidth={500}>
+            <AccordionButton bgColor="#22267b" minWidth={500}>
               <Box as="span" flex="1" textAlign="center">
                 How to Connect Another Account?
               </Box>

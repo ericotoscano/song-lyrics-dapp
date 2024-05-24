@@ -4,7 +4,7 @@ import GoToEncrypt from './GoToEncrypt';
 
 import { Center, TabPanel } from '@chakra-ui/react';
 
-function WriteTab({ title, lyrics, isSubmitted, setTitle, setLyrics, setLyricsByLine, setIsSubmitted, setIsEncrypted, setSongSignature, setIsChecked, setIsDeposited, setDepositReceipt }) {
+function WritePanel({ title, lyrics, isSubmitted, setTitle, setLyrics, setLyricsByLine, setIsSubmitted, setIsEncrypted, setSongSignature, setIsChecked, setIsDeposited, setDepositReceipt }) {
   return (
     <Center>
       <TabPanel>
@@ -38,4 +38,4 @@ function WriteTab({ title, lyrics, isSubmitted, setTitle, setLyrics, setLyricsBy
   );
 }
 
-export default WriteTab;
+export default WritePanel;

@@ -1,7 +1,7 @@
-import OptionsHeading from './OptionsHeading';
+import Question from './Question';
 import CheckButton from './CheckButton';
 import RegisterButton from './RegisterButton';
-import RegisterOption from './register/RegisterOption';
+import AllTabs from '../tabs/AllTabs';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -40,7 +40,7 @@ function Options({
     <Box mt={20}>
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-          <OptionsHeading />
+          <Question />
 
           <Flex alignItems={'center'} justifyContent="center" flexDirection={'row'}>
             <RegisterButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
@@ -48,7 +48,7 @@ function Options({
           </Flex>
 
           {isRegisterButtonClicked ? (
-            <RegisterOption
+            <AllTabs
               account={account}
               accountFormatted={accountFormatted}
               signer={signer}
@@ -76,7 +76,7 @@ function Options({
               setRegisterReceipt={setRegisterReceipt}
             />
           ) : isCheckButtonClicked ? (
-            <OptionsHeading />
+            <Question />
           ) : null}
         </Flex>
       </Center>
