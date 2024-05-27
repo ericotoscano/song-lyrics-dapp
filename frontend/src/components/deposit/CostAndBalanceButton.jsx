@@ -1,4 +1,4 @@
-import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Center, Flex, Link, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
 function CostAndBalanceButton({
@@ -9,21 +9,22 @@ function CostAndBalanceButton({
   currentCostInGwei,
   currentBalanceInGwei,
   currentBalanceInEther,
-  isBalanceLoaded,
+  isBalanceLoading,
   signer,
   isChecked,
   depositReceipt,
+  depositHash,
   setIsChecked,
   setIsDeposited,
   setCurrentCostInEther,
   setCurrentCostInGwei,
   setCurrentBalanceInGwei,
   setCurrentBalanceInEther,
-  setIsBalanceLoaded,
+  setIsBalanceLoading,
 }) {
   const getCostAndBalance = async () => {
     try {
-      setIsBalanceLoaded(true);
+      setIsBalanceLoading(true);
 
       const SongRegister = new ethers.Contract(contractAddress, contractABI, signer);
 
@@ -47,52 +48,69 @@ function CostAndBalanceButton({
       }
 
       setIsChecked(true);
-      setIsBalanceLoaded(false);
+      setIsBalanceLoading(false);
     } catch (error) {
       console.log(error.message);
     }
   };
   return (
-    <Box>
-      {isChecked ? (
-        depositReceipt.length == 0 ? (
-          <Flex alignItems={'start'} flexDirection={'column'}>
-            <Text as="em" fontSize="x-large" align="center" color="#f1c550" mb={15}>
-              Current Cost: {currentCostInGwei} Gwei ({currentCostInEther} Ether)
-            </Text>
-            <Text as="em" fontSize="x-large" align="center" color="#f1c550">
-              Your Balance: {currentBalanceInGwei} Gwei ({currentBalanceInEther} Ether)
-            </Text>
-          </Flex>
-        ) : (
-          <Flex alignItems={'center'} flexDirection={'column'}>
-            <Center>
-              <Text as="b" mb={20} fontSize={20} color="#f1c550">
-                Successfully Deposited!
-              </Text>
-            </Center>
+    <Box w={820}>
+      <Center>
+        {isChecked ? (
+          depositReceipt.length == 0 ? (
+            <Box mt={20} mb={20}>
+              <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                <Text as="em" fontSize="x-large" color="#f1c550" mb={10}>
+                  Current Cost: {currentCostInGwei} Gwei ({currentCostInEther} Ether)
+                </Text>
+                <Text as="em" fontSize="x-large" color="#f1c550">
+                  Your Balance: {currentBalanceInGwei} Gwei ({currentBalanceInEther} Ether)
+                </Text>
+              </Flex>
+            </Box>
+          ) : (
+            <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+              <Center>
+                <Text as="b" mb={40} mt={20} fontSize={20} color="#f1c550">
+                  Successfully Deposited!
+                </Text>
+              </Center>
 
-            <Flex alignItems={'start'} flexDirection={'column'}>
-              {depositReceipt.map((line, index) => (
-                <li key={index}>
-                  <Box mb={15}>
-                    <Text as="em" fontSize="x-large" align="center" color="#f1c550">
-                      {line}
-                    </Text>
-                  </Box>
-                </li>
-              ))}
+              <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
+                {depositReceipt.map((line, index) => (
+                  <li key={index}>
+                    <Box mb={10} w={820}>
+                      <Text as="em" fontSize="x-large" align="center" color="#f1c550">
+                        {line}
+                      </Text>
+                    </Box>
+                  </li>
+                ))}
+              </Flex>
+
+              <Box w={820} mt={40} mb={20}>
+                <Text as="b" fontSize={20}>
+                  See your deposit transaction on{' '}
+                  <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${depositHash}`} isExternal>
+                    Polygon Amoy Testnet Explorer
+                  </Link>
+                </Text>
+              </Box>
             </Flex>
-          </Flex>
-        )
-      ) : (
-        <Flex alignItems={'center'} flexDirection={'column'}>
-          <Text fontSize={20}>Let's check the current cost to register a song and your balance on the contract.</Text>
-          <Button isLoading={isBalanceLoaded} loadingText="Checking Cost and Balance..." fontSize={20} mt={20} mb={20} onClick={getCostAndBalance}>
-            Check Cost and Balance
-          </Button>
-        </Flex>
-      )}
+          )
+        ) : (
+          <Box w={820}>
+            <Text fontSize={20}>Let's check your balance and the current cost to register a song.</Text>
+            <Box>
+              <Center>
+                <Button isLoading={isBalanceLoading} loadingText="Checking Cost and Balance..." fontSize={20} mt={20} onClick={getCostAndBalance}>
+                  Check Cost and Balance
+                </Button>
+              </Center>
+            </Box>
+          </Box>
+        )}
+      </Center>
     </Box>
   );
 }

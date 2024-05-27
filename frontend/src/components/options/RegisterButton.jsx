@@ -10,7 +10,7 @@ function RegisterButton({ setIsCheckButtonClicked, setIsRegisterButtonClicked })
   return (
     <Box>
       <Center>
-        <Button fontSize={20} mt={20} mb={20} marginInline={15} bgColor="#60316e" color="#f2f2f2" onClick={handleClick}>
+        <Button  w={300} fontSize={20} mt={40} mb={20} bgColor="#60316e" color="#f2f2f2" onClick={handleClick}>
           Register a Song
         </Button>
       </Center>

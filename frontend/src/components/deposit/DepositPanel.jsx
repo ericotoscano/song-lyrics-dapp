@@ -10,14 +10,15 @@ function DepositPanel({ account, signer, contractAddress, contractABI, isChecked
   const [currentCostInGwei, setCurrentCostInGwei] = useState(0);
   const [currentBalanceInGwei, setCurrentBalanceInGwei] = useState(0);
   const [currentBalanceInEther, setCurrentBalanceInEther] = useState(0);
-  const [isDepositLoaded, setIsDepositLoaded] = useState(false);
-  const [isBalanceLoaded, setIsBalanceLoaded] = useState(false);
+  const [isDepositLoading, setIsDepositLoading] = useState(false);
+  const [isBalanceLoading, setIsBalanceLoading] = useState(false);
+  const [depositHash, setDepositHash] = useState('');
 
   return (
-    <Box>
-      <Center>
-        <TabPanel w={480}>
-        <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+    <TabPanel>
+      <Box>
+        <Center>
+          <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
             <CostAndBalanceHeading />
 
             <CostAndBalanceButton
@@ -28,18 +29,20 @@ function DepositPanel({ account, signer, contractAddress, contractABI, isChecked
               currentCostInGwei={currentCostInGwei}
               currentBalanceInGwei={currentBalanceInGwei}
               currentBalanceInEther={currentBalanceInEther}
-              isBalanceLoaded={isBalanceLoaded}
+              isBalanceLoading={isBalanceLoading}
               signer={signer}
               isChecked={isChecked}
               depositReceipt={depositReceipt}
+              depositHash={depositHash}
               setIsChecked={setIsChecked}
               setIsDeposited={setIsDeposited}
               setCurrentCostInEther={setCurrentCostInEther}
               setCurrentCostInGwei={setCurrentCostInGwei}
               setCurrentBalanceInGwei={setCurrentBalanceInGwei}
               setCurrentBalanceInEther={setCurrentBalanceInEther}
-              setIsBalanceLoaded={setIsBalanceLoaded}
+              setIsBalanceLoading={setIsBalanceLoading}
             />
+
             <Result
               signer={signer}
               contractAddress={contractAddress}
@@ -47,16 +50,18 @@ function DepositPanel({ account, signer, contractAddress, contractABI, isChecked
               isChecked={isChecked}
               isDeposited={isDeposited}
               currentCostInGwei={currentCostInGwei}
+              currentCostInEther={currentCostInEther}
+              isDepositLoading={isDepositLoading}
               setCurrentBalanceInGwei={setCurrentBalanceInGwei}
-              isDepositLoaded={isDepositLoaded}
-              setIsDepositLoaded={setIsDepositLoaded}
+              setDepositHash={setDepositHash}
+              setIsDepositLoading={setIsDepositLoading}
               setIsDeposited={setIsDeposited}
               setDepositReceipt={setDepositReceipt}
             />
           </Flex>
-        </TabPanel>
-      </Center>
-    </Box>
+        </Center>
+      </Box>
+    </TabPanel>
   );
 }
 

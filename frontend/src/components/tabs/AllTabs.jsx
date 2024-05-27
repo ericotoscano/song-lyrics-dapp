@@ -1,10 +1,11 @@
+import TabsHeading from './TabsHeading';
 import TabsButtons from './TabsButtons';
 import WritePanel from '../write/WritePanel';
 import EncryptPanel from '../encrypt/EncryptPanel';
 import DepositPanel from '../deposit/DepositPanel';
 import RegisterPanel from '../register/RegisterPanel';
 
-import { Box, Center, Tabs, TabPanels } from '@chakra-ui/react';
+import { Box, Center, Flex, Tabs, TabPanels } from '@chakra-ui/react';
 
 function AllTabs({
   account,
@@ -86,66 +87,69 @@ function AllTabs({
   return (
     <Box>
       <Center>
-        <Tabs mt={20}>
-          <Center>
-            <TabsButtons title={title} lyrics={lyrics} isSubmitted={isSubmitted} isEncrypted={isEncrypted} songSignature={songSignature} isDeposited={isDeposited} />
-          </Center>
-
-          <Box>
+        <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+          <TabsHeading />
+          <Tabs mt={20}>
             <Center>
-              <TabPanels>
-                <WritePanel
-                  title={title}
-                  lyrics={lyrics}
-                  isSubmitted={isSubmitted}
-                  setTitle={setTitle}
-                  setLyrics={setLyrics}
-                  setLyricsByLine={setLyricsByLine}
-                  setIsSubmitted={setIsSubmitted}
-                  setIsEncrypted={setIsEncrypted}
-                  setSongSignature={setSongSignature}
-                  setIsChecked={setIsChecked}
-                  setIsDeposited={setIsDeposited}
-                  setDepositReceipt={setDepositReceipt}
-                />
-                <EncryptPanel
-                  accountFormatted={accountFormatted}
-                  title={title}
-                  lyricsByLine={lyricsByLine}
-                  isEncrypted={isEncrypted}
-                  songSignature={songSignature}
-                  setIsEncrypted={setIsEncrypted}
-                  setSongSignature={setSongSignature}
-                />
-                <DepositPanel
-                  account={account}
-                  accountFormatted={accountFormatted}
-                  contractAddress={REGISTER_ADDRESS}
-                  contractABI={REGISTER_ABI}
-                  signer={signer}
-                  isChecked={isChecked}
-                  isDeposited={isDeposited}
-                  depositReceipt={depositReceipt}
-                  setIsChecked={setIsChecked}
-                  setIsDeposited={setIsDeposited}
-                  setDepositReceipt={setDepositReceipt}
-                />
-                <RegisterPanel
-                  account={account}
-                  accountFormatted={accountFormatted}
-                  signer={signer}
-                  contractAddress={REGISTER_ADDRESS}
-                  contractABI={REGISTER_ABI}
-                  songSignature={songSignature}
-                  isRegistered={isRegistered}
-                  registerReceipt={registerReceipt}
-                  setIsRegistered={setIsRegistered}
-                  setRegisterReceipt={setRegisterReceipt}
-                />
-              </TabPanels>
+              <TabsButtons title={title} lyrics={lyrics} isSubmitted={isSubmitted} isEncrypted={isEncrypted} songSignature={songSignature} isDeposited={isDeposited} />
             </Center>
-          </Box>
-        </Tabs>
+
+            <Box mt={40}>
+              <Center>
+                <TabPanels>
+                  <WritePanel
+                    title={title}
+                    lyrics={lyrics}
+                    isSubmitted={isSubmitted}
+                    setTitle={setTitle}
+                    setLyrics={setLyrics}
+                    setLyricsByLine={setLyricsByLine}
+                    setIsSubmitted={setIsSubmitted}
+                    setIsEncrypted={setIsEncrypted}
+                    setSongSignature={setSongSignature}
+                    setIsChecked={setIsChecked}
+                    setIsDeposited={setIsDeposited}
+                    setDepositReceipt={setDepositReceipt}
+                  />
+                  <EncryptPanel
+                    accountFormatted={accountFormatted}
+                    title={title}
+                    lyricsByLine={lyricsByLine}
+                    isEncrypted={isEncrypted}
+                    songSignature={songSignature}
+                    setIsEncrypted={setIsEncrypted}
+                    setSongSignature={setSongSignature}
+                  />
+                  <DepositPanel
+                    account={account}
+                    accountFormatted={accountFormatted}
+                    contractAddress={REGISTER_ADDRESS}
+                    contractABI={REGISTER_ABI}
+                    signer={signer}
+                    isChecked={isChecked}
+                    isDeposited={isDeposited}
+                    depositReceipt={depositReceipt}
+                    setIsChecked={setIsChecked}
+                    setIsDeposited={setIsDeposited}
+                    setDepositReceipt={setDepositReceipt}
+                  />
+                  <RegisterPanel
+                    account={account}
+                    accountFormatted={accountFormatted}
+                    signer={signer}
+                    contractAddress={REGISTER_ADDRESS}
+                    contractABI={REGISTER_ABI}
+                    songSignature={songSignature}
+                    isRegistered={isRegistered}
+                    registerReceipt={registerReceipt}
+                    setIsRegistered={setIsRegistered}
+                    setRegisterReceipt={setRegisterReceipt}
+                  />
+                </TabPanels>
+              </Center>
+            </Box>
+          </Tabs>
+        </Flex>
       </Center>
     </Box>
   );

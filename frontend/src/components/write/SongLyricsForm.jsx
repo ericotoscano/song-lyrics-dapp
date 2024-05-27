@@ -1,4 +1,4 @@
-import { Center, FormControl, FormLabel, FormErrorMessage, FormHelperText, Heading, Textarea } from '@chakra-ui/react';
+import { Center, Flex, FormControl, FormLabel, FormErrorMessage, FormHelperText, Heading, Textarea, Box } from '@chakra-ui/react';
 
 function SongLyricsForm({ lyrics, isSubmitted, setLyrics, setIsSubmitted, setIsEncrypted, setSongSignature, setIsChecked, setIsDeposited, setDepositReceipt }) {
   function handleLyricsChange(event) {
@@ -12,24 +12,30 @@ function SongLyricsForm({ lyrics, isSubmitted, setLyrics, setIsSubmitted, setIsE
   }
 
   return (
-    <Center>
-      <FormControl isInvalid={!lyrics && isSubmitted}>
-        <FormLabel>
-          <Heading fontSize={30}>Song Lyrics</Heading>
-        </FormLabel>
+    <FormControl isInvalid={!lyrics && isSubmitted} w={820}>
+      <Box mb={20}>
+        <Center>
+          <Flex flexDirection={'column'}>
+            <FormLabel>
+              <Heading fontSize={30} ps={2}>
+                Song Lyrics
+              </Heading>
+            </FormLabel>
 
-        <Textarea onChange={handleLyricsChange} color="black" mt={5} size="md" w="500px" h="200px" textAlign="left" p={8} bgColor="white" fontSize={22} />
-        {lyrics || !isSubmitted ? (
-          <FormHelperText mb={0} fontSize={20} mt={10}>
-            Enter your song lyrics
-          </FormHelperText>
-        ) : (
-          <FormErrorMessage as="b" mb={0} fontSize={20} mt={10} color={'tomato'}>
-            You need to enter the song lyrics!
-          </FormErrorMessage>
-        )}
-      </FormControl>
-    </Center>
+            <Textarea onChange={handleLyricsChange} color="black" mt={5} size="md" w={820} h={200} textAlign="left" p={8} bgColor="white" fontSize={22} />
+            {lyrics || !isSubmitted ? (
+              <FormHelperText fontSize={20} mt={10} ps={2}>
+                Enter your song lyrics
+              </FormHelperText>
+            ) : (
+              <FormErrorMessage as="b" fontSize={20} mt={10} ps={2} color={'tomato'}>
+                You need to enter the song lyrics!
+              </FormErrorMessage>
+            )}
+          </Flex>
+        </Center>
+      </Box>
+    </FormControl>
   );
 }
 

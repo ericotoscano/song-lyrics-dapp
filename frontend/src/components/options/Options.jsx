@@ -39,13 +39,11 @@ function Options({
   return (
     <Box mt={20}>
       <Center>
-        <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+        <Flex alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
           <Question />
 
-          <Flex alignItems={'center'} justifyContent="center" flexDirection={'row'}>
-            <RegisterButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
-            <CheckButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
-          </Flex>
+          <RegisterButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
+          <CheckButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
 
           {isRegisterButtonClicked ? (
             <AllTabs

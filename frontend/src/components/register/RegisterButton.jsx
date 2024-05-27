@@ -5,8 +5,7 @@ import { formatAccount, formatSignature } from '../../utils/formatter';
 
 function RegisterButton({ signer, contractAddress, contractABI, songSignature, isRegistered, registerReceipt, setIsRegistered, setRegisterReceipt }) {
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
-
-  const [transactionHash, setTransactionHash] = useState('');
+  const [registerHash, setRegisterHash] = useState('');
 
   const register = async () => {
     try {
@@ -28,7 +27,7 @@ function RegisterButton({ signer, contractAddress, contractABI, songSignature, i
 
         setRegisterReceipt(registeredByLine);
         setIsRegistered(true);
-        setTransactionHash(receipt.transactionHash);
+        setRegisterHash(receipt.transactionHash);
         setIsRegisterLoading(false);
       });
     } catch (error) {
@@ -60,8 +59,8 @@ function RegisterButton({ signer, contractAddress, contractABI, songSignature, i
           <Box>
             <Center>
               <Text as="b" mt={20} fontSize={20}>
-                See on{' '}
-                <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${transactionHash}`} isExternal>
+                See your register transaction on{' '}
+                <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${registerHash}`} isExternal>
                   Polygon Amoy Testnet Explorer
                 </Link>
               </Text>
