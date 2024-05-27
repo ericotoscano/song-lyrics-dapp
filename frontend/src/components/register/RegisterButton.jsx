@@ -1,7 +1,6 @@
 import { Box, Button, Center, Flex, Link, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState } from 'react';
-import { formatAccount, formatSignature } from '../../utils/formatter';
 
 function RegisterButton({ signer, contractAddress, contractABI, songSignature, isRegistered, registerReceipt, setIsRegistered, setRegisterReceipt }) {
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
@@ -15,15 +14,13 @@ function RegisterButton({ signer, contractAddress, contractABI, songSignature, i
       const tx = await SongRegister.connect(signer).register(songSignature, { gasLimit: 150000 });
 
       SongRegister.on('Registered', async (sender, signature) => {
-        const registeredByLine = [];
         const receipt = await tx.wait();
+        const registeredByLine = [];
 
-        registeredByLine.push('Song Writer:');
-        registeredByLine.push(formatAccount(sender));
-        registeredByLine.push('Song Signature Short Version:');
-        registeredByLine.push(formatSignature(signature));
-        registeredByLine.push('Transaction Hash Short Version:');
-        registeredByLine.push(formatSignature(receipt.transactionHash));
+        registeredByLine.push('Songwriter');
+        registeredByLine.push(sender);
+        registeredByLine.push('Song Signature');
+        registeredByLine.push(signature);
 
         setRegisterReceipt(registeredByLine);
         setIsRegistered(true);
@@ -34,47 +31,51 @@ function RegisterButton({ signer, contractAddress, contractABI, songSignature, i
       console.log(error.message);
     }
   };
-
   return (
-    <Box mb={40}>
-      {isRegistered ? (
-        <Flex alignItems={'center'} flexDirection={'column'}>
-          <Center>
-            <Text as="b" mb={20} fontSize={20} color="#f1c550">
-              Successfully Registered!
-            </Text>
-          </Center>
-
-          <Flex alignItems={'start'} flexDirection={'column'}>
-            {registerReceipt.map((line, index) => (
-              <li key={index}>
-                <Box mb={15}>
-                  <Text as="em" fontSize="x-large" align="center" color="#f1c550">
-                    {line}
-                  </Text>
-                </Box>
-              </li>
-            ))}
-          </Flex>
-          <Box>
+    <Box w={820} mb={40}>
+      <Center>
+        {isRegistered ? (
+          <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
             <Center>
-              <Text as="b" mt={20} fontSize={20}>
-                See your register transaction on{' '}
+              <Text as="b" mb={40} mt={20} fontSize={20} color="#f1c550">
+                Successfully Registered!
+              </Text>
+            </Center>
+
+            <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
+              {registerReceipt.map((line, index) => (
+                <li key={index}>
+                  <Box mb={10} w={820}>
+                    <Text as="em" fontSize="x-large" align="center" color="#f1c550">
+                      {line}
+                    </Text>
+                  </Box>
+                </li>
+              ))}
+            </Flex>
+
+            <Box w={820} mt={40} mb={20}>
+              <Text as="b" fontSize={20}>
+                See your register transaction details on{' '}
                 <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${registerHash}`} isExternal>
                   Polygon Amoy Testnet Explorer
                 </Link>
               </Text>
-            </Center>
+            </Box>
+          </Flex>
+        ) : (
+          <Box w={820}>
+            <Text fontSize={20}>Now it's time to register your song!</Text>
+            <Box mt={40}>
+              <Center>
+                <Button isLoading={isRegisterLoading} loadingText="Registering Song..." fontSize={20} onClick={register}>
+                  Register Your Song
+                </Button>
+              </Center>
+            </Box>
           </Box>
-        </Flex>
-      ) : (
-        <Flex alignItems={'center'} flexDirection={'column'}>
-          <Text fontSize={20}>Now it's time to register your song!</Text>
-          <Button isLoading={isRegisterLoading} loadingText="Registering Song..." fontSize={20} mt={20} mb={20} onClick={register}>
-            Register Your Song
-          </Button>
-        </Flex>
-      )}
+        )}
+      </Center>
     </Box>
   );
 }

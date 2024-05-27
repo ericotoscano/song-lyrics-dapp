@@ -1,6 +1,6 @@
 import { Center, Flex, FormControl, FormLabel, FormErrorMessage, FormHelperText, Heading, Textarea, Box } from '@chakra-ui/react';
 
-function SongLyricsForm({ lyrics, isSubmitted, setLyrics, setIsSubmitted, setIsEncrypted, setSongSignature, setIsChecked, setIsDeposited, setDepositReceipt }) {
+function SongLyricsForm({ lyrics, isSubmitted, setLyrics, setIsSubmitted, setIsEncrypted, setSongSignature, setIsChecked, setIsDeposited, setDepositReceipt, setIsRegistered, setRegisterReceipt }) {
   function handleLyricsChange(event) {
     setLyrics(event.target.value);
     setIsSubmitted(false);
@@ -9,6 +9,8 @@ function SongLyricsForm({ lyrics, isSubmitted, setLyrics, setIsSubmitted, setIsE
     setIsChecked(false);
     setIsDeposited(false);
     setDepositReceipt([]);
+    setIsRegistered(false);
+    setRegisterReceipt([]);
   }
 
   return (

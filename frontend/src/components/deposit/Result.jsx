@@ -27,13 +27,17 @@ function Result({
 
       SongRegister.on('Deposited', async (sender, value, balance) => {
         const depositedByLine = [];
-        const receipt = await tx.wait();
 
-        depositedByLine.push(`Sender: ${sender}`);
-        depositedByLine.push(`Deposit Value: ${parseInt(ethers.utils.formatUnits(value, 'gwei'))} Gwei (${ethers.utils.formatUnits(value, 'ether')} Ether)`);
-        depositedByLine.push(`Current Balance: ${parseInt(ethers.utils.formatUnits(balance, 'gwei'))} Gwei (${ethers.utils.formatUnits(balance, 'ether')} Ether)`);
-        depositedByLine.push(`Current Cost: ${currentCostInGwei} Gwei (${currentCostInEther} Ether)`);
-        depositedByLine.push(`Hash: ${receipt.transactionHash}`);
+        depositedByLine.push('Sender');
+        depositedByLine.push(sender);
+        depositedByLine.push('Deposit Value');
+        depositedByLine.push(`${parseInt(ethers.utils.formatUnits(value, 'gwei'))} Gwei (${ethers.utils.formatUnits(value, 'ether')} Ether)`);
+        depositedByLine.push('Current Balance');
+        depositedByLine.push(`${parseInt(ethers.utils.formatUnits(balance, 'gwei'))} Gwei (${ethers.utils.formatUnits(balance, 'ether')} Ether)`);
+        depositedByLine.push('Current Cost');
+        depositedByLine.push(`${currentCostInGwei} Gwei (${currentCostInEther} Ether)`);
+
+        const receipt = await tx.wait();
 
         setDepositReceipt(depositedByLine);
         setDepositHash(receipt.transactionHash);
@@ -67,11 +71,10 @@ function Result({
             </Flex>
           ) : (
             <Box w={820}>
-              <Center>
-                <Text as="b" mt={20} mb={20} fontSize={20} color={'tomato'}>
-                  You don't have enough balance!
-                </Text>
-              </Center>
+              <Text as="b" mt={20} mb={20} fontSize={20} color={'tomato'}>
+                You don't have enough balance!
+              </Text>
+
               <Text mt={20} mb={20} fontSize={20}>
                 You can make a deposit for the cost by clicking on the button below...
               </Text>

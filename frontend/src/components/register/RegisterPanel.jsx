@@ -5,10 +5,10 @@ import { Box, Center, Flex, TabPanel } from '@chakra-ui/react';
 
 function RegisterPanel({ signer, contractAddress, contractABI, songSignature, isRegistered, registerReceipt, setIsRegistered, setRegisterReceipt }) {
   return (
-    <Box>
-      <Center>
-        <TabPanel w={480}>
-          <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+    <TabPanel>
+      <Box>
+        <Center>
+          <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
             <RegisterHeading />
 
             <RegisterButton
@@ -22,9 +22,9 @@ function RegisterPanel({ signer, contractAddress, contractABI, songSignature, is
               setRegisterReceipt={setRegisterReceipt}
             />
           </Flex>
-        </TabPanel>
-      </Center>
-    </Box>
+        </Center>
+      </Box>
+    </TabPanel>
   );
 }
 

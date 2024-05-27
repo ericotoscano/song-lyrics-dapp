@@ -58,8 +58,8 @@ function CostAndBalanceButton({
       <Center>
         {isChecked ? (
           depositReceipt.length == 0 ? (
-            <Box mt={20} mb={20}>
-              <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+            <Box w={820} mt={20} mb={40}>
+              <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
                 <Text as="em" fontSize="x-large" color="#f1c550" mb={10}>
                   Current Cost: {currentCostInGwei} Gwei ({currentCostInEther} Ether)
                 </Text>
@@ -90,7 +90,7 @@ function CostAndBalanceButton({
 
               <Box w={820} mt={40} mb={20}>
                 <Text as="b" fontSize={20}>
-                  See your deposit transaction on{' '}
+                  See your deposit transaction details on{' '}
                   <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${depositHash}`} isExternal>
                     Polygon Amoy Testnet Explorer
                   </Link>

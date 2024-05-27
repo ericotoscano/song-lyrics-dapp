@@ -4,7 +4,22 @@ import GoToEncrypt from './GoToEncrypt';
 
 import { Box, Center, Flex, TabPanel } from '@chakra-ui/react';
 
-function WritePanel({ title, lyrics, isSubmitted, setTitle, setLyrics, setLyricsByLine, setIsSubmitted, setIsEncrypted, setSongSignature, setIsChecked, setIsDeposited, setDepositReceipt }) {
+function WritePanel({
+  title,
+  lyrics,
+  isSubmitted,
+  setTitle,
+  setLyrics,
+  setLyricsByLine,
+  setIsSubmitted,
+  setIsEncrypted,
+  setSongSignature,
+  setIsChecked,
+  setIsDeposited,
+  setDepositReceipt,
+  setIsRegistered,
+  setRegisterReceipt,
+}) {
   return (
     <TabPanel>
       <Box>
@@ -20,6 +35,8 @@ function WritePanel({ title, lyrics, isSubmitted, setTitle, setLyrics, setLyrics
               setIsChecked={setIsChecked}
               setIsDeposited={setIsDeposited}
               setDepositReceipt={setDepositReceipt}
+              setIsRegistered={setIsRegistered}
+              setRegisterReceipt={setRegisterReceipt}
             />
 
             <SongLyricsForm
@@ -32,6 +49,8 @@ function WritePanel({ title, lyrics, isSubmitted, setTitle, setLyrics, setLyrics
               setIsChecked={setIsChecked}
               setIsDeposited={setIsDeposited}
               setDepositReceipt={setDepositReceipt}
+              setIsRegistered={setIsRegistered}
+              setRegisterReceipt={setRegisterReceipt}
             />
 
             <GoToEncrypt title={title} lyrics={lyrics} isSubmitted={isSubmitted} setLyricsByLine={setLyricsByLine} setIsSubmitted={setIsSubmitted} />

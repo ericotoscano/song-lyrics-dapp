@@ -110,6 +110,8 @@ function AllTabs({
                     setIsChecked={setIsChecked}
                     setIsDeposited={setIsDeposited}
                     setDepositReceipt={setDepositReceipt}
+                    setIsRegistered={setIsRegistered}
+                    setRegisterReceipt={setRegisterReceipt}
                   />
                   <EncryptPanel
                     accountFormatted={accountFormatted}
