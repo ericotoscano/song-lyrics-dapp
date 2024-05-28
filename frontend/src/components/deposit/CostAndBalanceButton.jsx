@@ -69,34 +69,32 @@ function CostAndBalanceButton({
               </Flex>
             </Box>
           ) : (
-            <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-              <Center>
-                <Text as="b" mb={40} mt={20} fontSize={20} color="#f1c550">
+            <Box w={820} mt={20} mb={40}>
+              <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
+                <Text as="b" mb={40} fontSize={25} color="#f1c550">
                   Successfully Deposited!
                 </Text>
-              </Center>
 
-              <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
                 {depositReceipt.map((line, index) => (
                   <li key={index}>
-                    <Box mb={10} w={820}>
+                    <Box mb={15} w={820}>
                       <Text as="em" fontSize="x-large" align="center" color="#f1c550">
                         {line}
                       </Text>
                     </Box>
                   </li>
                 ))}
-              </Flex>
 
-              <Box w={820} mt={40} mb={20}>
-                <Text as="b" fontSize={20}>
-                  See your deposit transaction details on{' '}
-                  <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${depositHash}`} isExternal>
-                    Polygon Amoy Testnet Explorer
-                  </Link>
-                </Text>
-              </Box>
-            </Flex>
+                <Box w={820} mt={20}>
+                  <Text as="b" fontSize={20}>
+                    See your deposit transaction details on{' '}
+                    <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${depositHash}`} isExternal>
+                      Polygon Amoy Testnet Explorer
+                    </Link>
+                  </Text>
+                </Box>
+              </Flex>
+            </Box>
           )
         ) : (
           <Box w={820}>

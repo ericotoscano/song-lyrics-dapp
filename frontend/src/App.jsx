@@ -21,6 +21,8 @@ function App() {
   const [depositReceipt, setDepositReceipt] = useState([]);
   const [isRegistered, setIsRegistered] = useState(false);
   const [registerReceipt, setRegisterReceipt] = useState([]);
+  const [isListed, setIsListed] = useState('');
+  const [songList, setSongList] = useState([]);
 
   return (
     <Box w="100vw" as="samp">
@@ -46,6 +48,8 @@ function App() {
               depositReceipt={depositReceipt}
               isRegistered={isRegistered}
               registerReceipt={registerReceipt}
+              isListed={isListed}
+              songList={songList}
               setTitle={setTitle}
               setLyrics={setLyrics}
               setLyricsByLine={setLyricsByLine}
@@ -57,6 +61,8 @@ function App() {
               setDepositReceipt={setDepositReceipt}
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
+              setIsListed={setIsListed}
+              setSongList={setSongList}
             />
           ) : (
             <Footer />

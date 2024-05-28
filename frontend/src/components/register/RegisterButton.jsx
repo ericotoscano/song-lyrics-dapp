@@ -35,26 +35,22 @@ function RegisterButton({ signer, contractAddress, contractABI, songSignature, i
     <Box w={820} mb={40}>
       <Center>
         {isRegistered ? (
-          <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-            <Center>
-              <Text as="b" mb={40} mt={20} fontSize={20} color="#f1c550">
-                Successfully Registered!
-              </Text>
-            </Center>
+          <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
+            <Text as="b" mb={40} mt={20} fontSize={25} color="#f1c550">
+              Successfully Registered!
+            </Text>
 
-            <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-              {registerReceipt.map((line, index) => (
-                <li key={index}>
-                  <Box mb={10} w={820}>
-                    <Text as="em" fontSize="x-large" align="center" color="#f1c550">
-                      {line}
-                    </Text>
-                  </Box>
-                </li>
-              ))}
-            </Flex>
+            {registerReceipt.map((line, index) => (
+              <li key={index}>
+                <Box mb={15} w={820}>
+                  <Text as="em" fontSize="x-large" align="center" color="#f1c550">
+                    {line}
+                  </Text>
+                </Box>
+              </li>
+            ))}
 
-            <Box w={820} mt={40} mb={20}>
+            <Box w={820} mt={20} mb={20}>
               <Text as="b" fontSize={20}>
                 See your register transaction details on{' '}
                 <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${registerHash}`} isExternal>

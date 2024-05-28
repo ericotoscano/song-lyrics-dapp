@@ -60,7 +60,7 @@ function Result({
         {isChecked ? (
           isDeposited ? (
             <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-              <Text as="b" mt={20} fontSize={20}>
+              <Text as="b" fontSize={20}>
                 You have a sufficient balance!
               </Text>
               <Text as="b" mt={40} fontSize={20}>
