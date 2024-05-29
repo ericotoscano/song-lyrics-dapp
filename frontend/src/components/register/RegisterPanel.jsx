@@ -3,7 +3,7 @@ import RegisterButton from './RegisterButton';
 
 import { Box, Center, Flex, TabPanel } from '@chakra-ui/react';
 
-function RegisterPanel({ signer, contractAddress, contractABI, songSignature, isRegistered, registerReceipt, setIsRegistered, setRegisterReceipt }) {
+function RegisterPanel({ signer, contractAddress, contractABI, title, songSignature, isRegistered, registerReceipt, setIsRegistered, setRegisterReceipt }) {
   return (
     <TabPanel>
       <Box>
@@ -15,6 +15,7 @@ function RegisterPanel({ signer, contractAddress, contractABI, songSignature, is
               signer={signer}
               contractAddress={contractAddress}
               contractABI={contractABI}
+              title={title}
               songSignature={songSignature}
               isRegistered={isRegistered}
               registerReceipt={registerReceipt}

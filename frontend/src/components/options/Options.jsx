@@ -41,7 +41,7 @@ function Options({
   const [isCheckButtonClicked, setIsCheckButtonClicked] = useState(false);
   const [isRegisterButtonClicked, setIsRegisterButtonClicked] = useState(false);
 
-  const REGISTER_ADDRESS = '0x380abCe4Dfe7b35a365857c380f18A2119675dd9';
+  const REGISTER_ADDRESS = '0x0f9A04DeB7A8adD22636Aa2e4ee202fE677F2b50';
   const REGISTER_ABI = [
     { inputs: [{ internalType: 'uint256', name: '_cost', type: 'uint256' }], stateMutability: 'nonpayable', type: 'constructor' },
     { inputs: [], name: 'NoBalance', type: 'error' },
@@ -52,9 +52,9 @@ function Options({
     {
       anonymous: false,
       inputs: [
-        { indexed: true, internalType: 'address', name: '_account', type: 'address' },
-        { indexed: false, internalType: 'uint256', name: '_deposit', type: 'uint256' },
-        { indexed: false, internalType: 'uint256', name: '_balance', type: 'uint256' },
+        { indexed: true, internalType: 'address', name: 'sender', type: 'address' },
+        { indexed: false, internalType: 'uint256', name: 'depositValue', type: 'uint256' },
+        { indexed: false, internalType: 'uint256', name: 'currentBalance', type: 'uint256' },
       ],
       name: 'Deposited',
       type: 'event',
@@ -62,8 +62,9 @@ function Options({
     {
       anonymous: false,
       inputs: [
-        { indexed: true, internalType: 'address', name: '_writer', type: 'address' },
-        { indexed: false, internalType: 'string', name: '_hash', type: 'string' },
+        { indexed: true, internalType: 'address', name: 'songwriter', type: 'address' },
+        { indexed: false, internalType: 'string', name: 'songTitle', type: 'string' },
+        { indexed: false, internalType: 'string', name: 'songSignature', type: 'string' },
       ],
       name: 'Registered',
       type: 'event',
@@ -78,16 +79,35 @@ function Options({
     { inputs: [], name: 'cost', outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }], stateMutability: 'view', type: 'function' },
     { inputs: [], name: 'deposit', outputs: [], stateMutability: 'payable', type: 'function' },
     {
-      inputs: [{ internalType: 'address', name: '_songwriter', type: 'address' }],
+      inputs: [],
       name: 'getSongs',
-      outputs: [{ internalType: 'string[]', name: '', type: 'string[]' }],
+      outputs: [
+        {
+          components: [
+            { internalType: 'string', name: 'title', type: 'string' },
+            { internalType: 'string', name: 'signature', type: 'string' },
+          ],
+          internalType: 'struct SongRegister.Song[]',
+          name: '',
+          type: 'tuple[]',
+        },
+      ],
       stateMutability: 'view',
       type: 'function',
     },
     { inputs: [], name: 'isPaused', outputs: [{ internalType: 'bool', name: '', type: 'bool' }], stateMutability: 'view', type: 'function' },
     { inputs: [], name: 'owner', outputs: [{ internalType: 'address payable', name: '', type: 'address' }], stateMutability: 'view', type: 'function' },
     { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
-    { inputs: [{ internalType: 'string', name: '_songHash', type: 'string' }], name: 'register', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+    {
+      inputs: [
+        { internalType: 'string', name: '_title', type: 'string' },
+        { internalType: 'string', name: '_signature', type: 'string' },
+      ],
+      name: 'register',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function',
+    },
     { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
     { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   ];

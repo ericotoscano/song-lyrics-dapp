@@ -1,12 +1,15 @@
-const { loadFixture, time } = require('@nomicfoundation/hardhat-toolbox/network-helpers.js');
+const { loadFixture } = require('@nomicfoundation/hardhat-toolbox/network-helpers.js');
 const { expect } = require('chai');
 const { ethers } = require('hardhat');
 
 describe('SongRegister', function () {
   const COST = 1000000000;
-  const SONG1_HASH = '0xf7c9e344b2af4319099bad529bbb79c8e90cef09e7be45ba733e464e3b6a9352';
-  const SONG2_HASH = '0xe7c9e344b2af4319099bad529bbb79c8e90cef09e7be45ba733e464e3b6a9351';
-  const SONG3_HASH = '0xd7c9e344b2af4319099bad529bbb79c8e90cef09e7be45ba733e464e3b6a9350';
+  const SONG1_TITLE = 'Song1';
+  const SONG2_TITLE = 'Song2';
+  const SONG3_TITLE = 'Song3';
+  const SONG1_SIGNATURE = '0xf7c9e344b2af4319099bad529bbb79c8e90cef09e7be45ba733e464e3b6a9352';
+  const SONG2_SIGNATURE = '0xe7c9e344b2af4319099bad529bbb79c8e90cef09e7be45ba733e464e3b6a9351';
+  const SONG3_SIGNATURE = '0xd7c9e344b2af4319099bad529bbb79c8e90cef09e7be45ba733e464e3b6a9350';
 
   async function deployFixture() {
     const [owner, songwriter] = await ethers.getSigners();
@@ -101,13 +104,13 @@ describe('SongRegister', function () {
 
         await songRegister.connect(owner).pause();
 
-        await expect(songRegister.connect(songwriter).register(SONG1_HASH)).to.be.revertedWithCustomError(songRegister, 'Paused');
+        await expect(songRegister.connect(songwriter).register(SONG1_TITLE, SONG1_SIGNATURE)).to.be.revertedWithCustomError(songRegister, 'Paused');
       });
 
       it("Should revert with a custom error if sender's balance are not enough", async function () {
         const { songRegister, songwriter } = await loadFixture(deployFixture);
 
-        await expect(songRegister.connect(songwriter).register(SONG1_HASH)).to.be.revertedWithCustomError(songRegister, 'NoBalance');
+        await expect(songRegister.connect(songwriter).register(SONG1_TITLE, SONG1_SIGNATURE)).to.be.revertedWithCustomError(songRegister, 'NoBalance');
       });
     });
 
@@ -116,22 +119,22 @@ describe('SongRegister', function () {
         const { songRegister, songwriter } = await loadFixture(deployFixture);
         const { balanceAfterDeposit } = await loadFixture(depositFixture);
 
-        await songRegister.connect(songwriter).register(SONG1_HASH);
+        await songRegister.connect(songwriter).register(SONG1_TITLE, SONG1_SIGNATURE);
 
         const balanceAfterRegister = await songRegister.balances(songwriter.address);
 
         expect(balanceAfterRegister).to.equal(balanceAfterDeposit - BigInt(COST));
       });
 
-      it('Should register the song hash to songs mapping', async function () {
+      it('Should register the song title and signature to songs mapping', async function () {
         const { songRegister, songwriter } = await loadFixture(deployFixture);
         await loadFixture(depositFixture);
 
-        await songRegister.connect(songwriter).register(SONG1_HASH);
+        await songRegister.connect(songwriter).register(SONG1_TITLE, SONG1_SIGNATURE);
 
-        const songs = await songRegister.getSongs(songwriter.address);
+        const songs = await songRegister.connect(songwriter).getSongs();
 
-        expect(songs[0]).to.equal(SONG1_HASH);
+        expect(songs[0]).to.deep.equal([SONG1_TITLE, SONG1_SIGNATURE]);
       });
     });
 
@@ -140,9 +143,9 @@ describe('SongRegister', function () {
         const { songRegister, songwriter } = await loadFixture(deployFixture);
         await loadFixture(depositFixture);
 
-        await expect(await songRegister.connect(songwriter).register(SONG1_HASH))
+        await expect(await songRegister.connect(songwriter).register(SONG1_TITLE, SONG1_SIGNATURE))
           .to.emit(songRegister, 'Registered')
-          .withArgs(songwriter.address, SONG1_HASH);
+          .withArgs(songwriter.address, SONG1_TITLE, SONG1_SIGNATURE);
       });
     });
   });
@@ -235,20 +238,24 @@ describe('SongRegister', function () {
 
   describe('Songs', function () {
     describe('Actions', function () {
-      it('Should return an array filled by hash of songs registered by one songwriter', async function () {
+      it('Should return an array filled by another arrays containing title and signature of each song registered by one songwriter', async function () {
         const { songRegister, songwriter } = await loadFixture(deployFixture);
 
         for (let i = 0; i < 3; i++) {
           await songRegister.connect(songwriter).deposit({ value: COST });
         }
 
-        await songRegister.connect(songwriter).register(SONG1_HASH);
-        await songRegister.connect(songwriter).register(SONG2_HASH);
-        await songRegister.connect(songwriter).register(SONG3_HASH);
+        await songRegister.connect(songwriter).register(SONG1_TITLE, SONG1_SIGNATURE);
+        await songRegister.connect(songwriter).register(SONG2_TITLE, SONG2_SIGNATURE);
+        await songRegister.connect(songwriter).register(SONG3_TITLE, SONG3_SIGNATURE);
 
-        const songs = await songRegister.getSongs(songwriter.address);
+        const songs = await songRegister.connect(songwriter).getSongs();
 
-        expect(songs).to.deep.equal([SONG1_HASH, SONG2_HASH, SONG3_HASH]);
+        expect(songs).to.deep.equal([
+          [SONG1_TITLE, SONG1_SIGNATURE],
+          [SONG2_TITLE, SONG2_SIGNATURE],
+          [SONG3_TITLE, SONG3_SIGNATURE],
+        ]);
       });
     });
   });

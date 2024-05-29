@@ -2,7 +2,7 @@ import { Box, Button, Center, Flex, Link, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState } from 'react';
 
-function RegisterButton({ signer, contractAddress, contractABI, songSignature, isRegistered, registerReceipt, setIsRegistered, setRegisterReceipt }) {
+function RegisterButton({ signer, contractAddress, contractABI, title, songSignature, isRegistered, registerReceipt, setIsRegistered, setRegisterReceipt }) {
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
   const [registerHash, setRegisterHash] = useState('');
 
@@ -11,14 +11,16 @@ function RegisterButton({ signer, contractAddress, contractABI, songSignature, i
       setIsRegisterLoading(true);
 
       const SongRegister = new ethers.Contract(contractAddress, contractABI, signer);
-      const tx = await SongRegister.connect(signer).register(songSignature, { gasLimit: 150000 });
+      const tx = await SongRegister.connect(signer).register(title, songSignature, { gasLimit: 200000 });
 
-      SongRegister.on('Registered', async (sender, signature) => {
+      SongRegister.on('Registered', async (sender, songTitle, signature) => {
         const receipt = await tx.wait();
         const registeredByLine = [];
 
         registeredByLine.push('Songwriter');
         registeredByLine.push(sender);
+        registeredByLine.push('Song Title');
+        registeredByLine.push(songTitle);
         registeredByLine.push('Song Signature');
         registeredByLine.push(signature);
 

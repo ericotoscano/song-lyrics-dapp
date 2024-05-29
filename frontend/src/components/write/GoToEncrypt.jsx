@@ -7,14 +7,14 @@ function GoToEncrypt({ title, lyrics, isSubmitted, setLyricsByLine, setIsSubmitt
   }
 
   return (
-    <Box w={820} mt={20} mb={20}>
+    <Box w={820} mt={20} mb={40}>
       <Center>
         {title && lyrics && isSubmitted ? (
           <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
             <Text as="b" fontSize={20} >
               Now you can create the song signature!
             </Text>
-            <Text as="b" mt={40} fontSize={20}>
+            <Text as="b" mt={40} mb={20} fontSize={20}>
               <Highlight query="Encrypt" styles={{ px: '0.5em', py: '0.5em', border: '4px solid transparent', borderRadius: '3em', borderColor: '#f2f2f2', bg: '#60316e', color: 'white' }}>
                 Go to Encrypt to continue...
               </Highlight>

@@ -30,7 +30,7 @@ function GoToDeposit({ title, lyrics, isEncrypted, songSignature, setIsEncrypted
               Now it's time to make a deposit!
             </Text>
 
-            <Text as="b" mt={40} fontSize={20}>
+            <Text as="b" mt={40} mb={20} fontSize={20}>
               <Highlight query="Deposit" styles={{ px: '0.5em', py: '0.5em', border: '4px solid transparent', borderRadius: '3em', borderColor: '#f2f2f2', bg: '#60316e', color: 'white' }}>
                 Go to Deposit to continue...
               </Highlight>

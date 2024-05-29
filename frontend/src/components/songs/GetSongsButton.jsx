@@ -1,13 +1,13 @@
 import { Box, Button, Center, Flex, Highlight, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
-function GetSongsButton({ account, signer, contractAddress, contractABI, songList, isSongListLoading, isListed, isRegistered, setSongList, setIsListed, setIsSongListLoading }) {
+function GetSongsButton({ signer, contractAddress, contractABI, songList, isSongListLoading, isListed, isRegistered, setSongList, setIsListed, setIsSongListLoading }) {
   const getSongs = async () => {
     try {
       setIsSongListLoading(true);
 
       const SongRegister = new ethers.Contract(contractAddress, contractABI, signer);
-      const songs = await SongRegister.connect(signer).getSongs(account);
+      const songs = await SongRegister.connect(signer).getSongs();
 
       setSongList(songs);
       setIsListed(true);
@@ -43,12 +43,26 @@ function GetSongsButton({ account, signer, contractAddress, contractABI, songLis
           ) : (
             <Box w={820} mt={20} mb={40}>
               <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-                {songList.map((line, index) => (
+                {songList.map((song, index) => (
                   <li key={index}>
-                    <Box mb={15} w={820}>
-                      <Text as="em" fontSize="x-large" align={'center'} color="#f1c550">
-                        Song {index + 1} Signature {line}
-                      </Text>
+                    <Box mb={40} w={820}>
+                      <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
+                        <Text as="b" mb={15} fontSize="xx-large" color="#f1c550">
+                          Song {index + 1}
+                        </Text>
+                        <Text as="b" mb={5} fontSize="x-large" color="#f1c550">
+                          Title
+                        </Text>
+                        <Text as="em" mb={10} fontSize="x-large" color="#f1c550">
+                          {song.title}
+                        </Text>
+                        <Text as="b" mb={5} fontSize="x-large" color="#f1c550">
+                          Signature
+                        </Text>
+                        <Text as="em" fontSize="x-large" color="#f1c550">
+                          {song.signature}
+                        </Text>
+                      </Flex>
                     </Box>
                   </li>
                 ))}

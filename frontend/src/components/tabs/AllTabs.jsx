@@ -88,11 +88,10 @@ function AllTabs({
                     setDepositReceipt={setDepositReceipt}
                   />
                   <RegisterPanel
-                    account={account}
-                    accountFormatted={accountFormatted}
                     signer={signer}
                     contractAddress={contractAddress}
                     contractABI={contractABI}
+                    title={title}
                     songSignature={songSignature}
                     isRegistered={isRegistered}
                     registerReceipt={registerReceipt}
