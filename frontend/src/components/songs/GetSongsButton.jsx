@@ -1,7 +1,7 @@
 import { Box, Button, Center, Flex, Highlight, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
-function GetSongsButton({ signer, contractAddress, contractABI, songList, isSongListLoading, isListed, isRegistered, setSongList, setIsListed, setIsSongListLoading }) {
+function GetSongsButton({ signer, contractAddress, contractABI, songList, isSongListLoading, isListed, setSongList, setIsListed, setIsSongListLoading }) {
   const getSongs = async () => {
     try {
       setIsSongListLoading(true);
@@ -17,7 +17,7 @@ function GetSongsButton({ signer, contractAddress, contractABI, songList, isSong
     }
   };
   return (
-    <Box w={820}>
+    <Box w={850}>
       <Center>
         {isListed ? (
           songList.length == 0 ? (
@@ -26,7 +26,7 @@ function GetSongsButton({ signer, contractAddress, contractABI, songList, isSong
                 <Text as="b" mt={20} mb={40} fontSize={20} color={'tomato'}>
                   You have no songs registered yet!
                 </Text>
-                <Box w={820}>
+                <Box w={120}>
                   <Center>
                     <Text as="b" mt={20} mb={20} fontSize={20}>
                       <Highlight
@@ -41,22 +41,22 @@ function GetSongsButton({ signer, contractAddress, contractABI, songList, isSong
               </Flex>
             </Box>
           ) : (
-            <Box w={820} mt={20} mb={40}>
+            <Box w={850} mt={20} mb={40}>
               <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
                 {songList.map((song, index) => (
                   <li key={index}>
                     <Box mb={40} w={820}>
                       <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-                        <Text as="b" mb={15} fontSize="xx-large" color="#f1c550">
+                        <Text as="b" mb={30} fontSize="xx-large" color="#f1c550">
                           Song {index + 1}
                         </Text>
-                        <Text as="b" mb={5} fontSize="x-large" color="#f1c550">
+                        <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
                           Title
                         </Text>
-                        <Text as="em" mb={10} fontSize="x-large" color="#f1c550">
+                        <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
                           {song.title}
                         </Text>
-                        <Text as="b" mb={5} fontSize="x-large" color="#f1c550">
+                        <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
                           Signature
                         </Text>
                         <Text as="em" fontSize="x-large" color="#f1c550">
@@ -70,9 +70,9 @@ function GetSongsButton({ signer, contractAddress, contractABI, songList, isSong
             </Box>
           )
         ) : (
-          <Box w={820}>
+          <Box w={850}>
             <Text fontSize={20} mb={20}>
-              Click on the button bellow to get a list of all your songs signatures.
+              Click on the button bellow to get a list of all your registered songs.
             </Text>
             <Box>
               <Center>

@@ -1,5 +1,4 @@
 import CheckSongsHeading from './CheckSongsHeading';
-import SongsListHeading from './SongsListHeading';
 import GetSongsButton from './GetSongsButton';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
@@ -12,7 +11,6 @@ function Songs({ account, signer, contractAddress, contractABI, songList, isList
       <Center>
         <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
           <CheckSongsHeading />
-          <SongsListHeading />
           <GetSongsButton
             account={account}
             signer={signer}

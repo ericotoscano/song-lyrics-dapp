@@ -23,29 +23,26 @@ function Result({
       const currentCostInWei = currentCostInGwei * 1000000000;
 
       const SongRegister = new ethers.Contract(contractAddress, contractABI, signer);
-      const tx = await SongRegister.connect(signer).deposit({ value: currentCostInWei, gasLimit: 50000 });
+      await SongRegister.connect(signer).deposit({ value: currentCostInWei, gasLimit: 50000 });
 
-      SongRegister.on('Deposited', async (sender, value, balance) => {
+      SongRegister.on('Deposited', (sender, depositValue, currentBalance, event) => {
         const depositedByLine = [];
 
         depositedByLine.push('Sender');
         depositedByLine.push(sender);
         depositedByLine.push('Deposit Value');
-        depositedByLine.push(`${parseInt(ethers.utils.formatUnits(value, 'gwei'))} Gwei (${ethers.utils.formatUnits(value, 'ether')} Ether)`);
+        depositedByLine.push(`${parseInt(ethers.utils.formatUnits(depositValue, 'gwei'))} Gwei (${ethers.utils.formatUnits(depositValue, 'ether')} Ether)`);
         depositedByLine.push('Current Balance');
-        depositedByLine.push(`${parseInt(ethers.utils.formatUnits(balance, 'gwei'))} Gwei (${ethers.utils.formatUnits(balance, 'ether')} Ether)`);
+        depositedByLine.push(`${parseInt(ethers.utils.formatUnits(currentBalance, 'gwei'))} Gwei (${ethers.utils.formatUnits(currentBalance, 'ether')} Ether)`);
         depositedByLine.push('Current Cost');
         depositedByLine.push(`${currentCostInGwei} Gwei (${currentCostInEther} Ether)`);
 
-        const receipt = await tx.wait();
-
         setDepositReceipt(depositedByLine);
-        setDepositHash(receipt.transactionHash);
+        setDepositHash(event.transactionHash);
+        setCurrentBalanceInGwei(parseInt(ethers.utils.formatUnits(currentBalance, 'gwei')));
         setIsDepositLoading(false);
 
-        setCurrentBalanceInGwei(parseInt(ethers.utils.formatUnits(balance, 'gwei')));
-
-        if (parseInt(ethers.utils.formatUnits(balance, 'gwei')) >= currentCostInGwei) {
+        if (parseInt(ethers.utils.formatUnits(currentBalance, 'gwei')) >= currentCostInGwei) {
           setIsDeposited(true);
         }
       });
@@ -60,7 +57,7 @@ function Result({
         {isChecked ? (
           isDeposited ? (
             <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-              <Text as="b" fontSize={20}>
+              <Text as="b" fontSize={25}>
                 You have a sufficient balance!
               </Text>
               <Text as="b" mt={40} fontSize={20}>

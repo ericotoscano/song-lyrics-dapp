@@ -11,7 +11,7 @@ function GoToEncrypt({ title, lyrics, isSubmitted, setLyricsByLine, setIsSubmitt
       <Center>
         {title && lyrics && isSubmitted ? (
           <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-            <Text as="b" fontSize={20} >
+            <Text as="b" fontSize={25} >
               Now you can create the song signature!
             </Text>
             <Text as="b" mt={40} mb={20} fontSize={20}>

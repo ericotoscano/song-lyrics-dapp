@@ -25,7 +25,7 @@ function App() {
   const [songList, setSongList] = useState([]);
 
   return (
-    <Box w="100vw" as="samp">
+    <Box w="100%" as="samp">
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <Headings />

@@ -19,6 +19,7 @@ function WritePanel({
   setDepositReceipt,
   setIsRegistered,
   setRegisterReceipt,
+  setIsWriteButtonClicked,
 }) {
   return (
     <TabPanel>
@@ -37,6 +38,7 @@ function WritePanel({
               setDepositReceipt={setDepositReceipt}
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
+              setIsWriteButtonClicked={setIsWriteButtonClicked}
             />
 
             <SongLyricsForm
@@ -51,6 +53,7 @@ function WritePanel({
               setDepositReceipt={setDepositReceipt}
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
+              setIsWriteButtonClicked={setIsWriteButtonClicked}
             />
 
             <GoToEncrypt title={title} lyrics={lyrics} isSubmitted={isSubmitted} setLyricsByLine={setLyricsByLine} setIsSubmitted={setIsSubmitted} />

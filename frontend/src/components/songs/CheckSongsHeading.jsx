@@ -5,7 +5,7 @@ function CheckSongsHeading() {
     <Box w={820}>
       <Center>
         <Heading fontSize={35} mb={40}>
-          Check Your Songs
+          Your Songs
         </Heading>
       </Center>
     </Box>

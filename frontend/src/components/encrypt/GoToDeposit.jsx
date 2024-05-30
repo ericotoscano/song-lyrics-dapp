@@ -18,15 +18,15 @@ function GoToDeposit({ title, lyrics, isEncrypted, songSignature, setIsEncrypted
       <Center>
         {isEncrypted ? (
           <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-            <Text as="b" fontSize={20}>
+            <Text as="b" fontSize={25}>
               Your song signature is:
             </Text>
 
-            <Text as="mark" px="0.5em" py="0.5em" borderRadius="0.25em" textColor="#f1c550" bgColor="#60316e" mt={20} mb={40} fontSize={20}>
+            <Text as="mark" px="0.5em" py="0.5em" borderRadius="0.25em" textColor="#f1c550" bgColor="#60316e" mt={20} mb={20} fontSize={20}>
               {songSignature}
             </Text>
 
-            <Text as="b" fontSize={20}>
+            <Text as="b" fontSize={25}>
               Now it's time to make a deposit!
             </Text>
 

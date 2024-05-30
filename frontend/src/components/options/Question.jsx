@@ -2,9 +2,9 @@ import { Box, Center, Heading } from '@chakra-ui/react';
 
 function Question() {
   return (
-    <Box>
+    <Box minWidth={850} mt={20}>
       <Center>
-        <Heading fontSize={35} mt={40}>
+        <Heading fontSize={35} >
           What would you like to do?
         </Heading>
       </Center>

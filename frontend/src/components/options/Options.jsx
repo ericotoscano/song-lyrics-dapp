@@ -112,12 +112,13 @@ function Options({
     { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   ];
   return (
-    <Box mt={20}>
+    <Box minWidth={850} mt={20}>
       <Center>
         <Flex alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
           <Question />
 
           <RegisterButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
+
           <CheckButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
 
           {isRegisterButtonClicked ? (
@@ -149,6 +150,7 @@ function Options({
               setDepositReceipt={setDepositReceipt}
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
+              setIsListed={setIsListed}
             />
           ) : isCheckButtonClicked ? (
             <Songs

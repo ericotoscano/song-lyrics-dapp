@@ -1,6 +1,19 @@
 import { Box, Center, Flex, FormControl, FormLabel, FormErrorMessage, FormHelperText, Heading, Input } from '@chakra-ui/react';
 
-function SongTitleForm({ title, isSubmitted, setTitle, setIsSubmitted, setIsEncrypted, setSongSignature, setIsChecked, setIsDeposited, setDepositReceipt, setIsRegistered, setRegisterReceipt }) {
+function SongTitleForm({
+  title,
+  isSubmitted,
+  setTitle,
+  setIsSubmitted,
+  setIsEncrypted,
+  setSongSignature,
+  setIsChecked,
+  setIsDeposited,
+  setDepositReceipt,
+  setIsRegistered,
+  setRegisterReceipt,
+  setIsWriteButtonClicked,
+}) {
   function handleTitleChange(event) {
     setTitle(event.target.value);
     setIsSubmitted(false);
@@ -11,6 +24,7 @@ function SongTitleForm({ title, isSubmitted, setTitle, setIsSubmitted, setIsEncr
     setDepositReceipt([]);
     setIsRegistered(false);
     setRegisterReceipt([]);
+    setIsWriteButtonClicked(false);
   }
 
   return (
@@ -23,7 +37,7 @@ function SongTitleForm({ title, isSubmitted, setTitle, setIsSubmitted, setIsEncr
                 Song Title
               </Heading>
             </FormLabel>
-            <Input onChange={handleTitleChange} color="black" mt={5} size="md" w={820} textAlign="left" p={8} bgColor="white" fontSize={22} />
+            <Input onChange={handleTitleChange} defaultValue={''} color="black" mt={5} size="md" w={820} textAlign="left" p={8} bgColor="white" fontSize={22} />
             {title || !isSubmitted ? (
               <FormHelperText fontSize={20} mt={10} ps={2}>
                 Enter your song title

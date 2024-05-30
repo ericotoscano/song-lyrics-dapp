@@ -6,6 +6,7 @@ import DepositPanel from '../deposit/DepositPanel';
 import RegisterPanel from '../register/RegisterPanel';
 
 import { Box, Center, Flex, Tabs, TabPanels } from '@chakra-ui/react';
+import { useState } from 'react';
 
 function AllTabs({
   account,
@@ -35,15 +36,18 @@ function AllTabs({
   setDepositReceipt,
   setIsRegistered,
   setRegisterReceipt,
+  setIsListed,
 }) {
+  const [isWriteButtonClicked, setIsWriteButtonClicked] = useState(false);
+
   return (
     <Box>
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <TabsHeading />
-          <Tabs mt={20}>
+          <Tabs isLazy={isWriteButtonClicked} mt={20}>
             <Center>
-              <TabsButtons title={title} lyrics={lyrics} isSubmitted={isSubmitted} isEncrypted={isEncrypted} songSignature={songSignature} isDeposited={isDeposited} />
+              <TabsButtons title={title} lyrics={lyrics} songSignature={songSignature} isSubmitted={isSubmitted} isEncrypted={isEncrypted} isDeposited={isDeposited} isRegistered={isRegistered} />
             </Center>
 
             <Box mt={40}>
@@ -53,6 +57,7 @@ function AllTabs({
                     title={title}
                     lyrics={lyrics}
                     isSubmitted={isSubmitted}
+                    isRegistered={isRegistered}
                     setTitle={setTitle}
                     setLyrics={setLyrics}
                     setLyricsByLine={setLyricsByLine}
@@ -64,6 +69,7 @@ function AllTabs({
                     setDepositReceipt={setDepositReceipt}
                     setIsRegistered={setIsRegistered}
                     setRegisterReceipt={setRegisterReceipt}
+                    setIsWriteButtonClicked={setIsWriteButtonClicked}
                   />
                   <EncryptPanel
                     accountFormatted={accountFormatted}
@@ -95,8 +101,20 @@ function AllTabs({
                     songSignature={songSignature}
                     isRegistered={isRegistered}
                     registerReceipt={registerReceipt}
+                    isWriteButtonClicked={isWriteButtonClicked}
+                    setTitle={setTitle}
+                    setLyrics={setLyrics}
+                    setLyricsByLine={setLyricsByLine}
+                    setIsSubmitted={setIsSubmitted}
+                    setIsEncrypted={setIsEncrypted}
+                    setSongSignature={setSongSignature}
+                    setIsChecked={setIsChecked}
+                    setIsDeposited={setIsDeposited}
+                    setDepositReceipt={setDepositReceipt}
                     setIsRegistered={setIsRegistered}
                     setRegisterReceipt={setRegisterReceipt}
+                    setIsListed={setIsListed}
+                    setIsWriteButtonClicked={setIsWriteButtonClicked}
                   />
                 </TabPanels>
               </Center>

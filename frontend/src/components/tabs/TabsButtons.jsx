@@ -1,16 +1,22 @@
 import { Box, Center, Flex, Tab, TabList } from '@chakra-ui/react';
 
-function TabsButtons({ title, lyrics, isSubmitted, isEncrypted, songSignature, isDeposited }) {
+function TabsButtons({ title, lyrics, songSignature, isSubmitted, isEncrypted, isDeposited, isRegistered }) {
   return (
     <TabList>
       <Box>
         <Center>
           <Flex alignItems={'center'} justifyContent="center" flexDirection={'row'}>
-            <Tab w={200} marginInline={10}>
-              Write
-            </Tab>
+            {!isRegistered ? (
+              <Tab w={200} marginInline={10}>
+                Write
+              </Tab>
+            ) : (
+              <Tab w={200} isDisabled marginInline={10}>
+                Write
+              </Tab>
+            )}
 
-            {title && lyrics && isSubmitted ? (
+            {!isRegistered && title && lyrics && isSubmitted ? (
               <Tab w={200} marginInline={10}>
                 Encrypt
               </Tab>
@@ -20,7 +26,7 @@ function TabsButtons({ title, lyrics, isSubmitted, isEncrypted, songSignature, i
               </Tab>
             )}
 
-            {title && lyrics && isEncrypted && songSignature ? (
+            {!isRegistered && title && lyrics && isEncrypted && songSignature ? (
               <Tab w={200} marginInline={10}>
                 Deposit
               </Tab>
@@ -30,7 +36,7 @@ function TabsButtons({ title, lyrics, isSubmitted, isEncrypted, songSignature, i
               </Tab>
             )}
 
-            {title && lyrics && songSignature && isDeposited ? (
+            {!isRegistered && title && lyrics && songSignature && isDeposited ? (
               <Tab w={200} marginInline={10}>
                 Register
               </Tab>
