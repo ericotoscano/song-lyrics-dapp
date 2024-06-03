@@ -22,11 +22,11 @@ function GetSongsButton({ signer, contractAddress, contractABI, songList, isSong
         {isListed ? (
           songList.length == 0 ? (
             <Box w={820} mb={40}>
-              <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-                <Text as="b" mt={20} mb={40} fontSize={20} color={'tomato'}>
+              <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                <Text as="b" mb={40} fontSize={20} color={'tomato'}>
                   You have no songs registered yet!
                 </Text>
-                <Box w={120}>
+                <Box w={820}>
                   <Center>
                     <Text as="b" mt={20} mb={20} fontSize={20}>
                       <Highlight
