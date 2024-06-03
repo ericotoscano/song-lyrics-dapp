@@ -17,7 +17,7 @@ function GetSongsButton({ signer, contractAddress, contractABI, songList, isSong
     }
   };
   return (
-    <Box w={850}>
+    <Box w={820}>
       <Center>
         {isListed ? (
           songList.length == 0 ? (
@@ -41,46 +41,51 @@ function GetSongsButton({ signer, contractAddress, contractABI, songList, isSong
               </Flex>
             </Box>
           ) : (
-            <Box w={850} mt={20} mb={40}>
-              <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-                {songList.map((song, index) => (
-                  <li key={index}>
-                    <Box mb={40} w={820}>
-                      <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-                        <Text as="b" mb={30} fontSize="xx-large" color="#f1c550">
-                          Song {index + 1}
-                        </Text>
-                        <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
-                          Title
-                        </Text>
-                        <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
-                          {song.title}
-                        </Text>
-                        <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
-                          Signature
-                        </Text>
-                        <Text as="em" fontSize="x-large" color="#f1c550">
-                          {song.signature}
-                        </Text>
-                      </Flex>
-                    </Box>
-                  </li>
-                ))}
-              </Flex>
+            <Box w={820} mt={20} mb={40}>
+              <Center>
+                <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                  {songList.map((song, index) => (
+                    <li key={index}>
+                      <Box mb={40} w={820}>
+                        <Center>
+                          <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
+                            <Text as="b" mb={30} fontSize="xx-large" color="#f1c550">
+                              Song {index + 1}
+                            </Text>
+                            <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
+                              Title
+                            </Text>
+                            <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
+                              {song.title}
+                            </Text>
+                            <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
+                              Signature
+                            </Text>
+                            <Text as="em" fontSize="x-large" color="#f1c550">
+                              {song.signature}
+                            </Text>
+                          </Flex>
+                        </Center>
+                      </Box>
+                    </li>
+                  ))}
+                </Flex>
+              </Center>
             </Box>
           )
         ) : (
-          <Box w={850}>
-            <Text fontSize={20} mb={20}>
-              Click on the button bellow to get a list of all your registered songs.
-            </Text>
-            <Box>
-              <Center>
+          <Box w={820}>
+            <Center>
+              <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+                <Text fontSize={20} mb={20} align={'center'}>
+                  Click on the button bellow to get a list of all your registered songs.
+                </Text>
+
                 <Button isLoading={isSongListLoading} loadingText="Getting Your Songs..." fontSize={20} mt={20} mb={40} onClick={getSongs}>
                   Get Songs
                 </Button>
-              </Center>
-            </Box>
+              </Flex>
+            </Center>
           </Box>
         )}
       </Center>

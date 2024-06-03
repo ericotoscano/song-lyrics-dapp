@@ -38,11 +38,8 @@ function RegisterButton({
       SongRegister.on('Registered', (songwriter, songTitle, songSignature, event) => {
         const registeredByLine = [];
 
-        registeredByLine.push('Songwriter');
         registeredByLine.push(songwriter);
-        registeredByLine.push('Song Title');
         registeredByLine.push(songTitle);
-        registeredByLine.push('Song Signature');
         registeredByLine.push(songSignature);
 
         setRegisterReceipt(registeredByLine);
@@ -68,47 +65,57 @@ function RegisterButton({
   };
 
   return (
-    <Box w={820} mb={40}>
+    <Box w={820}>
       <Center>
         {isRegistered ? (
-          <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-            <Text as="b" mb={40} mt={20} fontSize={25} color="#f1c550">
-              Successfully Registered!
-            </Text>
-
-            {registerReceipt.map((line, index) => (
-              <li key={index}>
-                <Box mb={15} w={820}>
-                  <Text as="em" fontSize="x-large" align="center" color="#f1c550">
-                    {line}
-                  </Text>
-                </Box>
-              </li>
-            ))}
-
-            <Box w={820} mt={20} mb={20}>
-              <Text as="b" fontSize={20}>
-                See your register transaction details on{' '}
-                <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${registerHash}`} isExternal>
-                  Polygon Amoy Testnet Explorer
-                </Link>
+          <Box w={820} mt={20} mb={40}>
+            <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
+              <Text as="b" mb={30} fontSize="xx-large" color="#f1c550">
+                Successfully Registered!
               </Text>
-            </Box>
+              <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
+                Songwriter
+              </Text>
+              <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
+                {registerReceipt[0]}
+              </Text>
+              <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
+                Song Title
+              </Text>
+              <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
+                {registerReceipt[1]}
+              </Text>
+              <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
+                Song Signature
+              </Text>
+              <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
+                {registerReceipt[2]}
+              </Text>
 
-            <Box w={820} mt={20}>
-              <Center>
-                <Button fontSize={20} onClick={handleClick}>
-                  Write Another Song
-                </Button>
-              </Center>
-            </Box>
-          </Flex>
+              <Box w={820} mt={20}>
+                <Text as="b" fontSize={20}>
+                  See your register transaction details on{' '}
+                  <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${registerHash}`} isExternal>
+                    Polygon Amoy Testnet Explorer
+                  </Link>
+                </Text>
+              </Box>
+
+              <Box w={820} mt={40} mb={20}>
+                <Center>
+                  <Button fontSize={20} onClick={handleClick}>
+                    Write Another Song
+                  </Button>
+                </Center>
+              </Box>
+            </Flex>
+          </Box>
         ) : isWriteButtonClicked ? (
           <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
             <Text as="b" fontSize={20} mt={20}>
               Let's write another song!
             </Text>
-            <Text as="b" mt={40} mb={20} fontSize={20}>
+            <Text as="b" mt={40} mb={40} fontSize={20}>
               <Highlight query="Write" styles={{ px: '0.5em', py: '0.5em', border: '4px solid transparent', borderRadius: '3em', borderColor: '#f2f2f2', bg: '#60316e', color: 'white' }}>
                 Go to Write to continue...
               </Highlight>

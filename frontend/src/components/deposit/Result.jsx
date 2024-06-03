@@ -28,13 +28,9 @@ function Result({
       SongRegister.on('Deposited', (sender, depositValue, currentBalance, event) => {
         const depositedByLine = [];
 
-        depositedByLine.push('Sender');
         depositedByLine.push(sender);
-        depositedByLine.push('Deposit Value');
         depositedByLine.push(`${parseInt(ethers.utils.formatUnits(depositValue, 'gwei'))} Gwei (${ethers.utils.formatUnits(depositValue, 'ether')} Ether)`);
-        depositedByLine.push('Current Balance');
         depositedByLine.push(`${parseInt(ethers.utils.formatUnits(currentBalance, 'gwei'))} Gwei (${ethers.utils.formatUnits(currentBalance, 'ether')} Ether)`);
-        depositedByLine.push('Current Cost');
         depositedByLine.push(`${currentCostInGwei} Gwei (${currentCostInEther} Ether)`);
 
         setDepositReceipt(depositedByLine);
