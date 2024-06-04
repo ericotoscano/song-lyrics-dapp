@@ -9,7 +9,7 @@ function MainHeadings() {
             Crypto Songs Lyrics
           </Heading>
 
-          <Text as="cite" fontSize={25}>
+          <Text as="cite" fontSize={30}>
             A cryptographic way to prove the authenticity of your songs lyrics ideas
           </Text>
         </Flex>

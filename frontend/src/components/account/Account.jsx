@@ -6,7 +6,7 @@ import { Box, Center, Flex } from '@chakra-ui/react';
 
 function Account({ account, accountFormatted, setAccount, setAccountFormatted, setSigner }) {
   return (
-    <Box w="100vw" >
+    <Box w="100vw">
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           {account ? (
