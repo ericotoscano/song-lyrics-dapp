@@ -1,7 +1,8 @@
 import CostAndBalanceHeading from './CostAndBalanceHeading';
+import BalanceReceipt from './BalanceReceipt';
 import CostAndBalanceButton from './CostAndBalanceButton';
 import BalanceMessage from './BalanceMessage';
-import Deposit from './Deposit';
+import DepositButton from './DepositButton';
 
 import { Box, Center, Flex, TabPanel } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -25,61 +26,62 @@ function DepositPanel({ account, signer, contractAddress, contractABI, isChecked
           <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
             <CostAndBalanceHeading />
 
-            <CostAndBalanceButton
-              account={account}
-              contractAddress={contractAddress}
-              contractABI={contractABI}
-              currentCostInEther={currentCostInEther}
-              currentCostInGwei={currentCostInGwei}
-              currentBalanceInGwei={currentBalanceInGwei}
-              currentBalanceInEther={currentBalanceInEther}
-              isBalanceLoading={isBalanceLoading}
-              isPausedLoading={isPausedLoading}
-              signer={signer}
-              isChecked={isChecked}
-              depositReceipt={depositReceipt}
-              isPaused={isPaused}
-              depositHash={depositHash}
-              setIsChecked={setIsChecked}
-              setIsDeposited={setIsDeposited}
-              setIsPaused={setIsPaused}
-              setCurrentCostInEther={setCurrentCostInEther}
-              setCurrentCostInGwei={setCurrentCostInGwei}
-              setCurrentBalanceInGwei={setCurrentBalanceInGwei}
-              setCurrentBalanceInEther={setCurrentBalanceInEther}
-              setIsBalanceLoading={setIsBalanceLoading}
-              setIsPausedLoading={setIsPausedLoading}
-            />
+            {isChecked ? (
+              <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
+                <BalanceReceipt
+                  currentCostInEther={currentCostInEther}
+                  currentCostInGwei={currentCostInGwei}
+                  currentBalanceInGwei={currentBalanceInGwei}
+                  currentBalanceInEther={currentBalanceInEther}
+                  depositReceipt={depositReceipt}
+                  depositHash={depositHash}
+                />
 
-            <BalanceMessage
-              signer={signer}
-              contractAddress={contractAddress}
-              contractABI={contractABI}
-              isChecked={isChecked}
-              isDeposited={isDeposited}
-              isPausedLoading={isPausedLoading}
-              setIsPaused={setIsPaused}
-              setIsContractStatusChecked={setIsContractStatusChecked}
-              setIsPausedLoading={setIsPausedLoading}
-            />
+                <BalanceMessage
+                  signer={signer}
+                  contractAddress={contractAddress}
+                  contractABI={contractABI}
+                  isChecked={isChecked}
+                  isDeposited={isDeposited}
+                  isPausedLoading={isPausedLoading}
+                  setIsPaused={setIsPaused}
+                  setIsContractStatusChecked={setIsContractStatusChecked}
+                  setIsPausedLoading={setIsPausedLoading}
+                />
+              </Flex>
+            ) : (
+              <CostAndBalanceButton
+                account={account}
+                signer={signer}
+                contractAddress={contractAddress}
+                contractABI={contractABI}
+                isBalanceLoading={isBalanceLoading}
+                setIsChecked={setIsChecked}
+                setIsDeposited={setIsDeposited}
+                setCurrentCostInEther={setCurrentCostInEther}
+                setCurrentCostInGwei={setCurrentCostInGwei}
+                setCurrentBalanceInGwei={setCurrentBalanceInGwei}
+                setCurrentBalanceInEther={setCurrentBalanceInEther}
+                setIsBalanceLoading={setIsBalanceLoading}
+              />
+            )}
 
-            <Deposit
-              signer={signer}
-              contractAddress={contractAddress}
-              contractABI={contractABI}
-              isChecked={isChecked}
-              isDeposited={isDeposited}
-              isPaused={isPaused}
-              currentCostInEther={currentCostInEther}
-              currentCostInGwei={currentCostInGwei}
-              isDepositLoading={isDepositLoading}
-              isContractStatusChecked={isContractStatusChecked}
-              setIsDeposited={setIsDeposited}
-              setCurrentBalanceInGwei={setCurrentBalanceInGwei}
-              setIsDepositLoading={setIsDepositLoading}
-              setDepositHash={setDepositHash}
-              setDepositReceipt={setDepositReceipt}
-            />
+            {isChecked && !isDeposited && isContractStatusChecked ? (
+              <DepositButton
+                signer={signer}
+                contractAddress={contractAddress}
+                contractABI={contractABI}
+                isPaused={isPaused}
+                currentCostInEther={currentCostInEther}
+                currentCostInGwei={currentCostInGwei}
+                isDepositLoading={isDepositLoading}
+                setIsDeposited={setIsDeposited}
+                setCurrentBalanceInGwei={setCurrentBalanceInGwei}
+                setIsDepositLoading={setIsDepositLoading}
+                setDepositHash={setDepositHash}
+                setDepositReceipt={setDepositReceipt}
+              />
+            ) : null}
           </Flex>
         </Center>
       </Box>

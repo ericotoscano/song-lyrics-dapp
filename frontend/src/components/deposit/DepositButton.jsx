@@ -1,17 +1,14 @@
-import { Box, Button, Center, Flex, Highlight, Text } from '@chakra-ui/react';
+import { Box, Button, Center, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
-function Deposit({
+function DepositButton({
   signer,
   contractAddress,
   contractABI,
-  isChecked,
-  isDeposited,
   isPaused,
   currentCostInEther,
   currentCostInGwei,
   isDepositLoading,
-  isContractStatusChecked,
   setIsDeposited,
   setCurrentBalanceInGwei,
   setIsDepositLoading,
@@ -52,34 +49,30 @@ function Deposit({
   return (
     <Box w={820} mb={40}>
       <Center>
-        {isChecked ? (
-          isDeposited ? null : isContractStatusChecked ? (
-            isPaused ? (
-              <Box w={820}>
-                <Text as="b" mt={20} mb={20} fontSize={20} color={'tomato'}>
-                  Currently, the Song Register contract is not accepting deposits!
-                </Text>
-                <Text mt={20} mb={20} fontSize={20}>
-                  Try to check the contract status again later.
-                </Text>
-              </Box>
-            ) : (
-              <Box w={820}>
-                <Text mt={20} mb={20} fontSize={20}>
-                  All right! Now, you can make a deposit for the current cost...
-                </Text>
-                <Center>
-                  <Button isLoading={isDepositLoading} loadingText="Depositing..." fontSize={20} mt={20} onClick={deposit}>
-                    Make a Deposit
-                  </Button>
-                </Center>
-              </Box>
-            )
-          ) : null
-        ) : null}
+        {isPaused ? (
+          <Box w={820}>
+            <Text as="b" mt={20} mb={20} fontSize={20} color={'tomato'}>
+              Currently, the Song Register contract is not accepting deposits!
+            </Text>
+            <Text mt={20} mb={20} fontSize={20}>
+              Try to check the contract status again later.
+            </Text>
+          </Box>
+        ) : (
+          <Box w={820}>
+            <Text mt={20} mb={20} fontSize={20}>
+              All right! Now, you can make a deposit for the current cost...
+            </Text>
+            <Center>
+              <Button isLoading={isDepositLoading} loadingText="Depositing..." fontSize={20} mt={20} onClick={deposit}>
+                Make a Deposit
+              </Button>
+            </Center>
+          </Box>
+        )}
       </Center>
     </Box>
   );
 }
 
-export default Deposit;
+export default DepositButton;
