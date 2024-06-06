@@ -42,8 +42,12 @@ function RegisterPanel({
               isRegistered={isRegistered}
               registerReceipt={registerReceipt}
               isWriteButtonClicked={isWriteButtonClicked}
+              setTitle={setTitle}
+              setLyrics={setLyrics}
+              setLyricsByLine={setLyricsByLine}
               setIsSubmitted={setIsSubmitted}
               setIsEncrypted={setIsEncrypted}
+              setSongSignature={setSongSignature}
               setIsChecked={setIsChecked}
               setIsDeposited={setIsDeposited}
               setDepositReceipt={setDepositReceipt}

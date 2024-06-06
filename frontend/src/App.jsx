@@ -102,9 +102,9 @@ function App() {
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <MainHeadings />
 
-          <Contract contractAddress={REGISTER_ADDRESS} contractABI={REGISTER_ABI} />
-
           <Account account={account} accountFormatted={accountFormatted} contractAddress={REGISTER_ADDRESS} setAccount={setAccount} setAccountFormatted={setAccountFormatted} setSigner={setSigner} />
+
+          <Contract contractAddress={REGISTER_ADDRESS} contractABI={REGISTER_ABI} />
 
           {account ? (
             <Options

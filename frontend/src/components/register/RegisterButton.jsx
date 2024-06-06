@@ -11,8 +11,12 @@ function RegisterButton({
   isRegistered,
   registerReceipt,
   isWriteButtonClicked,
+  setTitle,
+  setLyrics,
+  setLyricsByLine,
   setIsSubmitted,
   setIsEncrypted,
+  setSongSignature,
   setIsChecked,
   setIsDeposited,
   setDepositReceipt,
@@ -49,9 +53,14 @@ function RegisterButton({
     }
   };
 
-  const handleClick = () => {
+  const restartAll = () => {
+    setIsRegistered(false);
+    setTitle('');
+    setLyrics('');
+    setLyricsByLine([]);
     setIsSubmitted(false);
     setIsEncrypted(false);
+    setSongSignature('');
     setIsChecked(false);
     setIsDeposited(false);
     setDepositReceipt([]);
@@ -99,7 +108,7 @@ function RegisterButton({
 
               <Box w={820} mt={40} mb={20}>
                 <Center>
-                  <Button fontSize={20} onClick={handleClick}>
+                  <Button fontSize={20} onClick={restartAll}>
                     Write Another Song
                   </Button>
                 </Center>
@@ -122,7 +131,7 @@ function RegisterButton({
             <Text fontSize={20}>Now it's time to register your song!</Text>
             <Box mt={40}>
               <Center>
-                <Button isLoading={isRegisterLoading} loadingText="Registering Song..." fontSize={20} onClick={register}>
+                <Button isLoading={isRegisterLoading} loadingText="Registering Song..." fontSize={20} mb={40} onClick={register}>
                   Register Your Song
                 </Button>
               </Center>

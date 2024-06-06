@@ -2,7 +2,7 @@ import { Box, Center, Flex, Link, Text } from '@chakra-ui/react';
 
 function Footer() {
   return (
-    <Box mt={20}>
+    <Box>
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <Text fontSize={25} mb={0}>

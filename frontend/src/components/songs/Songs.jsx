@@ -4,7 +4,7 @@ import GetSongsButton from './GetSongsButton';
 import { Box, Center, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 
-function Songs({ account, signer, contractAddress, contractABI, songList, isListed, isRegistered, setSongList, setIsListed }) {
+function Songs({ account, signer, contractAddress, contractABI, songList, isListed, isRegistered, setSongList, setIsListed, setIsRegistered }) {
   const [isSongListLoading, setIsSongListLoading] = useState(false);
   return (
     <Box>
@@ -22,6 +22,7 @@ function Songs({ account, signer, contractAddress, contractABI, songList, isList
             isSongListLoading={isSongListLoading}
             setSongList={setSongList}
             setIsListed={setIsListed}
+            setIsRegistered={setIsRegistered}
             setIsSongListLoading={setIsSongListLoading}
           />
         </Flex>

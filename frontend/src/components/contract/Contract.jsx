@@ -1,17 +1,23 @@
-import ContractAddress from './ContractAddress';
-import ContractStatus from './ContractStatus';
+import { Box, Flex, Link, Text } from '@chakra-ui/react';
 
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Center, Flex, OrderedList, List, ListItem, Text } from '@chakra-ui/react';
-
-function Contract({ contractAddress, contractABI }) {
+function Contract({ contractAddress }) {
   return (
-    <Box w="100vw" mb={40}>
-      <Center>
-        <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-          <ContractAddress contractAddress={contractAddress} />
-          <ContractStatus contractAddress={contractAddress} contractABI={contractABI} />
-        </Flex>
-      </Center>
+    <Box mt={20}>
+      <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
+        <Text fontSize={25} mt={0}>
+          Song Register Contract is deployed on{' '}
+          <Link color={'#884bf2'} href={`https://polygon.technology/blog/introducing-the-amoy-testnet-for-polygon-pos`} isExternal>
+            Polygon Amoy Testnet
+          </Link>
+        </Text>
+
+        <Text fontSize={25} mt={0}>
+          See all contract details on{' '}
+          <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/address/${contractAddress}`} isExternal>
+            Block Explorer
+          </Link>
+        </Text>
+      </Flex>
     </Box>
   );
 }

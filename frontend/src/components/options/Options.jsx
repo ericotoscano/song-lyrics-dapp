@@ -94,6 +94,7 @@ function Options({
               isRegistered={isRegistered}
               songList={songList}
               setIsListed={setIsListed}
+              setIsRegistered={setIsRegistered}
               setSongList={setSongList}
             />
           ) : null}

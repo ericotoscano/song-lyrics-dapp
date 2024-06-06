@@ -21,7 +21,7 @@ function ConnectButton({ account, setAccount, setAccountFormatted, setSigner }) 
   };
 
   return (
-    <Box mb={40}>
+    <Box mb={40} mt={20}>
       <Center>
         <Button onClick={getAccount} bgColor="#22267b" color="#f2f2f2">
           Connect Your Account
