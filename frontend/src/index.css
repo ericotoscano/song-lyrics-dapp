@@ -56,10 +56,6 @@ button:hover {
   border-color: #f1c550;
   color: #f1c550;
 }
-button:focus {
-  border-color: #f1c550;
-  color: #f1c550;
-}
 
 @media (prefers-color-scheme: light) {
   :root {

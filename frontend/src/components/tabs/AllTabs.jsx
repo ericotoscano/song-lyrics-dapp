@@ -2,14 +2,15 @@ import TabsHeading from './TabsHeading';
 import TabsButtons from './TabsButtons';
 import WritePanel from '../write/WritePanel';
 import EncryptPanel from '../encrypt/EncryptPanel';
-import DepositPanel from '../deposit/DepositPanel';
 import RegisterPanel from '../register/RegisterPanel';
+import PauseWarning from './PauseWarning';
 
-import { Box, Center, Flex, Tabs, TabPanels } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, Center, Flex, Tabs, TabPanels, Text } from '@chakra-ui/react';
+import { ethers } from 'ethers';
+import { useState, useEffect } from 'react';
+
 
 function AllTabs({
-  account,
   accountFormatted,
   signer,
   contractAddress,
@@ -20,103 +21,101 @@ function AllTabs({
   isSubmitted,
   isEncrypted,
   songSignature,
-  isChecked,
-  isDeposited,
-  depositReceipt,
   isRegistered,
   registerReceipt,
+  isRegisterButtonClicked,
   setTitle,
   setLyrics,
   setLyricsByLine,
   setIsSubmitted,
   setIsEncrypted,
   setSongSignature,
-  setIsChecked,
-  setIsDeposited,
-  setDepositReceipt,
   setIsRegistered,
   setRegisterReceipt,
   setIsListed,
+  setIsRegisterButtonClicked,
 }) {
-  const [isWriteButtonClicked, setIsWriteButtonClicked] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
+  const [isWriteAnotherSongButtonClicked, setIsWriteAnotherSongButtonClicked] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const checkIsPaused = async () => {
+      try {
+        const SongRegister = new ethers.Contract(contractAddress, contractABI, signer);
+        const isPaused = await SongRegister.isPaused();
+        setIsPaused(isPaused);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    checkIsPaused();
+  }, [tabIndex, isRegisterButtonClicked]);
 
   return (
-    <Box>
+    <Box minWidth={850}>
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <TabsHeading />
-          <Tabs isLazy={isWriteButtonClicked} mt={20}>
+          <Tabs onChange={(index) => setTabIndex(index)} isLazy={isWriteAnotherSongButtonClicked} mt={20}>
             <Center>
-              <TabsButtons title={title} lyrics={lyrics} songSignature={songSignature} isSubmitted={isSubmitted} isEncrypted={isEncrypted} isDeposited={isDeposited} isRegistered={isRegistered} />
+              <TabsButtons title={title} lyrics={lyrics} songSignature={songSignature} isSubmitted={isSubmitted} isEncrypted={isEncrypted} isRegistered={isRegistered} isPaused={isPaused} />
             </Center>
 
-            <Box mt={40}>
+            <Box mt={40} minWidth={850}>
               <Center>
-                <TabPanels>
-                  <WritePanel
-                    title={title}
-                    lyrics={lyrics}
-                    isSubmitted={isSubmitted}
-                    isRegistered={isRegistered}
-                    setTitle={setTitle}
-                    setLyrics={setLyrics}
-                    setLyricsByLine={setLyricsByLine}
-                    setIsSubmitted={setIsSubmitted}
-                    setIsEncrypted={setIsEncrypted}
-                    setSongSignature={setSongSignature}
-                    setIsChecked={setIsChecked}
-                    setIsDeposited={setIsDeposited}
-                    setDepositReceipt={setDepositReceipt}
-                    setIsRegistered={setIsRegistered}
-                    setRegisterReceipt={setRegisterReceipt}
-                    setIsWriteButtonClicked={setIsWriteButtonClicked}
-                  />
-                  <EncryptPanel
-                    accountFormatted={accountFormatted}
-                    title={title}
-                    lyricsByLine={lyricsByLine}
-                    isEncrypted={isEncrypted}
-                    songSignature={songSignature}
-                    setIsEncrypted={setIsEncrypted}
-                    setSongSignature={setSongSignature}
-                  />
-                  <DepositPanel
-                    account={account}
-                    accountFormatted={accountFormatted}
-                    contractAddress={contractAddress}
-                    contractABI={contractABI}
-                    signer={signer}
-                    isChecked={isChecked}
-                    isDeposited={isDeposited}
-                    depositReceipt={depositReceipt}
-                    setIsChecked={setIsChecked}
-                    setIsDeposited={setIsDeposited}
-                    setDepositReceipt={setDepositReceipt}
-                  />
-                  <RegisterPanel
-                    signer={signer}
-                    contractAddress={contractAddress}
-                    contractABI={contractABI}
-                    title={title}
-                    songSignature={songSignature}
-                    isRegistered={isRegistered}
-                    registerReceipt={registerReceipt}
-                    isWriteButtonClicked={isWriteButtonClicked}
-                    setTitle={setTitle}
-                    setLyrics={setLyrics}
-                    setLyricsByLine={setLyricsByLine}
-                    setIsSubmitted={setIsSubmitted}
-                    setIsEncrypted={setIsEncrypted}
-                    setSongSignature={setSongSignature}
-                    setIsChecked={setIsChecked}
-                    setIsDeposited={setIsDeposited}
-                    setDepositReceipt={setDepositReceipt}
-                    setIsRegistered={setIsRegistered}
-                    setRegisterReceipt={setRegisterReceipt}
-                    setIsListed={setIsListed}
-                    setIsWriteButtonClicked={setIsWriteButtonClicked}
-                  />
-                </TabPanels>
+                {!isPaused ? (
+                  <TabPanels>
+                    <WritePanel
+                      title={title}
+                      lyrics={lyrics}
+                      isSubmitted={isSubmitted}
+                      isRegistered={isRegistered}
+                      setTitle={setTitle}
+                      setLyrics={setLyrics}
+                      setLyricsByLine={setLyricsByLine}
+                      setIsSubmitted={setIsSubmitted}
+                      setIsEncrypted={setIsEncrypted}
+                      setSongSignature={setSongSignature}
+                      setIsRegistered={setIsRegistered}
+                      setRegisterReceipt={setRegisterReceipt}
+                      setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
+                    />
+                    <EncryptPanel
+                      accountFormatted={accountFormatted}
+                      title={title}
+                      lyricsByLine={lyricsByLine}
+                      isEncrypted={isEncrypted}
+                      songSignature={songSignature}
+                      setIsEncrypted={setIsEncrypted}
+                      setSongSignature={setSongSignature}
+                    />
+                    <RegisterPanel
+                      signer={signer}
+                      contractAddress={contractAddress}
+                      contractABI={contractABI}
+                      title={title}
+                      songSignature={songSignature}
+                      isRegistered={isRegistered}
+                      registerReceipt={registerReceipt}
+                      isWriteAnotherSongButtonClicked={isWriteAnotherSongButtonClicked}
+                      isPaused={isPaused}
+                      setTitle={setTitle}
+                      setLyrics={setLyrics}
+                      setLyricsByLine={setLyricsByLine}
+                      setIsSubmitted={setIsSubmitted}
+                      setIsEncrypted={setIsEncrypted}
+                      setSongSignature={setSongSignature}
+                      setIsRegistered={setIsRegistered}
+                      setRegisterReceipt={setRegisterReceipt}
+                      setIsListed={setIsListed}
+                      setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
+                      setIsPaused={setIsPaused}
+                    />
+                  </TabPanels>
+                ) : (
+                  <PauseWarning signer={signer} contractAddress={contractAddress} contractABI={contractABI} setIsPaused={setIsPaused} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
+                )}
               </Center>
             </Box>
           </Tabs>

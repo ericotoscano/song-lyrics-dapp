@@ -1,30 +1,14 @@
 import { Box, Center, Flex, FormControl, FormLabel, FormErrorMessage, FormHelperText, Heading, Input } from '@chakra-ui/react';
 
-function SongTitleForm({
-  title,
-  isSubmitted,
-  setTitle,
-  setIsSubmitted,
-  setIsEncrypted,
-  setSongSignature,
-  setIsChecked,
-  setIsDeposited,
-  setDepositReceipt,
-  setIsRegistered,
-  setRegisterReceipt,
-  setIsWriteButtonClicked,
-}) {
+function SongTitleForm({ title, isSubmitted, setTitle, setIsSubmitted, setIsEncrypted, setSongSignature, setIsRegistered, setRegisterReceipt, setIsWriteAnotherSongButtonClicked }) {
   function handleTitleChange(event) {
     setTitle(event.target.value);
     setIsSubmitted(false);
     setIsEncrypted(false);
     setSongSignature('');
-    setIsChecked(false);
-    setIsDeposited(false);
-    setDepositReceipt([]);
     setIsRegistered(false);
     setRegisterReceipt([]);
-    setIsWriteButtonClicked(false);
+    setIsWriteAnotherSongButtonClicked(false);
   }
 
   return (

@@ -17,32 +17,17 @@ function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isEncrypted, setIsEncrypted] = useState(false);
   const [songSignature, setSongSignature] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
-  const [isDeposited, setIsDeposited] = useState(false);
-  const [depositReceipt, setDepositReceipt] = useState([]);
   const [isRegistered, setIsRegistered] = useState(false);
   const [registerReceipt, setRegisterReceipt] = useState([]);
   const [isListed, setIsListed] = useState('');
   const [songList, setSongList] = useState([]);
 
-  const REGISTER_ADDRESS = '0x0f9A04DeB7A8adD22636Aa2e4ee202fE677F2b50';
+  const REGISTER_ADDRESS = '0x26D7a7FA3Bfe6dC02C6B68346d3915d4c6e6A6F1';
   const REGISTER_ABI = [
     { inputs: [{ internalType: 'uint256', name: '_cost', type: 'uint256' }], stateMutability: 'nonpayable', type: 'constructor' },
-    { inputs: [], name: 'NoBalance', type: 'error' },
-    { inputs: [], name: 'NoFunds', type: 'error' },
     { inputs: [], name: 'NotOwner', type: 'error' },
     { inputs: [], name: 'Paused', type: 'error' },
-    { inputs: [], name: 'Unpaused', type: 'error' },
-    {
-      anonymous: false,
-      inputs: [
-        { indexed: true, internalType: 'address', name: 'sender', type: 'address' },
-        { indexed: false, internalType: 'uint256', name: 'depositValue', type: 'uint256' },
-        { indexed: false, internalType: 'uint256', name: 'currentBalance', type: 'uint256' },
-      ],
-      name: 'Deposited',
-      type: 'event',
-    },
+    { inputs: [], name: 'ValueMustBeEqualCost', type: 'error' },
     {
       anonymous: false,
       inputs: [
@@ -53,15 +38,7 @@ function App() {
       name: 'Registered',
       type: 'event',
     },
-    {
-      inputs: [{ internalType: 'address', name: '', type: 'address' }],
-      name: 'balances',
-      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-      stateMutability: 'view',
-      type: 'function',
-    },
     { inputs: [], name: 'cost', outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }], stateMutability: 'view', type: 'function' },
-    { inputs: [], name: 'deposit', outputs: [], stateMutability: 'payable', type: 'function' },
     {
       inputs: [],
       name: 'getSongs',
@@ -81,7 +58,6 @@ function App() {
     },
     { inputs: [], name: 'isPaused', outputs: [{ internalType: 'bool', name: '', type: 'bool' }], stateMutability: 'view', type: 'function' },
     { inputs: [], name: 'owner', outputs: [{ internalType: 'address payable', name: '', type: 'address' }], stateMutability: 'view', type: 'function' },
-    { inputs: [], name: 'pause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
     {
       inputs: [
         { internalType: 'string', name: '_title', type: 'string' },
@@ -89,10 +65,10 @@ function App() {
       ],
       name: 'register',
       outputs: [],
-      stateMutability: 'nonpayable',
+      stateMutability: 'payable',
       type: 'function',
     },
-    { inputs: [], name: 'unpause', outputs: [], stateMutability: 'nonpayable', type: 'function' },
+    { inputs: [], name: 'switchIsPaused', outputs: [], stateMutability: 'nonpayable', type: 'function' },
     { inputs: [], name: 'withdraw', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   ];
 
@@ -102,9 +78,9 @@ function App() {
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <MainHeadings />
 
-          <Account account={account} accountFormatted={accountFormatted} contractAddress={REGISTER_ADDRESS} setAccount={setAccount} setAccountFormatted={setAccountFormatted} setSigner={setSigner} />
+          <Account account={account} accountFormatted={accountFormatted} setAccount={setAccount} setAccountFormatted={setAccountFormatted} setSigner={setSigner} />
 
-          <Contract contractAddress={REGISTER_ADDRESS} contractABI={REGISTER_ABI} />
+          <Contract contractAddress={REGISTER_ADDRESS} />
 
           {account ? (
             <Options
@@ -119,9 +95,6 @@ function App() {
               isSubmitted={isSubmitted}
               isEncrypted={isEncrypted}
               songSignature={songSignature}
-              isChecked={isChecked}
-              isDeposited={isDeposited}
-              depositReceipt={depositReceipt}
               isRegistered={isRegistered}
               registerReceipt={registerReceipt}
               isListed={isListed}
@@ -132,9 +105,6 @@ function App() {
               setIsSubmitted={setIsSubmitted}
               setIsEncrypted={setIsEncrypted}
               setSongSignature={setSongSignature}
-              setIsChecked={setIsChecked}
-              setIsDeposited={setIsDeposited}
-              setDepositReceipt={setDepositReceipt}
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
               setIsListed={setIsListed}

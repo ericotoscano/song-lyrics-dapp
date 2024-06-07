@@ -1,7 +1,7 @@
 import { Box, Button, Center, Flex, Highlight, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
-function GoToDeposit({ title, lyrics, isEncrypted, songSignature, setIsEncrypted, setSongSignature }) {
+function GoToRegister({ title, lyrics, isEncrypted, songSignature, setIsEncrypted, setSongSignature }) {
   function getSignature() {
     try {
       const signature = ethers.utils.hashMessage(title + '' + lyrics);
@@ -22,17 +22,17 @@ function GoToDeposit({ title, lyrics, isEncrypted, songSignature, setIsEncrypted
               Your song signature is:
             </Text>
 
-            <Text as="mark" px="0.5em" py="0.5em" borderRadius="0.25em" textColor="#f1c550" bgColor="#60316e" mt={20} mb={20} fontSize={20}>
+            <Text as="mark" px="0.5em" py="0.5em" borderRadius="0.25em" textColor="#f1c550" bgColor="#60316e" mt={20} mb={40} fontSize={20}>
               {songSignature}
             </Text>
 
             <Text as="b" fontSize={25}>
-              Now it's time to make a deposit!
+              Now it's time to register your song!
             </Text>
 
             <Text as="b" mt={40} mb={20} fontSize={20}>
-              <Highlight query="Deposit" styles={{ px: '0.5em', py: '0.5em', border: '4px solid transparent', borderRadius: '3em', borderColor: '#f2f2f2', bg: '#60316e', color: 'white' }}>
-                Go to Deposit to continue...
+              <Highlight query="Register" styles={{ px: '0.5em', py: '0.5em', border: '4px solid transparent', borderRadius: '3em', borderColor: '#f2f2f2', bg: '#60316e', color: 'white' }}>
+                Go to Register to continue...
               </Highlight>
             </Text>
           </Flex>
@@ -46,4 +46,4 @@ function GoToDeposit({ title, lyrics, isEncrypted, songSignature, setIsEncrypted
   );
 }
 
-export default GoToDeposit;
+export default GoToRegister;

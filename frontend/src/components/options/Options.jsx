@@ -19,9 +19,6 @@ function Options({
   isSubmitted,
   isEncrypted,
   songSignature,
-  isChecked,
-  isDeposited,
-  depositReceipt,
   isRegistered,
   registerReceipt,
   isListed,
@@ -32,9 +29,6 @@ function Options({
   setIsSubmitted,
   setIsEncrypted,
   setSongSignature,
-  setIsChecked,
-  setIsDeposited,
-  setDepositReceipt,
   setIsRegistered,
   setRegisterReceipt,
   setIsListed,
@@ -66,23 +60,19 @@ function Options({
               isSubmitted={isSubmitted}
               isEncrypted={isEncrypted}
               songSignature={songSignature}
-              isChecked={isChecked}
-              isDeposited={isDeposited}
-              depositReceipt={depositReceipt}
               isRegistered={isRegistered}
               registerReceipt={registerReceipt}
+              isRegisterButtonClicked={isRegisterButtonClicked}
               setTitle={setTitle}
               setLyrics={setLyrics}
               setLyricsByLine={setLyricsByLine}
               setIsSubmitted={setIsSubmitted}
               setIsEncrypted={setIsEncrypted}
               setSongSignature={setSongSignature}
-              setIsChecked={setIsChecked}
-              setIsDeposited={setIsDeposited}
-              setDepositReceipt={setDepositReceipt}
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
               setIsListed={setIsListed}
+              setIsRegisterButtonClicked={setIsRegisterButtonClicked}
             />
           ) : isCheckButtonClicked ? (
             <Songs

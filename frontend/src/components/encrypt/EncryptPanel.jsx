@@ -2,7 +2,7 @@ import SongReportHeading from './SongReportHeading';
 import SongwriterAccount from './SongwriterAccount';
 import SongTitle from './SongTitle';
 import SongLyrics from './SongLyrics';
-import GoToDeposit from './GoToDeposit';
+import GoToRegister from './GoToRegister';
 
 import { Box, Card, CardBody, CardHeader, Center, Stack, StackDivider, TabPanel } from '@chakra-ui/react';
 
@@ -21,7 +21,7 @@ function EncryptPanel({ accountFormatted, title, lyrics, lyricsByLine, isEncrypt
                 <SongwriterAccount accountFormatted={accountFormatted} />
                 <SongTitle title={title} />
                 <SongLyrics lyricsByLine={lyricsByLine} />
-                <GoToDeposit title={title} lyrics={lyrics} isEncrypted={isEncrypted} songSignature={songSignature} setIsEncrypted={setIsEncrypted} setSongSignature={setSongSignature} />
+                <GoToRegister title={title} lyrics={lyrics} isEncrypted={isEncrypted} songSignature={songSignature} setIsEncrypted={setIsEncrypted} setSongSignature={setSongSignature} />
               </Stack>
             </CardBody>
           </Card>

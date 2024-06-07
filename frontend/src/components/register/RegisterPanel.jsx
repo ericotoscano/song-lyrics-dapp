@@ -1,7 +1,11 @@
 import RegisterHeading from './RegisterHeading';
+import RegisterReceipt from './RegisterReceipt';
 import RegisterButton from './RegisterButton';
+import AnotherSongMessage from './AnotherSongMessage';
+import WriteAnotherSongButton from './WriteAnotherSongButton';
 
 import { Box, Center, Flex, TabPanel } from '@chakra-ui/react';
+import { useState } from 'react';
 
 function RegisterPanel({
   signer,
@@ -11,51 +15,62 @@ function RegisterPanel({
   songSignature,
   isRegistered,
   registerReceipt,
-  isWriteButtonClicked,
+  isWriteAnotherSongButtonClicked,
+  isPaused,
   setTitle,
   setLyrics,
   setLyricsByLine,
   setIsSubmitted,
   setIsEncrypted,
   setSongSignature,
-  setIsChecked,
-  setIsDeposited,
-  setDepositReceipt,
   setIsRegistered,
   setRegisterReceipt,
   setIsListed,
-  setIsWriteButtonClicked,
+  setIsWriteAnotherSongButtonClicked,
 }) {
+  const [registerHash, setRegisterHash] = useState('');
+
   return (
     <TabPanel>
       <Box>
         <Center>
           <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-            {isWriteButtonClicked ? null : <RegisterHeading />}
+            <RegisterHeading />
 
-            <RegisterButton
-              signer={signer}
-              contractAddress={contractAddress}
-              contractABI={contractABI}
-              title={title}
-              songSignature={songSignature}
-              isRegistered={isRegistered}
-              registerReceipt={registerReceipt}
-              isWriteButtonClicked={isWriteButtonClicked}
-              setTitle={setTitle}
-              setLyrics={setLyrics}
-              setLyricsByLine={setLyricsByLine}
-              setIsSubmitted={setIsSubmitted}
-              setIsEncrypted={setIsEncrypted}
-              setSongSignature={setSongSignature}
-              setIsChecked={setIsChecked}
-              setIsDeposited={setIsDeposited}
-              setDepositReceipt={setDepositReceipt}
-              setIsRegistered={setIsRegistered}
-              setRegisterReceipt={setRegisterReceipt}
-              setIsListed={setIsListed}
-              setIsWriteButtonClicked={setIsWriteButtonClicked}
-            />
+            {isRegistered ? (
+              <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
+                <RegisterReceipt registerReceipt={registerReceipt} registerHash={registerHash} />
+
+                {isWriteAnotherSongButtonClicked ? (
+                  <AnotherSongMessage />
+                ) : (
+                  <WriteAnotherSongButton
+                    setTitle={setTitle}
+                    setLyrics={setLyrics}
+                    setLyricsByLine={setLyricsByLine}
+                    setIsSubmitted={setIsSubmitted}
+                    setIsEncrypted={setIsEncrypted}
+                    setSongSignature={setSongSignature}
+                    setIsRegistered={setIsRegistered}
+                    setRegisterReceipt={setRegisterReceipt}
+                    setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
+                  />
+                )}
+              </Flex>
+            ) : (
+              <RegisterButton
+                signer={signer}
+                contractAddress={contractAddress}
+                contractABI={contractABI}
+                title={title}
+                songSignature={songSignature}
+                isPaused={isPaused}
+                setIsRegistered={setIsRegistered}
+                setRegisterReceipt={setRegisterReceipt}
+                setIsListed={setIsListed}
+                setRegisterHash={setRegisterHash}
+              />
+            )}
           </Flex>
         </Center>
       </Box>

@@ -14,12 +14,9 @@ function WritePanel({
   setIsSubmitted,
   setIsEncrypted,
   setSongSignature,
-  setIsChecked,
-  setIsDeposited,
-  setDepositReceipt,
   setIsRegistered,
   setRegisterReceipt,
-  setIsWriteButtonClicked,
+  setIsWriteAnotherSongButtonClicked,
 }) {
   return (
     <TabPanel>
@@ -33,12 +30,9 @@ function WritePanel({
               setIsSubmitted={setIsSubmitted}
               setIsEncrypted={setIsEncrypted}
               setSongSignature={setSongSignature}
-              setIsChecked={setIsChecked}
-              setIsDeposited={setIsDeposited}
-              setDepositReceipt={setDepositReceipt}
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
-              setIsWriteButtonClicked={setIsWriteButtonClicked}
+              setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
             />
 
             <SongLyricsForm
@@ -48,12 +42,9 @@ function WritePanel({
               setIsSubmitted={setIsSubmitted}
               setIsEncrypted={setIsEncrypted}
               setSongSignature={setSongSignature}
-              setIsChecked={setIsChecked}
-              setIsDeposited={setIsDeposited}
-              setDepositReceipt={setDepositReceipt}
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
-              setIsWriteButtonClicked={setIsWriteButtonClicked}
+              setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
             />
 
             <GoToEncrypt title={title} lyrics={lyrics} isSubmitted={isSubmitted} setLyricsByLine={setLyricsByLine} setIsSubmitted={setIsSubmitted} />
