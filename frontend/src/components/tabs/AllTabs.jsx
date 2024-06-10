@@ -9,7 +9,6 @@ import { Box, Center, Flex, Tabs, TabPanels, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
 
-
 function AllTabs({
   accountFormatted,
   signer,
@@ -34,6 +33,7 @@ function AllTabs({
   setRegisterReceipt,
   setIsListed,
   setIsRegisterButtonClicked,
+  setIsCheckButtonClicked,
 }) {
   const [tabIndex, setTabIndex] = useState(0);
   const [isWriteAnotherSongButtonClicked, setIsWriteAnotherSongButtonClicked] = useState(false);
@@ -57,7 +57,7 @@ function AllTabs({
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <TabsHeading />
-          <Tabs onChange={(index) => setTabIndex(index)} isLazy={isWriteAnotherSongButtonClicked} mt={20}>
+          <Tabs onChange={(index) => setTabIndex(index)} mt={20}>
             <Center>
               <TabsButtons title={title} lyrics={lyrics} songSignature={songSignature} isSubmitted={isSubmitted} isEncrypted={isEncrypted} isRegistered={isRegistered} isPaused={isPaused} />
             </Center>
@@ -110,6 +110,8 @@ function AllTabs({
                       setRegisterReceipt={setRegisterReceipt}
                       setIsListed={setIsListed}
                       setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
+                      setIsRegisterButtonClicked={setIsRegisterButtonClicked}
+                      setIsCheckButtonClicked={setIsCheckButtonClicked}
                       setIsPaused={setIsPaused}
                     />
                   </TabPanels>

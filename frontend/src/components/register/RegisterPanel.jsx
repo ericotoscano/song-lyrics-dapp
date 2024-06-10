@@ -26,6 +26,8 @@ function RegisterPanel({
   setIsRegistered,
   setRegisterReceipt,
   setIsListed,
+  setIsRegisterButtonClicked,
+  setIsCheckButtonClicked,
   setIsWriteAnotherSongButtonClicked,
 }) {
   const [registerHash, setRegisterHash] = useState('');
@@ -52,7 +54,8 @@ function RegisterPanel({
                     setIsEncrypted={setIsEncrypted}
                     setSongSignature={setSongSignature}
                     setIsRegistered={setIsRegistered}
-                    setRegisterReceipt={setRegisterReceipt}
+                    setIsRegisterButtonClicked={setIsRegisterButtonClicked}
+                    setIsCheckButtonClicked={setIsCheckButtonClicked}
                     setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
                   />
                 )}

@@ -4,7 +4,7 @@ function CheckSongsHeading() {
   return (
     <Box w={820}>
       <Center>
-        <Heading fontSize={35} mb={40}>
+        <Heading fontSize={35} mb={20}>
           Your Songs
         </Heading>
       </Center>

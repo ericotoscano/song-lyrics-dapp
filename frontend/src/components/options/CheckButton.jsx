@@ -5,6 +5,7 @@ function CheckButton({ setIsCheckButtonClicked, setIsRegisterButtonClicked }) {
     setIsCheckButtonClicked(true);
     setIsRegisterButtonClicked(false);
   };
+
   return (
     <Box>
       <Center>

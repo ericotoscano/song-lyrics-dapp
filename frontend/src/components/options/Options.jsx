@@ -43,7 +43,7 @@ function Options({
         <Flex alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
           <Question />
 
-          <RegisterButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
+          <RegisterButton isRegisterButtonClicked={isRegisterButtonClicked} setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
 
           <CheckButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
 
@@ -71,8 +71,8 @@ function Options({
               setSongSignature={setSongSignature}
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
-              setIsListed={setIsListed}
               setIsRegisterButtonClicked={setIsRegisterButtonClicked}
+              setIsListed={setIsListed}
             />
           ) : isCheckButtonClicked ? (
             <Songs

@@ -10,10 +10,12 @@ function RegisterButton({ signer, contractAddress, contractABI, title, songSigna
       setIsRegisterLoading(true);
 
       const SongRegister = new ethers.Contract(contractAddress, contractABI, signer);
-      await SongRegister.connect(signer).register(title, songSignature, { gasLimit: 200000 });
+      await SongRegister.connect(signer).register(title, songSignature, { value: 1000000000, gasLimit: 200000 });
 
       SongRegister.on('Registered', (songwriter, songTitle, songSignature, event) => {
-        setRegisterReceipt([songwriter, songTitle, songSignature]);
+        const data = [songwriter, songTitle, songSignature];
+
+        setRegisterReceipt(data);
         setRegisterHash(event.transactionHash);
         setIsListed(false);
         setIsRegisterLoading(false);
@@ -32,7 +34,7 @@ function RegisterButton({ signer, contractAddress, contractABI, title, songSigna
         </Text>
         <Box w={820} mt={20}>
           <Center>
-            <Button isLoading={isRegisterLoading} loadingText="Registering..." fontSize={20} mt={20} onClick={register}>
+            <Button isLoading={isRegisterLoading} loadingText="Registering..." fontSize={20} onClick={register}>
               Register Your Song
             </Button>
           </Center>

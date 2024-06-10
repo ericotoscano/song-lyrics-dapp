@@ -2,9 +2,9 @@ import { Box, Flex, Highlight, Text } from '@chakra-ui/react';
 
 function AnotherSongMessage() {
   return (
-    <Box w={820} mt={40} mb={20}>
+    <Box w={820} mt={20} mb={20}>
       <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
-        <Text as="b" fontSize={20} mt={20}>
+        <Text as="b" fontSize={25} mt={20}>
           Let's write another song!
         </Text>
         <Text as="b" mt={40} mb={40} fontSize={20}>
