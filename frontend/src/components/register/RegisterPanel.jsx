@@ -29,7 +29,6 @@ function RegisterPanel({
   setIsCheckButtonClicked,
 }) {
   const [registerHash, setRegisterHash] = useState('');
-  const [errorReason, setErrorReason] = useState('');
 
   return (
     <TabPanel>
@@ -66,7 +65,6 @@ function RegisterPanel({
                 setIsListed={setIsListed}
                 setIsRegisterLoading={setIsRegisterLoading}
                 setRegisterHash={setRegisterHash}
-                setErrorReason={setErrorReason}
               />
             )}
           </Flex>

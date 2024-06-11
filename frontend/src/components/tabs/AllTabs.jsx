@@ -6,8 +6,10 @@ import RegisterPanel from '../register/RegisterPanel';
 import PauseWarning from './PauseWarning';
 
 import { Box, Center, Flex, Tabs, TabPanels } from '@chakra-ui/react';
-import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
+import { ErrorDecoder } from 'ethers-decode-error';
+import { errorsMapper } from '../../utils/errorsMapper';
 
 function AllTabs({
   accountFormatted,
@@ -39,6 +41,8 @@ function AllTabs({
   const [isPaused, setIsPaused] = useState(false);
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
 
+  const errorDecoder = ErrorDecoder.create([contractABI]);
+
   useEffect(() => {
     const checkIsPaused = async () => {
       try {
@@ -47,7 +51,10 @@ function AllTabs({
 
         setIsPaused(isPaused);
       } catch (error) {
-        console.log(error.message);
+        const decodedError = await errorDecoder.decode(error);
+        const reason = errorsMapper(decodedError);
+
+        console.log(reason);
       }
     };
     checkIsPaused();

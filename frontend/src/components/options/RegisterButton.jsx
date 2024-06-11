@@ -1,6 +1,6 @@
 import { Box, Button, Center } from '@chakra-ui/react';
 
-function RegisterButton({ isRegisterButtonClicked, setIsCheckButtonClicked, setIsRegisterButtonClicked }) {
+function RegisterButton({ setIsCheckButtonClicked, setIsRegisterButtonClicked }) {
   const handleClick = () => {
     setIsRegisterButtonClicked(true);
     setIsCheckButtonClicked(false);

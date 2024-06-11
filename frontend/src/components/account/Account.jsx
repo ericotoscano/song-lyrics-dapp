@@ -4,7 +4,7 @@ import ChangeAccount from './ChangeAccount';
 
 import { Box, Center, Flex } from '@chakra-ui/react';
 
-function Account({ account, accountFormatted, setAccount, setAccountFormatted, setSigner }) {
+function Account({ account, contractABI, accountFormatted, setAccount, setAccountFormatted, setSigner }) {
   return (
     <Box w="100vw">
       <Center>
@@ -19,7 +19,7 @@ function Account({ account, accountFormatted, setAccount, setAccountFormatted, s
               </Center>
             </Box>
           ) : (
-            <ConnectButton account={account} setAccount={setAccount} setAccountFormatted={setAccountFormatted} setSigner={setSigner} />
+            <ConnectButton account={account} contractABI={contractABI} setAccount={setAccount} setAccountFormatted={setAccountFormatted} setSigner={setSigner} />
           )}
         </Flex>
       </Center>

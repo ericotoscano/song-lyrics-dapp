@@ -1,31 +1,28 @@
 import { Box, Button, Center } from '@chakra-ui/react';
 import { ethers } from 'ethers';
+import { ErrorDecoder } from 'ethers-decode-error';
+import { errorsMapper } from '../../utils/errorsMapper';
 import { formatAccount } from '../../utils/formatter';
 
-function ConnectButton({ account, setAccount, setAccountFormatted, setSigner }) {
+function ConnectButton({ account, contractABI, setAccount, setAccountFormatted, setSigner }) {
+  const errorDecoder = ErrorDecoder.create([contractABI]);
   const getAccount = async () => {
     try {
-      let signer = null;
-      let provider;
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const accounts = await provider.send('eth_requestAccounts', []);
 
-      if (window.ethereum == null) {
-        console.log('MetaMask not installed; using read-only defaults');
-        provider = ethers.getDefaultProvider();
-      } else {
-        provider = new ethers.BrowserProvider(window.ethereum);
+      if (account !== accounts[0]) {
+        const partialAccount = formatAccount(accounts[0]);
 
-        const accounts = await provider.send('eth_requestAccounts', []);
-
-        if (account !== accounts[0]) {
-          const partialAccount = formatAccount(accounts[0]);
-
-          setAccount(accounts[0]);
-          setAccountFormatted(partialAccount);
-          setSigner(await provider.getSigner(accounts[0]));
-        }
+        setAccount(accounts[0]);
+        setAccountFormatted(partialAccount);
+        setSigner(await provider.getSigner(accounts[0]));
       }
     } catch (error) {
-      console.log(error.message);
+      const decodedError = await errorDecoder.decode(error);
+      const reason = errorsMapper(decodedError);
+
+      console.log(reason);
     }
   };
 

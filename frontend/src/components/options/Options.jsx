@@ -43,7 +43,7 @@ function Options({
         <Flex alignItems={'center'} justifyContent={'center'} flexDirection={'column'}>
           <Question />
 
-          <RegisterButton isRegisterButtonClicked={isRegisterButtonClicked} setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
+          <RegisterButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
 
           <CheckButton setIsCheckButtonClicked={setIsCheckButtonClicked} setIsRegisterButtonClicked={setIsRegisterButtonClicked} />
 

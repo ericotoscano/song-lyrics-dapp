@@ -1,21 +1,9 @@
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { ErrorDecoder } from 'ethers-decode-error';
+import { errorsMapper } from '../../utils/errorsMapper';
 
-function RegisterButton({
-  signer,
-  contractAddress,
-  contractABI,
-  title,
-  songSignature,
-  isRegisterLoading,
-  setIsRegistered,
-  setRegisterReceipt,
-  setIsListed,
-  setRegisterHash,
-  setIsRegisterLoading,
-  setErrorReason,
-}) {
+function RegisterButton({ signer, contractAddress, contractABI, title, songSignature, isRegisterLoading, setIsRegistered, setRegisterReceipt, setIsListed, setRegisterHash, setIsRegisterLoading }) {
   const songRegister = new ethers.Contract(contractAddress, contractABI, signer);
 
   songRegister.on('Registered', (songwriter, songTitle, songSignature, event) => {
@@ -43,22 +31,13 @@ function RegisterButton({
         await tx.wait();
       }
     } catch (error) {
-      const customReasonMapper = ({ name }) => {
-        switch (name) {
-          case 'Paused':
-            return 'Contract is Paused!';
-          default:
-            return 'An error has occurred';
-        }
-      };
       const decodedError = await errorDecoder.decode(error);
-      const reason = customReasonMapper(decodedError);
+      const reason = errorsMapper(decodedError);
 
-      console.log('Custom error reason:', reason);
+      console.log(reason);
 
       songRegister.off('Registered');
       setIsRegisterLoading(false);
-      setErrorReason(reason);
     }
   };
 
