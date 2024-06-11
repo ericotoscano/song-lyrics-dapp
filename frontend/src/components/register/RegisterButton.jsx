@@ -1,28 +1,64 @@
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
-import { useState } from 'react';
+import { ErrorDecoder } from 'ethers-decode-error';
 
-function RegisterButton({ signer, contractAddress, contractABI, title, songSignature, setIsRegistered, setRegisterReceipt, setIsListed, setRegisterHash }) {
-  const [isRegisterLoading, setIsRegisterLoading] = useState(false);
+function RegisterButton({
+  signer,
+  contractAddress,
+  contractABI,
+  title,
+  songSignature,
+  isRegisterLoading,
+  setIsRegistered,
+  setRegisterReceipt,
+  setIsListed,
+  setRegisterHash,
+  setIsRegisterLoading,
+  setErrorReason,
+}) {
+  const songRegister = new ethers.Contract(contractAddress, contractABI, signer);
+
+  songRegister.on('Registered', (songwriter, songTitle, songSignature, event) => {
+    const data = [songwriter, songTitle, songSignature];
+
+    setRegisterReceipt(data);
+    setRegisterHash(event.transactionHash);
+    setIsListed(false);
+    setIsRegisterLoading(false);
+    setIsRegistered(true);
+  });
+
+  const errorDecoder = ErrorDecoder.create([contractABI]);
 
   const register = async () => {
     try {
       setIsRegisterLoading(true);
+      const isPaused = await songRegister.isPaused();
 
-      const SongRegister = new ethers.Contract(contractAddress, contractABI, signer);
-      await SongRegister.connect(signer).register(title, songSignature, { value: 1000000000, gasLimit: 200000 });
+      if (!isPaused) {
+        const currentCost = await songRegister.cost();
 
-      SongRegister.on('Registered', (songwriter, songTitle, songSignature, event) => {
-        const data = [songwriter, songTitle, songSignature];
+        const tx = await songRegister.connect(signer).register(title, songSignature, { value: parseInt(currentCost), gasLimit: 200000 });
 
-        setRegisterReceipt(data);
-        setRegisterHash(event.transactionHash);
-        setIsListed(false);
-        setIsRegisterLoading(false);
-        setIsRegistered(true);
-      });
+        await tx.wait();
+      }
     } catch (error) {
-      console.log(error.message);
+      const customReasonMapper = ({ name }) => {
+        switch (name) {
+          case 'Paused':
+            return 'Contract is Paused!';
+          default:
+            return 'An error has occurred';
+        }
+      };
+      const decodedError = await errorDecoder.decode(error);
+      const reason = customReasonMapper(decodedError);
+
+      console.log('Custom error reason:', reason);
+
+      songRegister.off('Registered');
+      setIsRegisterLoading(false);
+      setErrorReason(reason);
     }
   };
 

@@ -1,14 +1,6 @@
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
 
 function PauseWarning({ setIsRegisterButtonClicked }) {
-  const refresh = async () => {
-    try {
-      setIsRegisterButtonClicked(false);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
   return (
     <Box w={850} mt={20} mb={40}>
       <Center>
@@ -21,7 +13,7 @@ function PauseWarning({ setIsRegisterButtonClicked }) {
       </Center>
       <Box>
         <Center>
-          <Button fontSize={20} mt={20} mb={20} onClick={refresh}>
+          <Button fontSize={20} mt={20} mb={20} onClick={() => setIsRegisterButtonClicked(false)}>
             Refresh and Try Again
           </Button>
         </Center>

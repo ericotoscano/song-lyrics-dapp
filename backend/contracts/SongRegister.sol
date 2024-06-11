@@ -20,7 +20,7 @@ contract SongRegister {
 
     error NotOwner();
     error Paused();
-    error NoFunds();
+    error ValueMustBeEqualCost();
 
     modifier onlyOwner() {
         if (msg.sender != owner) {
@@ -58,8 +58,8 @@ contract SongRegister {
         string calldata _title,
         string calldata _signature
     ) external payable pauseCheck {
-        if (msg.value < cost) {
-            revert NoFunds();
+        if (msg.value != cost) {
+            revert ValueMustBeEqualCost();
         }
 
         Song memory song = Song(_title, _signature);

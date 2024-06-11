@@ -5,15 +5,24 @@ import { formatAccount } from '../../utils/formatter';
 function ConnectButton({ account, setAccount, setAccountFormatted, setSigner }) {
   const getAccount = async () => {
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const accounts = await provider.send('eth_requestAccounts', []);
+      let signer = null;
+      let provider;
 
-      if (account !== accounts[0]) {
-        const partialAccount = formatAccount(accounts[0]);
+      if (window.ethereum == null) {
+        console.log('MetaMask not installed; using read-only defaults');
+        provider = ethers.getDefaultProvider();
+      } else {
+        provider = new ethers.BrowserProvider(window.ethereum);
 
-        setAccount(accounts[0]);
-        setAccountFormatted(partialAccount);
-        setSigner(provider.getSigner(accounts[0]));
+        const accounts = await provider.send('eth_requestAccounts', []);
+
+        if (account !== accounts[0]) {
+          const partialAccount = formatAccount(accounts[0]);
+
+          setAccount(accounts[0]);
+          setAccountFormatted(partialAccount);
+          setSigner(await provider.getSigner(accounts[0]));
+        }
       }
     } catch (error) {
       console.log(error.message);

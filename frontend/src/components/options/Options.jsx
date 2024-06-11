@@ -72,6 +72,7 @@ function Options({
               setIsRegistered={setIsRegistered}
               setRegisterReceipt={setRegisterReceipt}
               setIsRegisterButtonClicked={setIsRegisterButtonClicked}
+              setIsCheckButtonClicked={setIsCheckButtonClicked}
               setIsListed={setIsListed}
             />
           ) : isCheckButtonClicked ? (

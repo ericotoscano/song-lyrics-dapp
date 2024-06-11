@@ -55,7 +55,7 @@ describe('SongRegister', function () {
       it('Should revert with a custom error if value sent is not enough', async function () {
         const { songRegister, songwriter } = await loadFixture(deployFixture);
 
-        await expect(songRegister.connect(songwriter).register(SONG1_TITLE, SONG1_SIGNATURE, { value: 0 })).to.be.revertedWithCustomError(songRegister, 'NoFunds');
+        await expect(songRegister.connect(songwriter).register(SONG1_TITLE, SONG1_SIGNATURE, { value: 0 })).to.be.revertedWithCustomError(songRegister, 'ValueMustBeEqualCost');
       });
     });
 

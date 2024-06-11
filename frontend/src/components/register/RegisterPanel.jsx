@@ -1,8 +1,7 @@
 import RegisterHeading from './RegisterHeading';
 import RegisterReceipt from './RegisterReceipt';
 import RegisterButton from './RegisterButton';
-import AnotherSongMessage from './AnotherSongMessage';
-import WriteAnotherSongButton from './WriteAnotherSongButton';
+import CloseReceiptButton from './CloseReceiptButton';
 
 import { Box, Center, Flex, TabPanel } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -15,8 +14,7 @@ function RegisterPanel({
   songSignature,
   isRegistered,
   registerReceipt,
-  isWriteAnotherSongButtonClicked,
-  isPaused,
+  isRegisterLoading,
   setTitle,
   setLyrics,
   setLyricsByLine,
@@ -26,11 +24,12 @@ function RegisterPanel({
   setIsRegistered,
   setRegisterReceipt,
   setIsListed,
+  setIsRegisterLoading,
   setIsRegisterButtonClicked,
   setIsCheckButtonClicked,
-  setIsWriteAnotherSongButtonClicked,
 }) {
   const [registerHash, setRegisterHash] = useState('');
+  const [errorReason, setErrorReason] = useState('');
 
   return (
     <TabPanel>
@@ -42,23 +41,17 @@ function RegisterPanel({
             {isRegistered ? (
               <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
                 <RegisterReceipt registerReceipt={registerReceipt} registerHash={registerHash} />
-
-                {isWriteAnotherSongButtonClicked ? (
-                  <AnotherSongMessage />
-                ) : (
-                  <WriteAnotherSongButton
-                    setTitle={setTitle}
-                    setLyrics={setLyrics}
-                    setLyricsByLine={setLyricsByLine}
-                    setIsSubmitted={setIsSubmitted}
-                    setIsEncrypted={setIsEncrypted}
-                    setSongSignature={setSongSignature}
-                    setIsRegistered={setIsRegistered}
-                    setIsRegisterButtonClicked={setIsRegisterButtonClicked}
-                    setIsCheckButtonClicked={setIsCheckButtonClicked}
-                    setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
-                  />
-                )}
+                <CloseReceiptButton
+                  setTitle={setTitle}
+                  setLyrics={setLyrics}
+                  setLyricsByLine={setLyricsByLine}
+                  setIsSubmitted={setIsSubmitted}
+                  setIsEncrypted={setIsEncrypted}
+                  setSongSignature={setSongSignature}
+                  setIsRegistered={setIsRegistered}
+                  setIsRegisterButtonClicked={setIsRegisterButtonClicked}
+                  setIsCheckButtonClicked={setIsCheckButtonClicked}
+                />
               </Flex>
             ) : (
               <RegisterButton
@@ -67,11 +60,13 @@ function RegisterPanel({
                 contractABI={contractABI}
                 title={title}
                 songSignature={songSignature}
-                isPaused={isPaused}
+                isRegisterLoading={isRegisterLoading}
                 setIsRegistered={setIsRegistered}
                 setRegisterReceipt={setRegisterReceipt}
                 setIsListed={setIsListed}
+                setIsRegisterLoading={setIsRegisterLoading}
                 setRegisterHash={setRegisterHash}
+                setErrorReason={setErrorReason}
               />
             )}
           </Flex>

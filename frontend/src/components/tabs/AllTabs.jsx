@@ -5,7 +5,7 @@ import EncryptPanel from '../encrypt/EncryptPanel';
 import RegisterPanel from '../register/RegisterPanel';
 import PauseWarning from './PauseWarning';
 
-import { Box, Center, Flex, Tabs, TabPanels, Text } from '@chakra-ui/react';
+import { Box, Center, Flex, Tabs, TabPanels } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { useState, useEffect } from 'react';
 
@@ -36,21 +36,22 @@ function AllTabs({
   setIsCheckButtonClicked,
 }) {
   const [tabIndex, setTabIndex] = useState(0);
-  const [isWriteAnotherSongButtonClicked, setIsWriteAnotherSongButtonClicked] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [isRegisterLoading, setIsRegisterLoading] = useState(false);
 
   useEffect(() => {
     const checkIsPaused = async () => {
       try {
         const SongRegister = new ethers.Contract(contractAddress, contractABI, signer);
         const isPaused = await SongRegister.isPaused();
+
         setIsPaused(isPaused);
       } catch (error) {
         console.log(error.message);
       }
     };
     checkIsPaused();
-  }, [tabIndex, isRegisterButtonClicked]);
+  }, [tabIndex, isRegisterButtonClicked, isRegisterLoading]);
 
   return (
     <Box minWidth={850}>
@@ -79,7 +80,6 @@ function AllTabs({
                       setSongSignature={setSongSignature}
                       setIsRegistered={setIsRegistered}
                       setRegisterReceipt={setRegisterReceipt}
-                      setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
                     />
                     <EncryptPanel
                       accountFormatted={accountFormatted}
@@ -98,8 +98,7 @@ function AllTabs({
                       songSignature={songSignature}
                       isRegistered={isRegistered}
                       registerReceipt={registerReceipt}
-                      isWriteAnotherSongButtonClicked={isWriteAnotherSongButtonClicked}
-                      isPaused={isPaused}
+                      isRegisterLoading={isRegisterLoading}
                       setTitle={setTitle}
                       setLyrics={setLyrics}
                       setLyricsByLine={setLyricsByLine}
@@ -109,10 +108,9 @@ function AllTabs({
                       setIsRegistered={setIsRegistered}
                       setRegisterReceipt={setRegisterReceipt}
                       setIsListed={setIsListed}
-                      setIsWriteAnotherSongButtonClicked={setIsWriteAnotherSongButtonClicked}
+                      setIsRegisterLoading={setIsRegisterLoading}
                       setIsRegisterButtonClicked={setIsRegisterButtonClicked}
                       setIsCheckButtonClicked={setIsCheckButtonClicked}
-                      setIsPaused={setIsPaused}
                     />
                   </TabPanels>
                 ) : (

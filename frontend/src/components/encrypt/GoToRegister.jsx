@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 function GoToRegister({ title, lyrics, isEncrypted, songSignature, setIsEncrypted, setSongSignature }) {
   function getSignature() {
     try {
-      const signature = ethers.utils.hashMessage(title + '' + lyrics);
+      const signature = ethers.hashMessage(title + '' + lyrics);
 
       setSongSignature(signature);
       setIsEncrypted(true);

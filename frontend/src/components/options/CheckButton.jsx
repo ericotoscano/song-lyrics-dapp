@@ -9,7 +9,7 @@ function CheckButton({ setIsCheckButtonClicked, setIsRegisterButtonClicked }) {
   return (
     <Box>
       <Center>
-        <Button minWidth={300} fontSize={20} mt={20} mb={40} bgColor="#4b6289" color="#f2f2f2" onClick={handleClick}>
+        <Button minWidth={300} fontSize={20} mt={20} mb={60} bgColor="#4b6289" color="#f2f2f2" onClick={handleClick}>
           Check Your Songs
         </Button>
       </Center>

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\projetos\\alchemy-ethereum-bootcamp\\song-lyrics-dapp\\backend\\contracts\\SongRegister.sol": {
-      "lastModificationDate": 1717773062674,
-      "contentHash": "9b925637a0dfc20081102e0030e1bb07",
+      "lastModificationDate": 1717781825999,
+      "contentHash": "da0e5465d8d38ed918fb0bfe0ccc95ab",
       "sourceName": "contracts/SongRegister.sol",
       "solcConfig": {
         "version": "0.8.24",
