@@ -4,6 +4,8 @@ function CheckButton({ setIsCheckButtonClicked, setIsRegisterButtonClicked }) {
   const handleClick = () => {
     setIsCheckButtonClicked(true);
     setIsRegisterButtonClicked(false);
+
+//    if(isSubmmited && isEncrypted && isRegistered && !isCloseReceiptButtonClicked)
   };
 
   return (

@@ -27,6 +27,7 @@ function RegisterPanel({
   setIsRegisterLoading,
   setIsRegisterButtonClicked,
   setIsCheckButtonClicked,
+  setTabIndex,
 }) {
   const [registerHash, setRegisterHash] = useState('');
 
@@ -50,6 +51,7 @@ function RegisterPanel({
                   setIsRegistered={setIsRegistered}
                   setIsRegisterButtonClicked={setIsRegisterButtonClicked}
                   setIsCheckButtonClicked={setIsCheckButtonClicked}
+                  setTabIndex={setTabIndex}
                 />
               </Flex>
             ) : (

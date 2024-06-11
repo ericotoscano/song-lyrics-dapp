@@ -21,7 +21,7 @@ function SongLyricsForm({ lyrics, isSubmitted, setLyrics, setIsSubmitted, setIsE
               </Heading>
             </FormLabel>
 
-            <Textarea onChange={handleLyricsChange} color="black" mt={5} size="md" w={820} h={200} textAlign="left" p={8} bgColor="white" fontSize={22} />
+            <Textarea onChange={handleLyricsChange} value={lyrics} color="black" mt={5} size="md" w={820} h={200} textAlign="left" p={8} bgColor="white" fontSize={22} />
             {lyrics || !isSubmitted ? (
               <FormHelperText fontSize={20} mt={10} ps={2}>
                 Enter your song lyrics

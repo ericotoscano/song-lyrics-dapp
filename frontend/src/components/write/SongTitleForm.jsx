@@ -20,7 +20,7 @@ function SongTitleForm({ title, isSubmitted, setTitle, setIsSubmitted, setIsEncr
                 Song Title
               </Heading>
             </FormLabel>
-            <Input onChange={handleTitleChange} defaultValue={''} color="black" mt={5} size="md" w={820} textAlign="left" p={8} bgColor="white" fontSize={22} />
+            <Input onChange={handleTitleChange} value={title} color="black" mt={5} size="md" w={820} textAlign="left" p={8} bgColor="white" fontSize={22} />
             {title || !isSubmitted ? (
               <FormHelperText fontSize={20} mt={10} ps={2}>
                 Enter your song title

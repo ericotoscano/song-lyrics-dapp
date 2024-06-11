@@ -1,6 +1,17 @@
 import { Box, Button, Center } from '@chakra-ui/react';
 
-function CloseReceiptButton({ setTitle, setLyrics, setLyricsByLine, setIsSubmitted, setIsEncrypted, setSongSignature, setIsRegistered, setIsRegisterButtonClicked, setIsCheckButtonClicked }) {
+function CloseReceiptButton({
+  setTitle,
+  setLyrics,
+  setLyricsByLine,
+  setIsSubmitted,
+  setIsEncrypted,
+  setSongSignature,
+  setIsRegistered,
+  setIsRegisterButtonClicked,
+  setIsCheckButtonClicked,
+  setTabIndex,
+}) {
   const restartAll = () => {
     setTitle('');
     setLyrics('');
@@ -11,6 +22,7 @@ function CloseReceiptButton({ setTitle, setLyrics, setLyricsByLine, setIsSubmitt
     setIsRegistered(false);
     setIsRegisterButtonClicked(false);
     setIsCheckButtonClicked(false);
+    setTabIndex(0);
   };
 
   return (

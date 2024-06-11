@@ -36,6 +36,7 @@ function Options({
 }) {
   const [isCheckButtonClicked, setIsCheckButtonClicked] = useState(false);
   const [isRegisterButtonClicked, setIsRegisterButtonClicked] = useState(false);
+  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <Box minWidth={850} mt={20}>
@@ -63,6 +64,7 @@ function Options({
               isRegistered={isRegistered}
               registerReceipt={registerReceipt}
               isRegisterButtonClicked={isRegisterButtonClicked}
+              tabIndex={tabIndex}
               setTitle={setTitle}
               setLyrics={setLyrics}
               setLyricsByLine={setLyricsByLine}
@@ -74,6 +76,7 @@ function Options({
               setIsRegisterButtonClicked={setIsRegisterButtonClicked}
               setIsCheckButtonClicked={setIsCheckButtonClicked}
               setIsListed={setIsListed}
+              setTabIndex={setTabIndex}
             />
           ) : isCheckButtonClicked ? (
             <Songs

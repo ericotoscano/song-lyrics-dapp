@@ -25,6 +25,7 @@ function AllTabs({
   isRegistered,
   registerReceipt,
   isRegisterButtonClicked,
+  tabIndex,
   setTitle,
   setLyrics,
   setLyricsByLine,
@@ -36,8 +37,8 @@ function AllTabs({
   setIsListed,
   setIsRegisterButtonClicked,
   setIsCheckButtonClicked,
+  setTabIndex,
 }) {
-  const [tabIndex, setTabIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
 
@@ -65,7 +66,7 @@ function AllTabs({
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <TabsHeading />
-          <Tabs onChange={(index) => setTabIndex(index)} mt={20}>
+          <Tabs onChange={(index) => setTabIndex(index)} defaultIndex={tabIndex} mt={20}>
             <Center>
               <TabsButtons title={title} lyrics={lyrics} songSignature={songSignature} isSubmitted={isSubmitted} isEncrypted={isEncrypted} isRegistered={isRegistered} isPaused={isPaused} />
             </Center>
@@ -118,6 +119,7 @@ function AllTabs({
                       setIsRegisterLoading={setIsRegisterLoading}
                       setIsRegisterButtonClicked={setIsRegisterButtonClicked}
                       setIsCheckButtonClicked={setIsCheckButtonClicked}
+                      setTabIndex={setTabIndex}
                     />
                   </TabPanels>
                 ) : (
