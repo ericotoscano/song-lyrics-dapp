@@ -30,6 +30,7 @@ function RegisterPanel({
   setTabIndex,
 }) {
   const [registerHash, setRegisterHash] = useState('');
+  const [blockNumber, setBlockNumber] = useState('');
 
   return (
     <TabPanel>
@@ -40,7 +41,7 @@ function RegisterPanel({
 
             {isRegistered ? (
               <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-                <RegisterReceipt registerReceipt={registerReceipt} registerHash={registerHash} />
+                <RegisterReceipt registerReceipt={registerReceipt} registerHash={registerHash} blockNumber={blockNumber} />
                 <CloseReceiptButton
                   setTitle={setTitle}
                   setLyrics={setLyrics}
@@ -67,6 +68,7 @@ function RegisterPanel({
                 setIsListed={setIsListed}
                 setIsRegisterLoading={setIsRegisterLoading}
                 setRegisterHash={setRegisterHash}
+                setBlockNumber={setBlockNumber}
               />
             )}
           </Flex>

@@ -1,7 +1,7 @@
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
-function GetSongsButton({ signer, contractAddress, contractABI, isSongListLoading, isRegistered, setSongList, setIsListed, setIsRegistered, setIsSongListLoading }) {
+function GetSongsButton({ signer, contractAddress, contractABI, isSongListLoading, setSongList, setIsListed, setIsSongListLoading }) {
   const getSongs = async () => {
     try {
       setIsSongListLoading(true);
@@ -12,10 +12,6 @@ function GetSongsButton({ signer, contractAddress, contractABI, isSongListLoadin
       setSongList(songs);
       setIsListed(true);
       setIsSongListLoading(false);
-
-      if (isRegistered) {
-        setIsRegistered(false);
-      }
     } catch (error) {
       console.log(error.message);
     }

@@ -1,18 +1,25 @@
 import { Box, Center, Flex, Link, Text } from '@chakra-ui/react';
+import { formatAccount } from '../../utils/formatter';
 
-function RegisterReceipt({ registerReceipt, registerHash }) {
+function RegisterReceipt({ registerReceipt, registerHash, blockNumber }) {
   return (
-    <Box w={820} mt={20}>
+    <Box minWidth={820} mt={20}>
       <Center>
         <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
           <Text as="b" mb={30} fontSize="xx-large" color="#f1c550">
             Successfully Registered!
           </Text>
           <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
+            Block Number
+          </Text>
+          <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
+            {blockNumber}
+          </Text>
+          <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
             Songwriter
           </Text>
           <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
-            {registerReceipt[0]}
+            {formatAccount(registerReceipt[0])}
           </Text>
           <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
             Song Title

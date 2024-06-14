@@ -1,4 +1,5 @@
 import { Box, Button, Center } from '@chakra-ui/react';
+
 import { ethers } from 'ethers';
 import { ErrorDecoder } from 'ethers-decode-error';
 import { errorsMapper } from '../../utils/errorsMapper';

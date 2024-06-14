@@ -2,7 +2,7 @@ import { Box, Flex, Link, Text } from '@chakra-ui/react';
 
 function Contract({ contractAddress }) {
   return (
-    <Box mt={20}>
+    <Box mt={60}>
       <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
         <Text fontSize={25} mt={0}>
           Song Register Contract is deployed on{' '}

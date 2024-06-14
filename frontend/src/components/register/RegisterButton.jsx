@@ -3,14 +3,17 @@ import { ethers } from 'ethers';
 import { ErrorDecoder } from 'ethers-decode-error';
 import { errorsMapper } from '../../utils/errorsMapper';
 
-function RegisterButton({ signer, contractAddress, contractABI, title, songSignature, isRegisterLoading, setIsRegistered, setRegisterReceipt, setIsListed, setRegisterHash, setIsRegisterLoading }) {
+function RegisterButton({ signer, contractAddress, contractABI, title, songSignature, isRegisterLoading, setIsRegistered, setRegisterReceipt, setIsListed, setRegisterHash, setIsRegisterLoading, setBlockNumber }) {
   const songRegister = new ethers.Contract(contractAddress, contractABI, signer);
 
   songRegister.on('Registered', (songwriter, songTitle, songSignature, event) => {
     const data = [songwriter, songTitle, songSignature];
 
+    console.log(event);
+
     setRegisterReceipt(data);
-    setRegisterHash(event.transactionHash);
+    setRegisterHash(event.log.transactionHash);
+    setBlockNumber(event.log.blockNumber)
     setIsListed(false);
     setIsRegisterLoading(false);
     setIsRegistered(true);
