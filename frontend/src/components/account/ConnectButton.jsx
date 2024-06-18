@@ -3,7 +3,7 @@ import { Box, Button, Center } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 import { ErrorDecoder } from 'ethers-decode-error';
 import { errorsMapper } from '../../utils/errorsMapper';
-import { formatAccount } from '../../utils/formatter';
+import { formatAddress } from '../../utils/formatter';
 
 function ConnectButton({ account, contractABI, setAccount, setAccountFormatted, setSigner }) {
   const errorDecoder = ErrorDecoder.create([contractABI]);
@@ -13,11 +13,12 @@ function ConnectButton({ account, contractABI, setAccount, setAccountFormatted, 
       const accounts = await provider.send('eth_requestAccounts', []);
 
       if (account !== accounts[0]) {
-        const partialAccount = formatAccount(accounts[0]);
+        const partialAccount = formatAddress(accounts[0]);
+        const signer = await provider.getSigner(accounts[0])
 
         setAccount(accounts[0]);
         setAccountFormatted(partialAccount);
-        setSigner(await provider.getSigner(accounts[0]));
+        setSigner(signer);
       }
     } catch (error) {
       const decodedError = await errorDecoder.decode(error);
@@ -28,7 +29,7 @@ function ConnectButton({ account, contractABI, setAccount, setAccountFormatted, 
   };
 
   return (
-    <Box mb={40} mt={20}>
+    <Box>
       <Center>
         <Button onClick={getAccount} bgColor="#22267b" color="#f2f2f2">
           Connect Your Account

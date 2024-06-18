@@ -14,7 +14,7 @@ function PauseWarning({ setIsRegisterButtonClicked }) {
       <Box>
         <Center>
           <Button fontSize={20} mt={20} mb={20} onClick={() => setIsRegisterButtonClicked(false)}>
-            Refresh and Try Again
+            Try Again
           </Button>
         </Center>
       </Box>

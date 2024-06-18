@@ -6,9 +6,15 @@ function Footer() {
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <Text fontSize={25} mb={0}>
-            Styled using{' '}
+            Built with{' '}
             <Link href="https://chakra-ui.com" isExternal>
               Chakra UI/React
+            </Link>
+          </Text>
+          <Text fontSize={25}>
+            Developed for{' '}
+            <Link color={'orange'} href="https://metamask.io/" isExternal>
+              MetaMask
             </Link>
           </Text>
         </Flex>

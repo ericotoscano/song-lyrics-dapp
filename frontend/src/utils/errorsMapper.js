@@ -7,6 +7,6 @@ export const errorsMapper = ({ name, type, reason }) => {
     case 'ValueMustBeEqualCost':
       return `${type}: The value sent is not equal to cost.`;
     default:
-      return `${type}: Reason: ${reason}`;
+      return `${type}: ${reason}`;
   }
 };

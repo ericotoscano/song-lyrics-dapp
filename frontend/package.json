@@ -19,7 +19,7 @@
     "ethers-decode-error": "^2.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "viem": "^2.13.10",
+    "viem": "^2.14.0",
     "wagmi": "^2.10.2"
   },
   "devDependencies": {

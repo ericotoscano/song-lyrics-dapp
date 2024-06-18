@@ -12,6 +12,7 @@ import { ErrorDecoder } from 'ethers-decode-error';
 import { errorsMapper } from '../../utils/errorsMapper';
 
 function AllTabs({
+  account,
   accountFormatted,
   signer,
   contractAddress,
@@ -99,6 +100,7 @@ function AllTabs({
                       setSongSignature={setSongSignature}
                     />
                     <RegisterPanel
+                      account={account}
                       signer={signer}
                       contractAddress={contractAddress}
                       contractABI={contractABI}

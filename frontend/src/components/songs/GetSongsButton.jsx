@@ -1,13 +1,25 @@
 import { Box, Button, Center, Flex, Text } from '@chakra-ui/react';
 import { ethers } from 'ethers';
 
-function GetSongsButton({ signer, contractAddress, contractABI, isSongListLoading, setSongList, setIsListed, setIsSongListLoading }) {
+function GetSongsButton({ account, signer, contractAddress, contractABI, isSongListLoading, setSongList, setIsListed, setIsSongListLoading }) {
+  const songRegister = new ethers.Contract(contractAddress, contractABI, signer);
+
   const getSongs = async () => {
     try {
       setIsSongListLoading(true);
 
-      const SongRegister = new ethers.Contract(contractAddress, contractABI, signer);
-      const songs = await SongRegister.connect(signer).getSongs();
+      const songs = [];
+
+      const filter = songRegister.filters.Registered(account);
+      const events = await songRegister.queryFilter(filter);
+
+      events.forEach((eventLog) => {
+        const song = { blockNumber: eventLog.blockNumber, songTitle: eventLog.args[1], signature: eventLog.args[2], transactionHash: eventLog.transactionHash };
+
+        songs.push(song);
+      });
+
+      //const songs = await SongRegister.connect(signer).getSongs();
 
       setSongList(songs);
       setIsListed(true);
