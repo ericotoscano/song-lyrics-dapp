@@ -55,12 +55,26 @@ function SongsList({ songList }) {
                           </Text>
                           <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
                             {song[0]}
+                            {song.songTitle}
                           </Text>
                           <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
                             Signature
                           </Text>
                           <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
                             {song[1]}
+                          </Text>
+                          <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
+                            Block Number
+                          </Text>
+                          <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
+                            {song.blockNumber}
+                          </Text>
+                          <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
+                            See transaction details on{' '}
+                            <Link color={'#884bf2'} href={`https://amoy.polygonscan.com/tx/${song.transactionHash}`} isExternal>
+                              Polygon Amoy Testnet Explorer
+                            </Link>
+                            {song.signature}
                           </Text>
                           <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
                             Block Number

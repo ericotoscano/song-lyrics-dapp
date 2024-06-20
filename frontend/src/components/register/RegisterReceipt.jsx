@@ -31,7 +31,7 @@ function RegisterReceipt({ registerReceipt }) {
             Block Number
           </Text>
           <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
-            {/* {registerReceipt[3]} */}
+            {registerReceipt[3]}
           </Text>
 
           <Box w={820} mt={20}>
