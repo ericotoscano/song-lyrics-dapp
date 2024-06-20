@@ -3,18 +3,21 @@ import { ethers } from 'ethers';
 import { ErrorDecoder } from 'ethers-decode-error';
 import { errorsMapper } from '../../utils/errorsMapper';
 
-function RegisterButton({ signer, contractAddress, contractABI, title, songSignature, isRegisterLoading, setIsRegistered, setRegisterReceipt, setIsListed, setRegisterHash, setIsRegisterLoading }) {
+function RegisterButton({
+  account,
+  signer,
+  contractAddress,
+  contractABI,
+  title,
+  songSignature,
+  isRegisterLoading,
+  setIsRegistered,
+  setRegisterReceipt,
+  setIsListed,
+  setIsRegisterLoading,
+  setErrorReason,
+}) {
   const songRegister = new ethers.Contract(contractAddress, contractABI, signer);
-
-  songRegister.on('Registered', (songwriter, songTitle, songSignature, event) => {
-    const data = [songwriter, songTitle, songSignature];
-
-    setRegisterReceipt(data);
-    setRegisterHash(event.transactionHash);
-    setIsListed(false);
-    setIsRegisterLoading(false);
-    setIsRegistered(true);
-  });
 
   const errorDecoder = ErrorDecoder.create([contractABI]);
 
@@ -26,9 +29,27 @@ function RegisterButton({ signer, contractAddress, contractABI, title, songSigna
       if (!isPaused) {
         const currentCost = await songRegister.cost();
 
-        const tx = await songRegister.connect(signer).register(title, songSignature, { value: parseInt(currentCost), gasLimit: 200000 });
+        const tx = await songRegister.connect(signer).register(title, songSignature, { value: parseInt(currentCost), gasLimit: 150000 });
 
         await tx.wait();
+
+        const filter = songRegister.filters.Registered(account);
+        const events = await songRegister.queryFilter(filter);
+
+        const eventLog = events[events.length - 1];
+
+        const songwriter = eventLog.args[0];
+        const songTitle = eventLog.args[1];
+        const signature = eventLog.args[2];
+        const blockNumber = eventLog.blockNumber;
+        const transactionHash = eventLog.transactionHash;
+
+        const data = [songwriter, songTitle, signature, blockNumber, transactionHash];
+
+        setRegisterReceipt(data);
+        setIsListed(false);
+        setIsRegisterLoading(false);
+        setIsRegistered(true);
       }
     } catch (error) {
       const decodedError = await errorDecoder.decode(error);
@@ -36,7 +57,7 @@ function RegisterButton({ signer, contractAddress, contractABI, title, songSigna
 
       console.log(reason);
 
-      songRegister.off('Registered');
+      setErrorReason(reason);
       setIsRegisterLoading(false);
     }
   };

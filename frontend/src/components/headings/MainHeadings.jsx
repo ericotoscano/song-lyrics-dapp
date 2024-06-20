@@ -2,7 +2,7 @@ import { Box, Center, Flex, Heading, Text } from '@chakra-ui/react';
 
 function MainHeadings() {
   return (
-    <Box w="100vw" mb={40}>
+    <Box w="100vw" mb={60}>
       <Center>
         <Flex alignItems={'center'} justifyContent="center" flexDirection={'column'}>
           <Heading fontSize={50} mb={40}>

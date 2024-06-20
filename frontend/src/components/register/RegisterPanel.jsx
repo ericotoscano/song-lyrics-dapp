@@ -5,8 +5,10 @@ import CloseReceiptButton from './CloseReceiptButton';
 
 import { Box, Center, Flex, TabPanel } from '@chakra-ui/react';
 import { useState } from 'react';
+import ErrorWarning from './ErrorWarning';
 
 function RegisterPanel({
+  account,
   signer,
   contractAddress,
   contractABI,
@@ -29,7 +31,7 @@ function RegisterPanel({
   setIsCheckButtonClicked,
   setTabIndex,
 }) {
-  const [registerHash, setRegisterHash] = useState('');
+  const [errorReason, setErrorReason] = useState('');
 
   return (
     <TabPanel>
@@ -40,7 +42,7 @@ function RegisterPanel({
 
             {isRegistered ? (
               <Flex alignItems={'start'} justifyContent="center" flexDirection={'column'}>
-                <RegisterReceipt registerReceipt={registerReceipt} registerHash={registerHash} />
+                <RegisterReceipt registerReceipt={registerReceipt} />
                 <CloseReceiptButton
                   setTitle={setTitle}
                   setLyrics={setLyrics}
@@ -54,8 +56,9 @@ function RegisterPanel({
                   setTabIndex={setTabIndex}
                 />
               </Flex>
-            ) : (
+            ) : !errorReason ? (
               <RegisterButton
+                account={account}
                 signer={signer}
                 contractAddress={contractAddress}
                 contractABI={contractABI}
@@ -66,8 +69,10 @@ function RegisterPanel({
                 setRegisterReceipt={setRegisterReceipt}
                 setIsListed={setIsListed}
                 setIsRegisterLoading={setIsRegisterLoading}
-                setRegisterHash={setRegisterHash}
+                setErrorReason={setErrorReason}
               />
+            ) : (
+              <ErrorWarning setIsRegisterButtonClicked={setIsRegisterButtonClicked} errorReason={errorReason} />
             )}
           </Flex>
         </Center>

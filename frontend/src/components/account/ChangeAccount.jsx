@@ -2,7 +2,7 @@ import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIco
 
 function ChangeAccount() {
   return (
-    <Box mt={20} mb={20}>
+    <Box mt={20}>
       <Center>
         <Accordion allowToggle textColor="#f1c550">
           <AccordionItem mb={20}>
