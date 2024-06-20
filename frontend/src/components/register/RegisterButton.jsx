@@ -17,35 +17,22 @@ function RegisterButton({
   setIsRegisterLoading,
   setErrorReason,
 }) {
-  const songRegister = new ethers.Contract(contractAddress, contractABI, signer);
-
   const errorDecoder = ErrorDecoder.create([contractABI]);
-
   const register = async () => {
     try {
       setIsRegisterLoading(true);
+      const songRegister = new ethers.Contract(contractAddress, contractABI, signer);
+
       const isPaused = await songRegister.isPaused();
 
       if (!isPaused) {
         const currentCost = await songRegister.cost();
 
-        const tx = await songRegister.connect(signer).register(title, songSignature, { value: parseInt(currentCost), gasLimit: 150000 });
+        const tx = await songRegister.register(title, songSignature, { value: parseInt(currentCost), gasLimit: 200000 });
 
         await tx.wait();
 
-        const filter = songRegister.filters.Registered(account);
-        const events = await songRegister.queryFilter(filter);
-
-        const eventLog = events[events.length - 1];
-
-        const songwriter = eventLog.args[0];
-        const songTitle = eventLog.args[1];
-        const signature = eventLog.args[2];
-        const blockNumber = eventLog.blockNumber;
-        const transactionHash = eventLog.transactionHash;
-
-        const data = [songwriter, songTitle, signature, blockNumber, transactionHash];
-
+        const data = [account, title, songSignature];
         setRegisterReceipt(data);
         setIsListed(false);
         setIsRegisterLoading(false);

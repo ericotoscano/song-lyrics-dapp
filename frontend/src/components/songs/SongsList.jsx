@@ -37,15 +37,6 @@ function SongsList({ songList }) {
                         </Heading>
                       </FormLabel>
                       <Input color="black" mt={5} size="md" textAlign="left" p={8} bgColor="white" fontSize={22} />
-                      {songList ? (
-                        <FormHelperText fontSize={20} mt={10} ps={2}>
-                          Enter your song title
-                        </FormHelperText>
-                      ) : (
-                        <FormErrorMessage as="b" fontSize={20} mt={10} ps={2} color={'tomato'}>
-                          You need to enter the song title!
-                        </FormErrorMessage>
-                      )}
                     </Flex>
                   </Box>
                 </FormControl>
@@ -63,13 +54,13 @@ function SongsList({ songList }) {
                             Title
                           </Text>
                           <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
-                            {song.songTitle}
+                            {song[0]}
                           </Text>
                           <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
                             Signature
                           </Text>
                           <Text as="em" mb={20} fontSize="x-large" color="#f1c550">
-                            {song.signature}
+                            {song[1]}
                           </Text>
                           <Text as="b" mb={10} fontSize="x-large" color="#f1c550">
                             Block Number
